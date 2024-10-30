@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".LoginActivity">
+    tools:context=".Activity.LoginActivity">
     <RelativeLayout
         android:id="@+id/container_img"
         android:layout_gravity="center"
@@ -17,7 +17,7 @@
         <Button
             android:id="@+id/btn_back"
             android:layout_width="55dp"
-            android:layout_height="36dp"
+            android:layout_height="42dp"
             android:layout_marginTop="50dp"
             android:layout_weight="1"
             android:background="@drawable/btn_back" />
@@ -110,7 +110,7 @@
     <Button
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:background="@drawable/round_button_blue"
         android:text="Login"
         android:textColor="@color/white"
@@ -129,7 +129,7 @@
     <Button
         android:id="@+id/btn_login_google"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:background="@drawable/btn_login_google"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"/>

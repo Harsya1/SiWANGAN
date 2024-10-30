@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/img_background_splash"
-    tools:context=".SplashLoginRegisterActivity">
+    tools:context=".Activity.SplashLoginRegisterActivity">
 
     <!-- TextView 1 -->
     <TextView

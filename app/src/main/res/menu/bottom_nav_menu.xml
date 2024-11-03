@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/selector_home"
+        android:state_checked="true"
+        tools:ignore="MenuTitle"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/UmkmFragment"
+        android:icon="@drawable/selector_umkm"
+        tools:ignore="MenuTitle"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/BenefitFragment"
+        android:icon="@drawable/selector_benefit"
+        tools:ignore="MenuTitle"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/ProfileFragment"
+        android:icon="@drawable/selector_profile"
+        tools:ignore="MenuTitle"
+        app:showAsAction="always"
+        />
+
+</menu>

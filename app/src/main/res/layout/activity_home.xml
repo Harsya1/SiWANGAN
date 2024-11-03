@@ -170,20 +170,20 @@
             app:layout_constraintBottom_toBottomOf="@id/recommendationTitle"/>
 
         <!-- Recommendation Cards -->
-        <LinearLayout
-            android:id="@+id/recommendationContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Light"
-            android:backgroundTint="@color/white"
-            android:forceDarkAllowed="false"
-            app:layout_constraintTop_toBottomOf="@id/recommendationTitle">
+            <LinearLayout
+                android:id="@+id/recommendationContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:theme="@style/ThemeOverlay.MaterialComponents.Light"
+                android:backgroundTint="@color/white"
+                android:forceDarkAllowed="false"
+                app:layout_constraintTop_toBottomOf="@id/recommendationTitle">
 
-            <include layout="@layout/item_recommendation"/>
-            <include layout="@layout/item_recommendation"/>
-        </LinearLayout>
+                <include layout="@layout/item_recommendation"/>
+                <include layout="@layout/item_recommendation"/>
+            </LinearLayout>
 
         <!-- UMKM Section -->
         <TextView

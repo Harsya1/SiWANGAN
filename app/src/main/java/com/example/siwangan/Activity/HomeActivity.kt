@@ -1,56 +1,69 @@
-package com.example.siwangan.Activity
+package com.example.siwangan
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.siwangan.R
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.example.siwangan.Activity.SpotDescriptionFragment
 
-
-class HomeActivity : AppCompatActivity() {
+class HomeFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var indicatorsContainer: LinearLayout
     private val sliderImages = listOf(
-        R.drawable.ic_launcher_background, // Replace with your actual image resources
-        R.drawable.ic_launcher_background,
+        R.drawable.ic_home_promotion,
+        R.drawable.ic_home_prromotion2,
         R.drawable.ic_launcher_background,
         R.drawable.ic_launcher_background,
         R.drawable.ic_launcher_background
     )
     private var indicators = mutableListOf<ImageView>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        supportActionBar?.hide()
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_home)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.activity_home, container, false)
+    }
 
-        // Initialize ViewPager and Indicators
-        setupSliderAndIndicators()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupSliderAndIndicators(view)
 
-        // Add null check for the view
-        findViewById<View>(R.id.main)?.let { view ->
-            ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
-                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-                insets
+        // Find the recommendation container
+        val recommendationContainer = view.findViewById<LinearLayout>(R.id.recommendationContainer)
+
+        // Set click listeners for each recommendation item
+        for (i in 0 until recommendationContainer.childCount) {
+            val recommendationItem = recommendationContainer.getChildAt(i)
+            recommendationItem.setOnClickListener {
+                val spotDescriptionFragment = SpotDescriptionFragment()
+                val bundle = Bundle()
+                bundle.putString("spot_id", "your_spot_id")
+                // Add any other data you need to pass
+                spotDescriptionFragment.arguments = bundle
+
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment, spotDescriptionFragment)
+                    .addToBackStack(null)
+                    .commit()
             }
+
         }
     }
 
-    private fun setupSliderAndIndicators() {
+
+    private fun setupSliderAndIndicators(view: View) {
         // Initialize ViewPager with the correct ID
-        viewPager = findViewById(R.id.viewPager)  // Changed from sliderContainer_card to viewPager
-        indicatorsContainer = findViewById(R.id.sliderIndicators)
+        viewPager = view.findViewById(R.id.viewPager)
+        indicatorsContainer = view.findViewById(R.id.sliderIndicators)
 
         // Set up ViewPager adapter
         val adapter = ImageSliderAdapter(sliderImages)
@@ -68,13 +81,12 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-
     private fun setupIndicators() {
         indicators.clear()
         indicatorsContainer.removeAllViews()
 
         for (i in sliderImages.indices) {
-            val indicator = ImageView(this).apply {
+            val indicator = ImageView(requireContext()).apply {
                 setImageDrawable(ContextCompat.getDrawable(context, R.drawable.indicator_inactive))
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -91,17 +103,17 @@ class HomeActivity : AppCompatActivity() {
     private fun setCurrentIndicator(position: Int) {
         indicators.forEachIndexed { index, imageView ->
             if (index == position) {
-                imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.indicator_active))
+                imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.indicator_active))
             } else {
-                imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.indicator_inactive))
+                imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.indicator_inactive))
             }
         }
     }
 }
 
-// Add this adapter class at the bottom of the file or in a separate file
+// Image Slider Adapter (can be moved to a separate file)
 private class ImageSliderAdapter(private val images: List<Int>) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder>() {
+    RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val imageView = ImageView(parent.context).apply {
@@ -121,5 +133,5 @@ private class ImageSliderAdapter(private val images: List<Int>) :
     override fun getItemCount() = images.size
 
     class ImageViewHolder(val imageView: ImageView) :
-        androidx.recyclerview.widget.RecyclerView.ViewHolder(imageView)
+        RecyclerView.ViewHolder(imageView)
 }

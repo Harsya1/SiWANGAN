@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.siwangan.MainActivity
 import com.example.siwangan.R
 
 // In LoginActivity.kt
@@ -29,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Your existing login button code
         findViewById<Button>(R.id.btn_login).setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }

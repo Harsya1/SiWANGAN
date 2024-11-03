@@ -7,7 +7,7 @@
         android:id="@+id/homeFragment"
         android:icon="@drawable/selector_home"
         android:state_checked="true"
-        tools:ignore="MenuTitle"
+        android:title="o"
         app:showAsAction="always"
         />
 

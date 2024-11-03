@@ -1,6 +1,10 @@
 package com.example.siwangan
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siwangan.Activity.BenefitActivity
@@ -19,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         initBottomNavigation()
+
+        binding.mainBnv.itemRippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
 
         // Handle back press
         val callback = object : OnBackPressedCallback(true) {
@@ -45,6 +51,13 @@ class MainActivity : AppCompatActivity() {
 
         // Handle navigation item selection
         binding.mainBnv.setOnItemSelectedListener { menuItem ->
+            // Add animation to the menu item
+            menuItem.icon?.let { drawable ->
+                drawable.setVisible(false, true)
+                drawable.setVisible(true, true)
+                val animation = AnimationUtils.loadAnimation(this, R.anim.fade_transition)
+                binding.mainBnv.findViewById<View>(menuItem.itemId)?.startAnimation(animation)
+            }
             when (menuItem.itemId) {
                 R.id.homeFragment -> {
                     supportFragmentManager.beginTransaction()

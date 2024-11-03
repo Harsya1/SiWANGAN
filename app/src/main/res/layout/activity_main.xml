@@ -15,8 +15,10 @@
         android:id="@+id/main_bnv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        app:itemRippleColor="@android:color/transparent"
+        android:background="@color/light_blue"
         app:itemIconTint="@null"
+        app:itemIconSize="45dp"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu" />

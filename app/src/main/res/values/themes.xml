@@ -3,6 +3,12 @@
 
     <style name="Theme.SiWANGAN" parent="Theme.AppCompat.DayNight.DarkActionBar" >
         <item name="android:statusBarColor">@color/transparant</item>
-
     </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemRippleColor">@android:color/transparent</item>
+        <item name="itemBackground">@null</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>

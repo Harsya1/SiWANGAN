@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
         setupSliderAndIndicators(view)
 
         // Find the recommendation container
-        val recommendationContainer = view.findViewById<LinearLayout>(R.id.recommendationContainer)
+        val recommendationContainer = view.findViewById<LinearLayout>(R.id.recyclerViewLayanan)
 
         // Set click listeners for each recommendation item
         for (i in 0 until recommendationContainer.childCount) {

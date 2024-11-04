@@ -10,5 +10,10 @@
         <item name="itemBackground">@null</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
+    
+    <style name="ShapeAppearanceOverlay.App.circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
 
 </resources>

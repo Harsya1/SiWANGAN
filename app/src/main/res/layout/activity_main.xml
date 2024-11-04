@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         app:itemRippleColor="@android:color/transparent"
         android:background="@color/light_blue"
-        app:itemIconTint="@null"
         app:itemIconSize="45dp"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"

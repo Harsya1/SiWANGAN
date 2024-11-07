@@ -2,14 +2,173 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.RegisterActivity">
+    android:background="#F5F5F5"
+    tools:context=".RegisterActivity">
 
-    <TextView
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:src="@drawable/btn_back"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="Tombol Kembali"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:minHeight="48dp"
+        android:minWidth="48dp" />
+
+    <ImageView
+        android:id="@+id/rightImageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/logo_mitra"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_marginTop="26dp"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:src="@drawable/img_register"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewContainer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="afklafalskal"/>
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="50dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/image1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mari Bergabung"
+                android:textSize="35dp"
+                android:textColor="#333333"
+                android:layout_marginTop="18dp"
+                android:layout_marginLeft="18dp"/>
+
+            <TextView
+                android:id="@+id/subtitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gunakan nomor telepon anda dan password untuk membuat akun anda."
+                android:textSize="14sp"
+                android:textColor="#777777"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/nameInput"
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:hint="Nama"
+                android:background="@drawable/rounded_corners"
+                android:drawableLeft="@drawable/icn_profile"
+                android:drawablePadding="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:id="@+id/phoneInput"
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:hint="Nomor Telepon"
+                android:background="@drawable/rounded_corners"
+                android:drawableLeft="@drawable/icn_telepon"
+                android:drawablePadding="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:id="@+id/passwordInput"
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:hint="Password"
+                android:background="@drawable/rounded_corners"
+                android:drawableLeft="@drawable/icn_password"
+                android:drawablePadding="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:inputType="textPassword"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:id="@+id/confirmPasswordInput"
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:hint="Masukkan Kembali Password"
+                android:background="@drawable/rounded_corners"
+                android:drawableLeft="@drawable/icn_retype_password"
+                android:drawablePadding="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:inputType="textPassword"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:text="Daftar"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/round_button_blue"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/googleSignupText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Atau Daftar Dengan"
+                android:textColor="#777777"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp" />
+
+            <ImageButton
+                android:id="@+id/googleSignupButton"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:src="@drawable/btn_login_google"
+                android:contentDescription="Daftar dengan Google"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:layout_marginBottom="60dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -98,7 +98,7 @@
             app:layout_constraintTop_toBottomOf="@id/searchContainer">
 
             <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPagerSlider"
+                android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -110,9 +110,9 @@
                 android:id="@+id/progressBarBanner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/viewPagerSlider"
+                app:layout_constraintBottom_toBottomOf="@+id/viewPager"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/viewPagerSlider"
+                app:layout_constraintStart_toStartOf="@+id/viewPager"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

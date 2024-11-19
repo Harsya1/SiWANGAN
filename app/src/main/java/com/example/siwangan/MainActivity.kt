@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siwangan.Activity.BenefitActivity
+import com.example.siwangan.Activity.HomeFragment
 import com.example.siwangan.Activity.ProfileActivity
 import com.example.siwangan.Activity.UmkmFragment
 import com.example.siwangan.databinding.ActivityMainBinding

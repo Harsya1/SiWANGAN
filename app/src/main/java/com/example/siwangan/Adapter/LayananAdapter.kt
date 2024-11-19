@@ -23,7 +23,7 @@ class LayananAdapter(val items: MutableList<Item>) : RecyclerView.Adapter<Layana
         holder.binding.apply {
             titleTxt.text = item.title
             priceTxt.text = "${item.price}"
-            descTxt.text = item.description
+            descTxt.text = item.descriptionumkm
             scoreTxt.text = item.score.toString()
 
             Glide.with(holder.itemView.context)

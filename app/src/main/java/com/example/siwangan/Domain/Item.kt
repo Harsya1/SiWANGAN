@@ -11,7 +11,7 @@ data class Item(
     val price: String = "",
     val score: Double = 0.0,
     val title: String = "",
-    val descriptionimkm: String = "",
+    val descriptionumkm: String = "",
     val picumkm: String = "",
     val menu: String = "",
     val titleumkm: String = "",
@@ -41,7 +41,7 @@ data class Item(
         parcel.writeString(price)
         parcel.writeDouble(score)
         parcel.writeString(title)
-        parcel.writeString(descriptionimkm)
+        parcel.writeString(descriptionumkm)
         parcel.writeString(picumkm)
         parcel.writeString(menu)
         parcel.writeString(titleumkm)

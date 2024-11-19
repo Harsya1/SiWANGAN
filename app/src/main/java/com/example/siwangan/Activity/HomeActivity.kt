@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
         binding.apply {
             progressBarUmkm.visibility = View.VISIBLE
             // Mengamati perubahan data dari ViewModel
-            viewModel.load().observe(viewLifecycleOwner) { UmkmList ->
+            viewModelUmkm.load().observe(viewLifecycleOwner) { UmkmList ->
                 recyclerViewUmkm.layoutManager = LinearLayoutManager(
                     requireContext(),
                     LinearLayoutManager.VERTICAL,

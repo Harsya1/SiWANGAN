@@ -22,7 +22,7 @@ class UMKMAdapter(val items: MutableList<Item>) : RecyclerView.Adapter<UMKMAdapt
         val item = items[position]
         holder.binding.apply {
             titleTxt.text = item.titleumkm
-            descTxt.text = item.description
+            descTxt.text = item.descriptionumkm
 
             Glide.with(holder.itemView.context)
                 .load(item.picumkm)

@@ -4,7 +4,7 @@ package com.example.siwangan.Domain
 import android.os.Parcel
 import android.os.Parcelable
 
-data class ItemDomain(
+data class Item(
     val url: String = "",
     val description: String = "",
     val pic: String = "",
@@ -53,12 +53,12 @@ data class ItemDomain(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<ItemDomain> {
-        override fun createFromParcel(parcel: Parcel): ItemDomain {
-            return ItemDomain(parcel)
+    companion object CREATOR : Parcelable.Creator<Item> {
+        override fun createFromParcel(parcel: Parcel): Item {
+            return Item(parcel)
         }
 
-        override fun newArray(size: Int): Array<ItemDomain?> {
+        override fun newArray(size: Int): Array<Item?> {
             return arrayOfNulls(size)
         }
     }

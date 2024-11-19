@@ -1,20 +1,39 @@
 package com.example.siwangan
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.siwangan.Adapter.LayananAdapter
+import com.example.siwangan.ViewModel.MainViewModel
+import com.example.siwangan.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityHomeBinding
+    private val viewModel=MainViewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_home)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+            binding=ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        initLayanan()
+
+    }
+
+    private fun initLayanan() {
+        binding.apply {
+            progressBarLayanan.visibility=View.VISIBLE
+            viewModel.load().observe(this@HomeActivity, Observer {
+                recyclerViewLayanan.layoutManager=
+                    LinearLayoutManager(this@HomeActivity,LinearLayoutManager.HORIZONTAL,false)
+                recyclerViewLayanan.adapter= LayananAdapter(it)
+                progressBarLayanan.visibility=View.GONE
+            })
         }
     }
 }

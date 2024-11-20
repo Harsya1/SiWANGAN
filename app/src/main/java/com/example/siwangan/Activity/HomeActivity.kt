@@ -11,9 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.siwangan.Adapter.BannerAdapter
 import com.example.siwangan.Adapter.LayananAdapter
 import com.example.siwangan.Adapter.UMKMAdapter
 import com.example.siwangan.R
+import com.example.siwangan.ViewModel.BannerViewModel
 import com.example.siwangan.ViewModel.MainViewModel
 import com.example.siwangan.ViewModel.UMKMViewModel
 import com.example.siwangan.databinding.ActivityHomeBinding
@@ -23,6 +25,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!! // View Binding untuk layout fragment
     private val viewModel = MainViewModel() // ViewModel instance
     private val viewModelUmkm = UMKMViewModel()
+    private val viewBanner = BannerViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,16 +43,33 @@ class HomeFragment : Fragment() {
         // Inisialisasi RecyclerView
         initLayanan()
         initUmkm()
+        initBanner()
 
         // Inisialisasi Slider
         //setupSliderAndIndicators()
+    }
+
+    private fun initBanner() {
+        binding.apply {
+            progressBarBanner.visibility = View.VISIBLE
+            // Mengamati perubahan data dari ViewModel
+            viewBanner.load().observe(viewLifecycleOwner) { BannerList ->
+                viewPager.layoutManager = LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+                viewPager.adapter = BannerAdapter(BannerList)
+                progressBarBanner.visibility = View.GONE
+            }
+        }
     }
 
     private fun initUmkm() {
         binding.apply {
             progressBarUmkm.visibility = View.VISIBLE
             // Mengamati perubahan data dari ViewModel
-            viewModel.load().observe(viewLifecycleOwner) { UmkmList ->
+            viewModelUmkm.load().observe(viewLifecycleOwner) { UmkmList ->
                 recyclerViewUmkm.layoutManager = LinearLayoutManager(
                     requireContext(),
                     LinearLayoutManager.VERTICAL,

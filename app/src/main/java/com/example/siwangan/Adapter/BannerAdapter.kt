@@ -7,25 +7,23 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import com.example.siwangan.Domain.Item
-import com.example.siwangan.databinding.ViewholderUmkmBinding
+import com.example.siwangan.databinding.ViewholderBannerBinding
 
-class UMKMAdapter(val items: MutableList<Item>) : RecyclerView.Adapter<UMKMAdapter.ViewHolder>() {
+class BannerAdapter(val items: MutableList<Item>) : RecyclerView.Adapter<BannerAdapter.ViewHolder>() {
 
-    class ViewHolder(val binding: ViewholderUmkmBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ViewholderBannerBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ViewholderUmkmBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ViewholderBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.binding.apply {
-            titleTxt.text = item.titleumkm
-            descTxt.text = item.descriptionumkm
 
             Glide.with(holder.itemView.context)
-                .load(item.picumkm)
+                .load(item.url)
                 .apply(RequestOptions().transform(CenterCrop()))
                 .into(imageView2)
         }

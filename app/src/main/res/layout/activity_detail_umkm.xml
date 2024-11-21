@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.DetailLayananActivity">
+    tools:context=".Activity.DetailUmkmActivity">
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -31,7 +31,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:id="@+id/imgLayanan"
+                        android:id="@+id/imgUmkm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleType="centerCrop"
@@ -180,10 +180,32 @@
                             android:layout_marginStart="24dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="24dp"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id lobortis felis, sit amet egestas est. Sed ornare est vitae arcu tincidunt placerat id id mi. Pellentesque sagittis hendrerit diam, ac dignissim neque pellentesque non. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus tempus est sed gravida suscipit. Nunc pharetra consectetur leo. Integer interdum, justo sed fringilla interdum, arcu risus finibus leo, ac accumsan ante libero eu felis.
-Morbi tempor ex nunc, id pellentesque nunc tempor ut. Quisque ipsum dolor, elementum non sem sit amet, finibus suscipit turpis. Vestibulum sollicitudin arcu libero, id eleifend lectus pretium a. Nulla vel est ligula. Vivamus sodales leo consectetur, ornare nisi bibendum, posuere arcu. "
+                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing  elit,sed do eiusmod tempor incididunt ut labore et  dolore magna aliqua. Ut enim ad minim veniam, quis  nostrud exercitation ullamco laboris nisi ut aliquip  ex ea commodo consequat. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris  nisi ut aliquip ex ea commodo consequat. "
                             android:textColor="@color/dark_blue"
                             android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="@color/dark_blue"
+                            android:text="Menu Yang Tersedia" />
+
+                        <ImageView
+                            android:id="@+id/imageMenu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="500dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="24dp"
+                            android:layout_marginBottom="10dp"
+                            android:scaleType="centerCrop"
+                            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -195,47 +217,22 @@ Morbi tempor ex nunc, id pellentesque nunc tempor ut. Quisque ipsum dolor, eleme
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:background="@color/light_grey"
+        android:layout_height="120dp"
+        android:background="@color/transparant"
         app:layout_constraintBottom_toBottomOf="@id/scrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/btnWhatsapp"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginEnd="24dp"
-            android:background="@drawable/btn_rounded_blue"
-            android:text="Pesan"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/btn_whatsapp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txtHarga"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="Rp15000"
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:textColor="@color/light_blue"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" /Orang"
-            android:textSize="20sp"
-            android:textColor="@color/dark_blue"
-            app:layout_constraintBottom_toBottomOf="@+id/txtHarga"
-            app:layout_constraintStart_toEndOf="@+id/txtHarga"
-            app:layout_constraintTop_toTopOf="@+id/txtHarga" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

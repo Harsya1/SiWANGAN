@@ -1,11 +1,14 @@
 package com.example.siwangan.Adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
+import com.example.siwangan.Activity.DetailLayananActivity
+import com.example.siwangan.Activity.DetailUmkmActivity
 import com.example.siwangan.Domain.Item
 import com.example.siwangan.databinding.ViewholderUmkmBinding
 
@@ -28,6 +31,12 @@ class UMKMAdapter(val items: MutableList<Item>) : RecyclerView.Adapter<UMKMAdapt
                 .load(item.picumkm)
                 .apply(RequestOptions().transform(CenterCrop()))
                 .into(imageView2)
+
+            holder.binding.root.setOnClickListener {
+                val intent = Intent(holder.itemView.context, DetailUmkmActivity::class.java)
+                intent.putExtra("item", items[position]) // Mengirim data item ke aktivitas berikutnya
+                holder.itemView.context.startActivity(intent) // Memulai aktivitas
+            }
         }
     }
 

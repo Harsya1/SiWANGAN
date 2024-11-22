@@ -151,7 +151,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
-                                    android:text="08.00 - 20.00"
+                                    android:text="15.00 - 06.00"
                                     android:textColor="@color/dark_blue"
                                     app:layout_constraintEnd_toEndOf="@+id/txtJamOperasional"
                                     app:layout_constraintStart_toStartOf="@+id/txtJamOperasional"

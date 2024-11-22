@@ -7,29 +7,33 @@
         android:id="@+id/homeFragment"
         android:icon="@drawable/selector_home"
         android:state_checked="true"
-        android:title="o"
-        app:showAsAction="always"
+        android:title="Home"
+        app:cnb_backgroundColor="@color/white"
+        app:cnb_iconColor="@color/menu_icon_color"
         />
 
     <item
         android:id="@+id/UmkmFragment"
         android:icon="@drawable/selector_umkm"
-        tools:ignore="MenuTitle"
-        app:showAsAction="always"
+        android:title="UMKM"
+        app:cnb_backgroundColor="@color/white"
+        app:cnb_iconColor="@color/menu_icon_color"
         />
 
     <item
         android:id="@+id/BenefitFragment"
-        android:icon="@drawable/selector_benefit"
-        tools:ignore="MenuTitle"
-        app:showAsAction="always"
+        android:icon="@drawable/selector_tentangwisata"
+        android:title="Panduan"
+        app:cnb_backgroundColor="@color/white"
+        app:cnb_iconColor="@color/menu_icon_color"
         />
 
     <item
         android:id="@+id/ProfileFragment"
         android:icon="@drawable/selector_profile"
-        tools:ignore="MenuTitle"
-        app:showAsAction="always"
+        android:title="Profile"
+        app:cnb_backgroundColor="@color/white"
+        app:cnb_iconColor="@color/menu_icon_color"
         />
 
 </menu>

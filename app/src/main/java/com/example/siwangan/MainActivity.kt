@@ -23,9 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        initBottomNavigation()
-
-        binding.mainBnv.itemRippleColor = ColorStateList.valueOf(Color.TRANSPARENT)
+        initChipNavigationBar()
 
         // Handle back press
         val callback = object : OnBackPressedCallback(true) {
@@ -34,62 +32,98 @@ class MainActivity : AppCompatActivity() {
                 if (fragment is HomeFragment) {
                     finish()
                 } else {
-                    binding.mainBnv.selectedItemId = R.id.homeFragment
+                    binding.mainBnv.setItemSelected(R.id.homeFragment, true)
                 }
             }
         }
         onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    private fun initBottomNavigation() {
-        // Initial fragment
+    private fun initChipNavigationBar() {
+        // Set initial fragment
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_fragment, HomeFragment())
             .commitAllowingStateLoss()
 
         // Set initial selection
-        binding.mainBnv.selectedItemId = R.id.homeFragment
+        binding.mainBnv.setItemSelected(R.id.homeFragment, true)
 
         // Handle navigation item selection
-        binding.mainBnv.setOnItemSelectedListener { menuItem ->
-            // Add animation to the menu item
-            menuItem.icon?.let { drawable ->
-                drawable.setVisible(false, true)
-                drawable.setVisible(true, true)
-                val animation = AnimationUtils.loadAnimation(this, R.anim.fade_transition)
-                binding.mainBnv.findViewById<View>(menuItem.itemId)?.startAnimation(animation)
-            }
-            when (menuItem.itemId) {
+        binding.mainBnv.setOnItemSelectedListener { itemId ->
+            when (itemId) {
                 R.id.homeFragment -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_fragment, HomeFragment())
                         .commitAllowingStateLoss()
-                    true
                 }
                 R.id.UmkmFragment -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_fragment, UmkmFragment())
                         .commitAllowingStateLoss()
-                    true
                 }
                 R.id.BenefitFragment -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_fragment, BenefitActivity())
                         .commitAllowingStateLoss()
-                    true
                 }
                 R.id.ProfileFragment -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_fragment, ProfileActivity())
                         .commitAllowingStateLoss()
-                    true
                 }
-                else -> false
             }
         }
-        // Disable default icon tinting
-        binding.mainBnv.itemIconTintList = null
     }
+//
+//    private fun initBottomNavigation() {
+//        // Initial fragment
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.main_fragment, HomeFragment())
+//            .commitAllowingStateLoss()
+//
+//        // Set initial selection
+//        binding.mainBnv.selectedItemId = R.id.homeFragment
+//
+//        // Handle navigation item selection
+//        binding.mainBnv.setOnItemSelectedListener { menuItem ->
+//            // Add animation to the menu item
+//            menuItem.icon?.let { drawable ->
+//                drawable.setVisible(false, true)
+//                drawable.setVisible(true, true)
+//                val animation = AnimationUtils.loadAnimation(this, R.anim.fade_transition)
+//                binding.mainBnv.findViewById<View>(menuItem.itemId)?.startAnimation(animation)
+//            }
+//            when (menuItem.itemId) {
+//                R.id.homeFragment -> {
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.main_fragment, HomeFragment())
+//                        .commitAllowingStateLoss()
+//                    true
+//                }
+//                R.id.UmkmFragment -> {
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.main_fragment, UmkmFragment())
+//                        .commitAllowingStateLoss()
+//                    true
+//                }
+//                R.id.BenefitFragment -> {
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.main_fragment, BenefitActivity())
+//                        .commitAllowingStateLoss()
+//                    true
+//                }
+//                R.id.ProfileFragment -> {
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.main_fragment, ProfileActivity())
+//                        .commitAllowingStateLoss()
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
+//        // Disable default icon tinting
+//        binding.mainBnv.itemIconTintList = null
+//    }
 }
 
 

@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
-    id("kotlin-kapt")
+
 }
 
 android {
@@ -54,7 +54,7 @@ android {
 
 dependencies {
     implementation ("com.github.bumptech.glide:glide:4.15.1")
-    kapt ("com.github.bumptech.glide:compiler:4.15.1")
+
 }
 
 
@@ -68,6 +68,11 @@ dependencies {
     implementation ("com.google.firebase:firebase-storage:20.0.1")
     implementation ("com.google.firebase:firebase-auth:21.0.1")
     implementation ("com.google.firebase:firebase-database-ktx:21.0.0")
+    implementation ("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
+    implementation ("com.google.android.gms:play-services-auth:21.1.0")
+
+
+=======
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

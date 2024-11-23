@@ -16,6 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:itemRippleColor="@android:color/transparent"
+        android:background="@color/light_blue"
+=======
         android:background="@drawable/round_bg_navbar"
         app:itemIconTint="@null"
         app:itemIconSize="45dp"

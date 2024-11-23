@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "339107464544",
+    "project_id": "siwangan-3bda1",
+    "storage_bucket": "siwangan-3bda1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339107464544:android:172c78e117857bd7a74a05",
+        "android_client_info": {
+          "package_name": "com.example.siwangan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMmWOUgHN2vrpBdw3Ssdu2hGRu9r7QdXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

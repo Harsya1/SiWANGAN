@@ -1,137 +1,99 @@
-package com.example.siwangan
+package com.example.siwangan.Activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
-import com.example.siwangan.R
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.siwangan.Activity.SpotDescriptionFragment
+import androidx.viewpager2.widget.ViewPager2
+import com.example.siwangan.Adapter.BannerAdapter
+import com.example.siwangan.Adapter.LayananAdapter
+import com.example.siwangan.Adapter.UMKMAdapter
+import com.example.siwangan.R
+import com.example.siwangan.ViewModel.BannerViewModel
+import com.example.siwangan.ViewModel.MainViewModel
+import com.example.siwangan.ViewModel.UMKMViewModel
+import com.example.siwangan.databinding.ActivityHomeBinding
 
 class HomeFragment : Fragment() {
-    private lateinit var viewPager: ViewPager2
-    private lateinit var indicatorsContainer: LinearLayout
-    private val sliderImages = listOf(
-        R.drawable.ic_home_promotion,
-        R.drawable.ic_home_prromotion2,
-        R.drawable.ic_launcher_background,
-        R.drawable.ic_launcher_background,
-        R.drawable.ic_launcher_background
-    )
-    private var indicators = mutableListOf<ImageView>()
+    private var _binding: ActivityHomeBinding? = null
+    private val binding get() = _binding!! // View Binding untuk layout fragment
+    private val viewModel = MainViewModel() // ViewModel instance
+    private val viewModelUmkm = UMKMViewModel()
+    private val viewBanner = BannerViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.activity_home, container, false)
+    ): View {
+        // Inflate layout menggunakan View Binding
+        _binding = ActivityHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupSliderAndIndicators(view)
 
-        // Find the recommendation container
-        val recommendationContainer = view.findViewById<LinearLayout>(R.id.recommendationContainer)
+        // Inisialisasi RecyclerView
+        initLayanan()
+        initUmkm()
+        initBanner()
 
-        // Set click listeners for each recommendation item
-        for (i in 0 until recommendationContainer.childCount) {
-            val recommendationItem = recommendationContainer.getChildAt(i)
-            recommendationItem.setOnClickListener {
-                val spotDescriptionFragment = SpotDescriptionFragment()
-                val bundle = Bundle()
-                bundle.putString("spot_id", "your_spot_id")
-                // Add any other data you need to pass
-                spotDescriptionFragment.arguments = bundle
-
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.main_fragment, spotDescriptionFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-
-        }
+        // Inisialisasi Slider
+        //setupSliderAndIndicators()
     }
 
-
-    private fun setupSliderAndIndicators(view: View) {
-        // Initialize ViewPager with the correct ID
-        viewPager = view.findViewById(R.id.viewPager)
-        indicatorsContainer = view.findViewById(R.id.sliderIndicators)
-
-        // Set up ViewPager adapter
-        val adapter = ImageSliderAdapter(sliderImages)
-        viewPager.adapter = adapter
-
-        // Set up indicators
-        setupIndicators()
-        setCurrentIndicator(0)
-
-        // Set up ViewPager change listener
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                setCurrentIndicator(position)
-            }
-        })
-    }
-
-    private fun setupIndicators() {
-        indicators.clear()
-        indicatorsContainer.removeAllViews()
-
-        for (i in sliderImages.indices) {
-            val indicator = ImageView(requireContext()).apply {
-                setImageDrawable(ContextCompat.getDrawable(context, R.drawable.indicator_inactive))
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    setMargins(8, 0, 8, 0)
-                }
-            }
-            indicatorsContainer.addView(indicator)
-            indicators.add(indicator)
-        }
-    }
-
-    private fun setCurrentIndicator(position: Int) {
-        indicators.forEachIndexed { index, imageView ->
-            if (index == position) {
-                imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.indicator_active))
-            } else {
-                imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.indicator_inactive))
+    private fun initBanner() {
+        binding.apply {
+            progressBarBanner.visibility = View.VISIBLE
+            // Mengamati perubahan data dari ViewModel
+            viewBanner.load().observe(viewLifecycleOwner) { BannerList ->
+                viewPager.layoutManager = LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+                viewPager.adapter = BannerAdapter(BannerList)
+                progressBarBanner.visibility = View.GONE
             }
         }
     }
-}
 
-// Image Slider Adapter (can be moved to a separate file)
-private class ImageSliderAdapter(private val images: List<Int>) :
-    RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        val imageView = ImageView(parent.context).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            scaleType = ImageView.ScaleType.CENTER_CROP
+    private fun initUmkm() {
+        binding.apply {
+            progressBarUmkm.visibility = View.VISIBLE
+            // Mengamati perubahan data dari ViewModel
+            viewModelUmkm.load().observe(viewLifecycleOwner) { UmkmList ->
+                recyclerViewUmkm.layoutManager = LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+                recyclerViewUmkm.adapter = UMKMAdapter(UmkmList)
+                progressBarUmkm.visibility = View.GONE
+            }
         }
-        return ImageViewHolder(imageView)
     }
 
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        holder.imageView.setImageResource(images[position])
+    private fun initLayanan() {
+        binding.apply {
+            progressBarLayanan.visibility = View.VISIBLE
+            // Mengamati perubahan data dari ViewModel
+            viewModel.load().observe(viewLifecycleOwner) { layananList ->
+                recyclerViewLayanan.layoutManager = LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+                recyclerViewLayanan.adapter = LayananAdapter(layananList)
+                progressBarLayanan.visibility = View.GONE
+            }
+        }
     }
-
-    override fun getItemCount() = images.size
-
-    class ImageViewHolder(val imageView: ImageView) :
-        RecyclerView.ViewHolder(imageView)
 }

@@ -1,6 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="0dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageBgProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_bg_profile"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+         android:layout_alignParentEnd="true" />
+
+        <!-- Judul Profil -->
+        <TextView
+            android:id="@+id/profileTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:text="Profile"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <!-- Ikon Profil -->
+        <ImageView
+            android:id="@+id/profileIcon"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="35dp"
+            android:src="@drawable/img_profile_picture" />
+
+        <!-- Nama Profil -->
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileIcon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="65dp"
+            android:text="Nama Profile"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <!-- Menu Profil -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:layout_marginTop="30dp">
+
+        <!-- Lihat Profil -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="openProfilePage">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icn_lihat_profile" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="50dp"
+                android:text="Lihat Profile"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/buttonLihatProfile"
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                android:background="@drawable/btn_next_right"
+                android:onClick="openProfilePage"
+                android:contentDescription="Lihat Profil" />
+
+        </LinearLayout>
+
+        <!-- Ganti Password -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="changePasswordPage">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icn_ganti_password" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:text="Ganti Password"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/buttonGantiPassword"
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                android:background="@drawable/btn_next_right"
+                android:onClick="changePasswordPage"
+                android:contentDescription="Ganti Password" />
+
+        </LinearLayout>
+
+        <!-- Tentang Aplikasi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="aboutAppPage">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icn_tentang_aplikasi" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:text="Tentang Aplikasi"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/buttonTentangAplikasi"
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                android:background="@drawable/btn_next_right"
+                android:onClick="aboutAppPage"
+                android:contentDescription="Tentang Aplikasi" />
+
+        </LinearLayout>
+
+        <!-- Keluar Akun -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="logoutPage">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icn_keluar_akun" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:text="Keluar Akun"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/buttonKeluarAkun"
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                android:background="@drawable/btn_next_right"
+                android:onClick="logoutPage"
+                android:contentDescription="Keluar Akun" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

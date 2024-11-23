@@ -10,9 +10,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.siwangan.Activity.DetailLayananActivity
 import com.example.siwangan.Domain.Item
 import com.example.siwangan.databinding.ViewholderLayananBinding
-import com.google.ai.client.generativeai.common.shared.Content
 
-class LayananAdapter(val items: MutableList<Item>) : RecyclerView.Adapter<LayananAdapter.ViewHolder>() {
+class LayananAdapter(val items: List<Item>) : RecyclerView.Adapter<LayananAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ViewholderLayananBinding) : RecyclerView.ViewHolder(binding.root)
 

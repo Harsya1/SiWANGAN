@@ -54,28 +54,16 @@ class PanduanExpandableListAdapter(
 
         val dropdownIcon = view.findViewById<ImageView>(R.id.btnDown)
 
-        // Set rotation based on the current expansion state
-        dropdownIcon.clearAnimation()
+        // Set rotation directly without animation
         val rotationAngle = if (isExpanded) 180f else 0f
-        dropdownIcon.rotation = rotationAngle
+        dropdownIcon.animate().rotation(rotationAngle).setDuration(ROTATE_DURATION.toLong()).start()
 
-        // Check and update the group expansion status
-        if (groupExpanded[groupPosition] != isExpanded) {
-            groupExpanded[groupPosition] = isExpanded
+        // Update the group expanded status
+        groupExpanded[groupPosition] = isExpanded
 
-            val rotateAnimation = RotateAnimation(
-                if (isExpanded) 0f else 180f, // From degree
-                if (isExpanded) 180f else 0f, // To degree
-                RotateAnimation.RELATIVE_TO_SELF, 0.5f,
-                RotateAnimation.RELATIVE_TO_SELF, 0.5f
-            ).apply {
-                duration = ROTATE_DURATION.toLong()
-                fillAfter = true
-            }
-            dropdownIcon.startAnimation(rotateAnimation)
-        }
         return view
     }
+
 
     override fun getChildView(
         groupPosition: Int,

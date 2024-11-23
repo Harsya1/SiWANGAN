@@ -18,8 +18,8 @@
 
     <ImageView
         android:id="@+id/btnDown"
-        android:layout_width="40dp"
-        android:layout_height="20dp"
+        android:layout_width="24dp"
+        android:layout_height="10dp"
         android:layout_gravity="center"
         android:background="@drawable/btn_arrow_down"
         />

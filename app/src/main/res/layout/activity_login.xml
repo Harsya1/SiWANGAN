@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,19 +9,20 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".Activity.LoginActivity">
+
     <RelativeLayout
         android:id="@+id/container_img"
         android:layout_gravity="center"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="350dp">
+
         <Button
             android:id="@+id/btn_back"
             android:layout_width="55dp"
-            android:layout_height="42dp"
+            android:layout_height="55dp"
             android:layout_marginTop="50dp"
-            android:layout_weight="1"
-            android:background="@drawable/btn_back" />
+            android:background="@drawable/btn_back"
+            android:contentDescription="Tombol kembali ke halaman sebelumnya" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -30,6 +32,7 @@
             android:layout_height="300dp"
             app:srcCompat="@drawable/img_login" />
     </RelativeLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +40,8 @@
         android:layout_marginStart="40dp"
         android:textSize="32dp"
         android:textColor="@color/dark_blue"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,20 +50,23 @@
         android:layout_marginEnd="40dp"
         android:textSize="16dp"
         android:textColor="@color/dark_blue"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="30dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
 
+        <!-- Nomor Telepon -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/TextInputLayout"
             android:layout_width="320dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="Nomor Telepon"
             android:background="@drawable/round_transparant_borderblack"
             app:startIconDrawable="@drawable/icn_telepon"
-            app:startIconContentDescription="Telepon"
+            app:startIconContentDescription="Ikon telepon"
             app:boxBackgroundMode="none"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,32 +76,36 @@
                 android:id="@+id/TextInputEditText"
                 android:inputType="number"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:paddingStart="48dp"
-                />
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Password -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/TextInputLayout2"
             android:layout_width="320dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="Password"
             android:background="@drawable/round_transparant_borderblack"
             app:startIconDrawable="@drawable/icn_password"
-            app:startIconContentDescription="Telepon"
+            app:startIconContentDescription="Ikon password"
             app:boxBackgroundMode="none"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            app:endIconMode="password_toggle"
-            app:layout_constraintTop_toBottomOf="@id/TextInputLayout">
+            app:layout_constraintTop_toBottomOf="@id/TextInputLayout"
+            android:layout_marginTop="16dp"
+            app:endIconMode="password_toggle">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/TextInputEditText2"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="48dp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TextInputEditText2"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingStart="48dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp" />
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -106,18 +117,21 @@
         android:textColor="@color/dark_blue"
         android:textSize="12sp"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="270dp"/>
+        android:layout_marginStart="270dp" />
+
     <Button
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:background="@drawable/round_button_blue"
         android:text="Login"
         android:textColor="@color/white"
         android:textAllCaps="false"
         android:textSize="18sp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:contentDescription="Tombol untuk login ke akun Anda" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -125,13 +139,15 @@
         android:textSize="12sp"
         android:layout_gravity="center"
         android:textColor="@color/dark_blue"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp" />
+
     <Button
         android:id="@+id/btn_login_google"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:background="@drawable/btn_login_google"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:contentDescription="Tombol untuk login menggunakan Google" />
 
 </LinearLayout>

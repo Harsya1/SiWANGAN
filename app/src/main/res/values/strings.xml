@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">SiWANGAN</string>
-    <string name="txt_intro">Nikmati Relaksasi <font color="#3F94EC">\n Alami</font> di Sumber Air Panas Kapulungan</string>
-    <string name="txt_subintro">Kembali Bugar dengan Keajaiban Alam\n di Sumber Air Panas Kapulungan</string>
+    <string name="txt_intro">Nikmati Relaksasi <font color="#3F94EC">\n Alami</font> di Sumber Air Panas Kepulungan</string>
+    <string name="txt_subintro">Kembali Bugar dengan Keajaiban Alam\n di Sumber Air Panas Kepulungan</string>
 
     <string name="txt_splashtitle">SiWANGAN</string>
-    <string name="txt_subtitle">Selamat datang di Wisata Air Panas\n Kapulungan. Temukan kehangatan\n dan manfaat alami di tengah\n keindahan alam!</string>
+    <string name="txt_subtitle">Selamat datang di Wisata Air Panas\n Kepulungan. Temukan kehangatan\n dan manfaat alami di tengah\n keindahan alam!</string>
     <string name="txt_subsplash">Mari Relaksasi Dengan Berendam\n Di Sumber Air Panas Kami</string>
 </resources>

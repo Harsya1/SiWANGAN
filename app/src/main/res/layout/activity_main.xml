@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,18 +12,27 @@
         app:layout_constraintBottom_toTopOf="@id/main_bnv"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/main_bnv"
         android:layout_width="match_parent"
+
+        android:layout_height="70dp"
+
         android:layout_height="wrap_content"
         app:itemRippleColor="@android:color/transparent"
         android:background="@color/light_blue"
-=======
+
         android:background="@drawable/round_bg_navbar"
-        app:itemIconTint="@null"
-        app:itemIconSize="45dp"
-        app:labelVisibilityMode="unlabeled"
+        android:elevation="3dp"
+        android:padding="8dp"
+        app:cnb_iconSize="24sp"
+        app:cnb_iconColor="@color/dark_blue"
+        app:cnb_menuResource="@menu/bottom_nav_menu"
+        android:orientation="horizontal"
+        app:cnb_radius="50dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

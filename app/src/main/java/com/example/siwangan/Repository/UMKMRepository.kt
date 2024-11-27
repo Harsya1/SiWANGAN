@@ -13,7 +13,7 @@ class UMKMRepository {
 
     fun load():LiveData<MutableList<Item>>{
         val listData = MutableLiveData<MutableList<Item>>()
-        val  ref = firebaseDatabase.getReference("UMKM")
+        val  ref = firebaseDatabase.getReference("Umkm")
 
         ref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {

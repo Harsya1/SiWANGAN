@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <application
         android:allowBackup="true"
@@ -11,10 +11,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SiWANGAN"
-        tools:targetApi="31">
+        tools:targetApi="31" >
         <activity
-            android:name=".Activity.SearchActivity"
+            android:name=".Activity.Admin.Update.BannerUpdateActivity"
             android:exported="false" />
+        <activity
+            android:name=".Activity.Admin.Update.LayananUpdateActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.Admin.Update.UmkmUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Admin.Create.BannerCreateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Admin.Create.LayananCreateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Admin.Create.UmkmCreateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Admin.AdminUmkmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Admin.AdminLayananActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Admin.AdminBannerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Admin.AdminActivity"
+            android:exported="true" />
         <activity
             android:name=".Activity.DetailUmkmActivity"
             android:exported="false" />
@@ -32,7 +59,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.introActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,7 +70,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.SiWANGAN">
+            android:theme="@style/Theme.SiWANGAN" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

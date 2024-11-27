@@ -31,6 +31,9 @@
             android:name=".Activity.SplashLoginRegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.introActivity"
             android:exported="true">
             <intent-filter>

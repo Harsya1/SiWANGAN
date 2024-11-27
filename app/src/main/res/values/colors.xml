@@ -18,4 +18,5 @@
     <color name="background_light">@color/white</color>
     <color name="text_light">#212121</color>
     <color name="hint_light">#757575</color>
+    <color name="cardview">#EAEAEA</color>
 </resources>

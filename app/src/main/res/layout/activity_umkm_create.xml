@@ -97,11 +97,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="16dp"
-                    android:textColor="@color/dark_blue"
                     android:background="@drawable/rounded_bg"
-                    android:hint="Masukkan ID UMKM contoh A1"
+                    android:hint="Masukkan Letak UMKM contoh A1"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
+                    android:textColor="@color/dark_blue"
                     android:textColorHint="@color/dark_blue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -137,42 +137,88 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/dataDeskripsiUmkm" />
 
-                <EditText
-                    android:id="@+id/dataUrlFotoUmkm"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:textAlignment="center"
                     android:textColor="@color/dark_blue"
-                    android:background="@drawable/rounded_bg"
-                    android:hint="Masukkan URL Foto Umkm"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:textColorHint="@color/dark_blue"
+                    android:text="Pilih Foto Tampak Depan UMKM \n 400 X 400"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/dataContact" />
 
-                <EditText
-                    android:id="@+id/dataUrlMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/dark_blue"
-                    android:background="@drawable/rounded_bg"
-                    android:hint="Masukkan URL foto Menu"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:textColorHint="@color/dark_blue"
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="400dp"
+                    android:layout_height="400dp"
+                    android:layout_marginTop="24dp"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dataUrlFotoUmkm" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView9"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <Button
+                    android:id="@+id/pickImageUmkm"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Pilih Foto"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:background="@drawable/btn_rounded_blue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="Pilih Foto Menu UMKM \n 360 X 500"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pickImageUmkm" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="500dp"
+                    android:layout_marginTop="16dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <Button
+                    android:id="@+id/pickImageMenu"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Pilih Foto"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:background="@drawable/btn_rounded_blue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
                 <Button
                     android:id="@+id/btnTambahDataUMKM"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="200dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginBottom="32dp"
                     android:background="@drawable/btn_rounded_blue"
                     android:text="Tambah Data UMKM"
                     android:textAllCaps="false"
@@ -181,7 +227,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dataUrlMenu" />
+                    app:layout_constraintTop_toBottomOf="@id/pickImageMenu" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

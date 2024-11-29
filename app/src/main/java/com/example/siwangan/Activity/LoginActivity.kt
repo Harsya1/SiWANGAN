@@ -27,11 +27,15 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 100 // Request code untuk Google Sign-In
+    private val adminEmail = "siwangan324@gmail.com"
+    private val adminPassword = "airpanaskepulungan1101"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
+
         mAuth = FirebaseAuth.getInstance()
 
         // Cek apakah pengguna sudah login

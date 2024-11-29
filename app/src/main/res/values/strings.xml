@@ -6,4 +6,5 @@
     <string name="txt_splashtitle">SiWANGAN</string>
     <string name="txt_subtitle">Selamat datang di Wisata Air Panas\n Kepulungan. Temukan kehangatan\n dan manfaat alami di tengah\n keindahan alam!</string>
     <string name="txt_subsplash">Mari Relaksasi Dengan Berendam\n Di Sumber Air Panas Kami</string>
+    <string name="default_web_client_id">YOUR_WEB_CLIENT_ID</string>
 </resources>

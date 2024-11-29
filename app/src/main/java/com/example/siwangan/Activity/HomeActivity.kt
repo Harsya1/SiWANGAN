@@ -24,6 +24,7 @@ class HomeFragment : Fragment() {
     private val viewBanner = BannerViewModel()
 
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +36,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         // Inisialisasi RecyclerView
         initLayanan()

@@ -1,9 +1,15 @@
 package com.example.siwangan.Activity.Admin.Update
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.util.Base64
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -13,6 +19,7 @@ import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityUmkmUpdateBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.io.ByteArrayOutputStream
 import java.util.ResourceBundle.getBundle
 
 class UmkmUpdateActivity : AppCompatActivity() {
@@ -21,6 +28,9 @@ class UmkmUpdateActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
 
     private var itemUmkm: itemUmkm? = null
+
+    private var uriPicUmkm: Uri? = null
+    private var uriMenu: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +48,26 @@ class UmkmUpdateActivity : AppCompatActivity() {
             // Data null, tampilkan pesan error atau kembali ke aktivitas sebelumnya
             finish() // Menghindari crash jika data null
         }
+        val pickImageUmkm = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                uriPicUmkm = it
+                binding.imageViewUpdateUmkm.setImageURI(it)
+            }
+        }
+
+        val pickImageMenu = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                uriMenu = it
+                binding.imageViewUpdateMenu.setImageURI(it)
+            }
+        }
+        binding.btnPilihFotoUmkm.setOnClickListener { //untuk ambil image umkm
+            pickImageUmkm.launch("image/*")
+        }
+
+        binding.pilihFotoMenu.setOnClickListener { // untuk ambil image menu
+            pickImageMenu.launch("image/*")
+        }
         binding.button.setOnClickListener {
             finish()
         }
@@ -49,23 +79,20 @@ class UmkmUpdateActivity : AppCompatActivity() {
     }
 
     private fun updateData() {
-        // Ambil ID dari TextView (ID sudah diset sebelumnya)
-        val id = binding.textViewId.text.toString().trim()  // ID tidak akan diubah
+        val id = binding.textViewId.text.toString().trim()
 
         // Ambil data lainnya dari EditText
         val nama = binding.updateData1.text.toString().trim()
         val descumkm = binding.updateData3.text.toString().trim()
         val contact = binding.updateData4.text.toString().trim()
-        val foto = binding.updateData5.text.toString().trim()
-        val menu = binding.updateData6.text.toString().trim()
 
         // Membuat referensi database Firebase berdasarkan ID
         val database = FirebaseDatabase.getInstance().getReference("Umkm").child(id)
 
-        // Membuat Map untuk update data (update hanya field yang ada isinya)
+        // Membuat Map untuk update data
         val updates = mutableMapOf<String, Any>()
 
-        // Cek dan hanya update jika data ada
+        // Update data teks jika tidak kosong
         if (nama.isNotEmpty()) {
             updates["titleumkm"] = nama
         }
@@ -75,16 +102,24 @@ class UmkmUpdateActivity : AppCompatActivity() {
         if (contact.isNotEmpty()) {
             updates["contact"] = contact
         }
-        if (foto.isNotEmpty()) {
-            updates["picumkm"] = foto
-        }
-        if (menu.isNotEmpty()) {
-            updates["menu"] = menu
+
+        // Ubah URI menjadi Base64 jika gambar diubah
+        uriPicUmkm?.let {
+            val base64ImageUmkm = uriToBase64(this, it)
+            if (!base64ImageUmkm.isNullOrEmpty()) {
+                updates["picumkm"] = base64ImageUmkm
+            }
         }
 
-        // Periksa apakah ada data yang akan diupdate
+        uriMenu?.let {
+            val base64ImageMenu = uriToBase64(this, it)
+            if (!base64ImageMenu.isNullOrEmpty()) {
+                updates["menu"] = base64ImageMenu
+            }
+        }
+
+        // Periksa apakah ada data yang akan diperbarui
         if (updates.isNotEmpty()) {
-            // Update hanya data yang diubah
             database.updateChildren(updates).addOnSuccessListener {
                 Toast.makeText(this, "Data Berhasil Diperbarui", Toast.LENGTH_SHORT).show()
 
@@ -92,10 +127,8 @@ class UmkmUpdateActivity : AppCompatActivity() {
                 binding.updateData1.text.clear()
                 binding.updateData3.text.clear()
                 binding.updateData4.text.clear()
-                binding.updateData5.text.clear()
-                binding.updateData6.text.clear()
 
-                // Kembali ke AdminActivity
+                // Kembali ke AdminUmkmActivity
                 val intent = Intent(this@UmkmUpdateActivity, AdminUmkmActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -107,8 +140,7 @@ class UmkmUpdateActivity : AppCompatActivity() {
         }
     }
 
-
-
+    // Fungsi untuk mengambil data dari Intent
     private fun getBundle() {
         itemUmkm = intent.getParcelableExtra("itemUmkm")
     }
@@ -119,8 +151,19 @@ class UmkmUpdateActivity : AppCompatActivity() {
             txtData1.text = item.titleumkm
             txtData3.text = item.descriptionumkm
             txtData4.text = item.contact
-            txtData5.text = item.picumkm
-            txtData6.text = item.menu
+        }
+    }
+    private fun uriToBase64(context: Context, uri: Uri): String? {
+        return try {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            val byteArray = outputStream.toByteArray()
+            Base64.encodeToString(byteArray, Base64.DEFAULT)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }

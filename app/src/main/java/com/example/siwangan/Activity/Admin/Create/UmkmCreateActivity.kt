@@ -1,8 +1,12 @@
 package com.example.siwangan.Activity.Admin.Create
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Base64
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,13 +21,15 @@ import com.example.siwangan.databinding.ActivityUmkmCreateBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
 
 class UmkmCreateActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUmkmCreateBinding
-
     private lateinit var database: DatabaseReference
 
+    private var uriPicUmkm: Uri? = null
+    private var uriMenu: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +49,27 @@ class UmkmCreateActivity : AppCompatActivity() {
             insets
         }
 
+        val pickImageUmkm = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                uriPicUmkm = it
+                binding.imageView5.setImageURI(it)
+            }
+        }
+
+        val pickImageMenu = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                uriMenu = it
+                binding.imageView6.setImageURI(it)
+            }
+        }
+        binding.pickImageUmkm.setOnClickListener { //untuk ambil image umkm
+            pickImageUmkm.launch("image/*")
+        }
+
+        binding.pickImageMenu.setOnClickListener { // untuk ambil image menu
+            pickImageMenu.launch("image/*")
+        }
+
         // Menambahkan listener untuk tombol simpan data UMKM
         binding.btnTambahDataUMKM.setOnClickListener {
             saveData()
@@ -60,8 +87,6 @@ class UmkmCreateActivity : AppCompatActivity() {
         val id = binding.dataId.text.toString().trim()
         val descumkm = binding.dataDeskripsiUmkm.text.toString().trim()
         val contact = binding.dataContact.text.toString().trim()
-        val foto = binding.dataUrlFotoUmkm.text.toString().trim()
-        val menu = binding.dataUrlMenu.text.toString().trim()
 
         // Validasi form
         if (nama.isEmpty()) {
@@ -80,22 +105,28 @@ class UmkmCreateActivity : AppCompatActivity() {
             binding.dataContact.error = "Masukkan Data"
             return
         }
-        if (foto.isEmpty()) {
-            binding.dataUrlFotoUmkm.error = "Masukkan Data"
+
+        // Konversi gambar ke Base64
+        val picUmkmBase64 = uriPicUmkm?.let { uriToBase64(this, it) }
+        val menuBase64 = uriMenu?.let { uriToBase64(this, it) }
+
+        // Pastikan gambar telah dipilih
+        if (picUmkmBase64 == null || menuBase64 == null) {
+            Toast.makeText(this, "Harap pilih gambar untuk UMKM dan Menu", Toast.LENGTH_SHORT).show()
             return
         }
-        if (menu.isEmpty()) {
-            binding.dataUrlMenu.error = "Masukkan Data"
+        // Pastikan gambar telah dipilih
+        if (menuBase64 == null || menuBase64 == null) {
+            Toast.makeText(this, "Harap pilih gambar untuk UMKM dan Menu", Toast.LENGTH_SHORT).show()
             return
         }
 
         // Melanjutkan hanya jika validasi berhasil
-        database = FirebaseDatabase.getInstance().getReference("Umkm")
         val UMKMadd = itemUmkm(
             titleumkm = nama,
             descriptionumkm = descumkm,
-            picumkm = foto,
-            menu = menu,
+            picumkm = picUmkmBase64,
+            menu = menuBase64,
             id = id,
             contact = contact
         )
@@ -105,8 +136,6 @@ class UmkmCreateActivity : AppCompatActivity() {
             binding.dataId.text.clear()
             binding.dataDeskripsiUmkm.text.clear()
             binding.dataContact.text.clear()
-            binding.dataUrlFotoUmkm.text.clear()
-            binding.dataUrlMenu.text.clear()
 
             Toast.makeText(this, "Data Telah Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@UmkmCreateActivity, AdminUmkmActivity::class.java)
@@ -116,5 +145,17 @@ class UmkmCreateActivity : AppCompatActivity() {
             Toast.makeText(this, "Data gagal ditambahkan", Toast.LENGTH_SHORT).show()
         }
     }
-
+    private fun uriToBase64(context: Context, uri: Uri): String? {
+        return try {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            val byteArray = outputStream.toByteArray()
+            Base64.encodeToString(byteArray, Base64.DEFAULT)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }

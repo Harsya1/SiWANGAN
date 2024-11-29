@@ -22,19 +22,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtDataBanner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="A1"
-        android:textAlignment="center"
-        android:textColor="@color/dark_blue"
-        android:textSize="14sp"
-        android:textStyle="normal"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/view3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idBanner" />
+        app:layout_constraintTop_toBottomOf="@+id/idBanner"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circleImageView"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <Button
         android:id="@+id/buttonUpdate"

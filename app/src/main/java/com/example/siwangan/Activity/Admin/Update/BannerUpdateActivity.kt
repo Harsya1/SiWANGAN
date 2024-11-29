@@ -1,9 +1,15 @@
 package com.example.siwangan.Activity.Admin.Update
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.util.Base64
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -14,12 +20,16 @@ import com.example.siwangan.Domain.itemUmkm
 import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityBannerUpdateBinding
 import com.google.firebase.database.FirebaseDatabase
+import java.io.ByteArrayOutputStream
 import java.util.ResourceBundle.getBundle
 
 class BannerUpdateActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBannerUpdateBinding
     private var itemBanner: itemBanner? = null
+
+    private var uri: Uri? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +47,18 @@ class BannerUpdateActivity : AppCompatActivity() {
             // Data null, tampilkan pesan error atau kembali ke aktivitas sebelumnya
             finish() // Menghindari crash jika data null
         }
+
+        val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) {
+            binding.imageUpdateBanner.setImageURI(it)
+            if (it != null) {
+                uri = it
+            }
+        }
+
+        binding.pickImage.setOnClickListener {
+            pickImage.launch("image/*")
+        }
+
         binding.button.setOnClickListener {
             finish()
         }
@@ -47,12 +69,8 @@ class BannerUpdateActivity : AppCompatActivity() {
     }
 
     private fun updateData() {
-        // Ambil ID dari TextView (ID sudah diset sebelumnya)
+        // Ambil ID dari TextView (ID tidak akan diubah)
         val id = binding.textViewId.text.toString().trim()  // ID tidak akan diubah
-
-        // Ambil data lainnya dari EditText
-        val picBaru = binding.updateData1.text.toString().trim()
-
 
         // Membuat referensi database Firebase berdasarkan ID
         val database = FirebaseDatabase.getInstance().getReference("Banner").child(id)
@@ -60,9 +78,15 @@ class BannerUpdateActivity : AppCompatActivity() {
         // Membuat Map untuk update data (update hanya field yang ada isinya)
         val updates = mutableMapOf<String, Any>()
 
-        // Cek dan hanya update jika data ada
-        if (picBaru.isNotEmpty()) {
-            updates["url"] = picBaru
+        // Jika ada gambar baru yang dipilih, konversi ke Base64 dan update
+        uri?.let {
+            val base64Image = uriToBase64(this, it)
+            if (base64Image != null) {
+                updates["url"] = base64Image // Update gambar ke dalam url
+            } else {
+                Toast.makeText(this, "Gagal mengonversi gambar ke Base64", Toast.LENGTH_SHORT).show()
+                return
+            }
         }
 
         // Periksa apakah ada data yang akan diupdate
@@ -70,11 +94,6 @@ class BannerUpdateActivity : AppCompatActivity() {
             // Update hanya data yang diubah
             database.updateChildren(updates).addOnSuccessListener {
                 Toast.makeText(this, "Data Berhasil Diperbarui", Toast.LENGTH_SHORT).show()
-
-                // Bersihkan input setelah update
-
-                binding.updateData1.text.clear()
-
                 // Kembali ke AdminActivity
                 val intent = Intent(this@BannerUpdateActivity, AdminBannerActivity::class.java)
                 startActivity(intent)
@@ -87,6 +106,7 @@ class BannerUpdateActivity : AppCompatActivity() {
         }
     }
 
+
     private fun getBundle() {
         itemBanner = intent.getParcelableExtra("itemBanner")
     }
@@ -94,7 +114,19 @@ class BannerUpdateActivity : AppCompatActivity() {
     private fun setupUI(item: itemBanner) {
         binding.apply {
             textViewId.text = item.idB
-            txtData1.text = item.url
+        }
+    }
+    private fun uriToBase64(context: Context, uri: Uri): String? {
+        return try {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            val byteArray = outputStream.toByteArray()
+            Base64.encodeToString(byteArray, Base64.DEFAULT)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@drawable/white_corner_bg"
     android:elevation="3dp">
@@ -59,18 +59,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDescLayananAdmin" />
 
-    <TextView
-        android:id="@+id/txtUrlPicLayanan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="url foto layanan"
-        android:textAlignment="center"
-        android:textColor="@color/dark_blue"
-        android:textSize="10sp"
+    <ImageView
+        android:id="@+id/imageViewHolderLayanan"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="32dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtScoreLayanan" />
+        app:layout_constraintTop_toBottomOf="@+id/txtScoreLayanan"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <Button
         android:id="@+id/buttonUpdateLayanan"
@@ -91,9 +89,11 @@
         android:id="@+id/view3"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewHolderLayanana" />
 
     <Button
         android:id="@+id/buttonDeleteData"

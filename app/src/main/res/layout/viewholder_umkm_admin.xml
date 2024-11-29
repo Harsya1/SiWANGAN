@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@drawable/white_corner_bg"
     android:elevation="3dp">
@@ -60,31 +60,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDescUmkmAdmin" />
 
-    <TextView
-        android:id="@+id/txtUrlPicUmkm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="url foto umkm"
-        android:textColor="@color/dark_blue"
-        android:textSize="10sp"
-        android:textAlignment="center"
+    <ImageView
+        android:id="@+id/imageViewUmkm"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtContactUmkmAdmin" />
+        app:layout_constraintTop_toBottomOf="@+id/txtContactUmkmAdmin"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <TextView
-        android:id="@+id/txtUrlMenuUmkm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="url foto menu"
-        android:textColor="@color/dark_blue"
-        android:textSize="10sp"
-        android:textAlignment="center"
+    <ImageView
+        android:id="@+id/imageViewMenu"
+        android:layout_width="180dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtUrlPicUmkm" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewUmkm"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <Button
         android:id="@+id/buttonUpdate"
@@ -105,9 +101,11 @@
         android:id="@+id/view3"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewMenu" />
 
     <Button
         android:id="@+id/buttonDeleteData"

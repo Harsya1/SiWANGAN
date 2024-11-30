@@ -43,6 +43,9 @@
             android:name=".Activity.Admin.AdminActivity"
             android:exported="true" />
         <activity
+            android:name=".Activity.EditProfileActivity"
+            android:exported="false"/>
+        <activity
             android:name=".Activity.DetailUmkmActivity"
             android:exported="false" />
         <activity
@@ -59,6 +62,9 @@
             android:exported="false" />
         <activity
             android:name=".Activity.SplashLoginRegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.introActivity"

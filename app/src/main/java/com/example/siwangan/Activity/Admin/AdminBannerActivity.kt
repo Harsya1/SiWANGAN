@@ -1,5 +1,6 @@
 package com.example.siwangan.Activity.Admin
 
+import BannerAdminAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.siwangan.Activity.Admin.Create.BannerCreateActivity
-import com.example.siwangan.Adapter.BannerAdminAdapter
+//import com.example.siwangan.Adapter.BannerAdminAdapter
 import com.example.siwangan.Domain.itemBanner
 import com.example.siwangan.R
 import com.example.siwangan.ViewModel.BannerViewModel
@@ -65,7 +66,7 @@ class AdminBannerActivity : AppCompatActivity() {
                     LinearLayoutManager.VERTICAL,
                     false
                 )
-                recyclerView2.adapter = BannerAdminAdapter(itemBanner)
+                recyclerView2.adapter = BannerAdminAdapter(itemBanner.toMutableList())
                 progressBar3.visibility = View.GONE
             }
         }

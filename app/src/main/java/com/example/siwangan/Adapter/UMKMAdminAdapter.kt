@@ -2,6 +2,9 @@ package com.example.siwangan.Adapter
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,6 +13,7 @@ import com.example.siwangan.Activity.Admin.Update.UmkmUpdateActivity
 import com.example.siwangan.databinding.ViewholderUmkmAdminBinding
 import com.example.siwangan.Domain.itemUmkm
 import com.google.firebase.database.FirebaseDatabase
+import java.io.ByteArrayInputStream
 
 class UMKMAdminAdapter(val itemumkm: List<itemUmkm>) : RecyclerView.Adapter<UMKMAdminAdapter.ViewHolder>() {
 
@@ -28,8 +32,18 @@ class UMKMAdminAdapter(val itemumkm: List<itemUmkm>) : RecyclerView.Adapter<UMKM
             txtTitleUmkmAdmin.text = itemUmkm.titleumkm
             txtDescUmkmAdmin.text = itemUmkm.descriptionumkm
             txtContactUmkmAdmin.text = itemUmkm.contact
-            txtUrlPicUmkm.text = itemUmkm.picumkm
-            txtUrlMenuUmkm.text = itemUmkm.menu
+
+            val bitmapUmkm = base64ToBitmap(itemUmkm.picumkm)
+            val bitmapMenu = base64ToBitmap(itemUmkm.menu)
+
+            if (bitmapUmkm != null) {
+                imageViewUmkm.setImageBitmap(bitmapUmkm)
+            } else {
+                Toast.makeText(holder.itemView.context, "Gagal memuat gambar", Toast.LENGTH_SHORT).show()
+            }
+            if (bitmapMenu != null) {
+                imageViewMenu.setImageBitmap(bitmapMenu)
+            }
 
             // Intent ke UmkmUpdateActivity (Untuk buttonUpdate)
             buttonUpdate.setOnClickListener {
@@ -63,4 +77,16 @@ class UMKMAdminAdapter(val itemumkm: List<itemUmkm>) : RecyclerView.Adapter<UMKM
     }
 
     override fun getItemCount(): Int = itemumkm.size
+
+    // Fungsi untuk mengonversi Base64 menjadi Bitmap
+    private fun base64ToBitmap(base64Str: String): Bitmap? {
+        return try {
+            val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)
+            val inputStream = ByteArrayInputStream(decodedBytes)
+            BitmapFactory.decodeStream(inputStream)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }

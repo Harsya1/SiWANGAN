@@ -1,13 +1,18 @@
 package com.example.siwangan.Adapter
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import com.example.siwangan.Domain.Item
 import com.example.siwangan.databinding.ViewholderBannerBinding
+import java.io.ByteArrayInputStream
 
 class BannerAdapter(val items: MutableList<Item>) : RecyclerView.Adapter<BannerAdapter.ViewHolder>() {
 
@@ -22,12 +27,26 @@ class BannerAdapter(val items: MutableList<Item>) : RecyclerView.Adapter<BannerA
         val item = items[position]
         holder.binding.apply {
 
-            Glide.with(holder.itemView.context)
-                .load(item.url)
-                .apply(RequestOptions().transform(CenterCrop()))
-                .into(imageView2)
+            val bitmap = base64ToBitmap(item.url)
+            if (bitmap != null) {
+                imageView2.setImageBitmap(bitmap) // Menampilkan gambar di ImageView
+            } else {
+                Toast.makeText(holder.itemView.context, "Gagal memuat gambar", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
     override fun getItemCount(): Int = items.size
+
+    //base64ToBitmap digunakan untuk convert dari base64 ke image
+    private fun base64ToBitmap(base64Str: String): Bitmap? {
+        return try {
+            val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)
+            val inputStream = ByteArrayInputStream(decodedBytes)
+            BitmapFactory.decodeStream(inputStream)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }

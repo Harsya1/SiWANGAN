@@ -88,26 +88,48 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="16dp" />
 
-                <EditText
-                    android:id="@+id/dataUrlBanner"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/rounded_bg"
-                    android:hint="Masukkan URL Banner"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:textColor="@color/dark_blue"
-                    android:textColorHint="@color/dark_blue"
+                <ImageView
+                    android:id="@+id/imageViewBanner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="50dp"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dataIdBanner" />
+                    app:layout_constraintTop_toBottomOf="@+id/dataIdBanner"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Ukuran 724 X 301"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewBanner" />
+
+                <Button
+                    android:id="@+id/btnPickImage"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Ambil Foto"
+                    android:textAllCaps="false"
+                    android:background="@drawable/btn_rounded_blue"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
                 <Button
                     android:id="@+id/btnTambahDataBanner"
                     android:layout_width="200dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="200dp"
+                    android:layout_marginTop="100dp"
                     android:background="@drawable/btn_rounded_blue"
                     android:text="Tambah Data Banner"
                     android:textAllCaps="false"
@@ -115,7 +137,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dataUrlBanner" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnPickImage" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

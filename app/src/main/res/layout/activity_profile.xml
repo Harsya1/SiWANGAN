@@ -63,7 +63,6 @@
 
         <!-- Menu Item -->
         <LinearLayout
-            android:id="@+id/LihatProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -83,7 +82,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="16dp"
-                android:text="Lihat Profile"
                 android:textColor="#000000"
                 android:textSize="16sp" />
 
@@ -92,13 +90,11 @@
                 android:layout_width="15dp"
                 android:layout_height="20dp"
                 android:background="@drawable/btn_next_right"
-                android:onClick="openProfilePage"
                 android:contentDescription="Lihat Profil" />
         </LinearLayout>
 
         <!-- Ganti Password -->
         <LinearLayout
-            android:id="@+id/editPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -124,15 +120,14 @@
 
             <Button
                 android:id="@+id/buttonGantiPassword"
-                android:layout_width="18dp"
+                android:layout_width="15dp"
                 android:layout_height="20dp"
                 android:background="@drawable/btn_next_right"
-                android:contentDescription="Ganti Password"/>
+                android:contentDescription="Ganti Password" />
         </LinearLayout>
 
         <!-- Tentang Aplikasi -->
         <LinearLayout
-            android:id="@+id/tentangAplikasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -161,7 +156,6 @@
                 android:layout_width="15dp"
                 android:layout_height="20dp"
                 android:background="@drawable/btn_next_right"
-                android:onClick="aboutAppPage"
                 android:contentDescription="Tentang Aplikasi" />
         </LinearLayout>
 
@@ -174,7 +168,8 @@
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:onClick="logoutPage">
 
             <ImageView
                 android:layout_width="24dp"
@@ -195,6 +190,7 @@
                 android:layout_width="15dp"
                 android:layout_height="20dp"
                 android:background="@drawable/btn_next_right"
+                android:onClick="logoutPage"
                 android:contentDescription="Keluar Akun" />
         </LinearLayout>
     </LinearLayout>

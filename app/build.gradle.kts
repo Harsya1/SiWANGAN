@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
-    id("kotlin-kapt")
 }
 
 android {
@@ -53,10 +52,14 @@ android {
 }
 
 dependencies {
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+}
+
+
+dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:32.0.0")) // Gunakan versi terbaru Firebase BOM
     implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation ("com.github.bumptech.glide:glide:4.15.1")
     implementation ("androidx.fragment:fragment-ktx:1.6.2")
     implementation ("androidx.activity:activity-ktx:1.8.1")
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
@@ -65,6 +68,8 @@ dependencies {
     implementation ("com.google.firebase:firebase-database-ktx:21.0.0")
     implementation ("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
     implementation ("com.google.android.gms:play-services-auth:21.1.0")
+    implementation("com.google.zxing:core:3.4.1")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
 
     implementation(libs.androidx.core.ktx)

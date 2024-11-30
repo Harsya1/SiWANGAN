@@ -52,10 +52,16 @@
             android:name=".Activity.Admin.AdminActivity"
             android:exported="true" />
         <activity
+            android:name=".Activity.EditProfileActivity"
+            android:exported="false"/>
+        <activity
             android:name=".Activity.DetailUmkmActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.DetailLayananActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.UmkmFragment"
             android:exported="false" />
         <activity
             android:name=".Activity.RegisterActivity"

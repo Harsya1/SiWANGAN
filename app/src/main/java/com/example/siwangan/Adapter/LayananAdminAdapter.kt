@@ -2,6 +2,9 @@ package com.example.siwangan.Adapter
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -15,6 +18,7 @@ import com.example.siwangan.Activity.Admin.Update.UmkmUpdateActivity
 import com.example.siwangan.Domain.itemLayanan
 import com.example.siwangan.databinding.ViewholderLayananAdminBinding
 import com.google.firebase.database.FirebaseDatabase
+import java.io.ByteArrayInputStream
 
 class LayananAdminAdapter(val items: List<itemLayanan>) : RecyclerView.Adapter<LayananAdminAdapter.ViewHolder>() {
 
@@ -32,7 +36,13 @@ class LayananAdminAdapter(val items: List<itemLayanan>) : RecyclerView.Adapter<L
             txtHargaLayanan.text = "${itemLayanan.price}"
             txtDescLayananAdmin.text = itemLayanan.description
             txtScoreLayanan.text = itemLayanan.score.toString()
-            txtUrlPicLayanan.text = itemLayanan.description
+
+            val bitmap = base64ToBitmap(itemLayanan.pic)
+            if (bitmap != null) {
+                imageViewHolderLayanan.setImageBitmap(bitmap)
+            } else {
+                Toast.makeText(holder.itemView.context, "Gagal memuat gambar", Toast.LENGTH_SHORT).show()
+            }
 
             buttonUpdateLayanan.setOnClickListener {
                 val intent = Intent(holder.itemView.context, LayananUpdateActivity::class.java)
@@ -64,4 +74,15 @@ class LayananAdminAdapter(val items: List<itemLayanan>) : RecyclerView.Adapter<L
     }
 
     override fun getItemCount(): Int = items.size
+    // Fungsi untuk mengonversi Base64 menjadi Bitmap
+    private fun base64ToBitmap(base64Str: String): Bitmap? {
+        return try {
+            val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)
+            val inputStream = ByteArrayInputStream(decodedBytes)
+            BitmapFactory.decodeStream(inputStream)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }

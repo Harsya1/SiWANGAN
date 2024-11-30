@@ -153,49 +153,45 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtData3" />
 
-                <TextView
-                    android:id="@+id/txtData4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="Data4"
-                    android:textAlignment="center"
-                    android:textColor="@color/dark_blue"
+
+                <ImageView
+                    android:id="@+id/imageViewUpdateLayanan"
+                    android:layout_width="400dp"
+                    android:layout_height="400dp"
+                    android:layout_marginTop="32dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/updateData3"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <Button
+                    android:id="@+id/pilihFotoLayanan"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/btn_rounded_blue"
+                    android:text="Pilih Foto"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/updateData3" />
-
-                <EditText
-                    android:id="@+id/updateData4"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/rounded_bg"
-                    android:hint="Masukkan Data baru"
-                    android:paddingStart="20dp"
-                    android:textColor="@color/dark_blue"
-                    android:textColorHint="@color/dark_blue"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtData4" />
-
-
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewUpdateLayanan" />
 
                 <Button
                     android:id="@+id/btnUpdateData"
                     android:layout_width="200dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="100dp"
                     android:background="@drawable/btn_rounded_blue"
                     android:text="Update Data"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/updateData4" />
+                    app:layout_constraintTop_toBottomOf="@+id/pilihFotoLayanan" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

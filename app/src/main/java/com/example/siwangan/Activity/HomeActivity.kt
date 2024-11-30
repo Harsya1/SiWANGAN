@@ -1,16 +1,24 @@
 package com.example.siwangan.Activity
 
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.siwangan.Adapter.BannerAdapter
 import com.example.siwangan.Adapter.LayananAdapter
 import com.example.siwangan.Adapter.UMKMAdapter
+import com.example.siwangan.R
 import com.example.siwangan.ViewModel.BannerViewModel
 import com.example.siwangan.ViewModel.MainViewModel
 import com.example.siwangan.ViewModel.UMKMViewModel
@@ -57,8 +65,12 @@ class HomeFragment : Fragment() {
                 initBanner()
             }
         }
-        // Inisialisasi Slider
-        //setupSliderAndIndicators()
+        binding.selengkapnyaUmkm.setOnClickListener{
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.main_fragment, UmkmFragment()) // Ganti fragment_container dengan ID container Anda
+            transaction.addToBackStack(null) // Tambahkan ke back stack (opsional, untuk navigasi back)
+            transaction.commit()
+        }
     }
 
     private fun setupSearchField() {
@@ -125,18 +137,94 @@ class HomeFragment : Fragment() {
     private fun initBanner() {
         binding.apply {
             progressBarBanner.visibility = View.VISIBLE
-            // Mengamati perubahan data dari ViewModel
+
             viewBanner.load().observe(viewLifecycleOwner) { BannerList ->
+                val bannerAdapter = BannerAdapter(BannerList)
                 viewPager.layoutManager = LinearLayoutManager(
                     requireContext(),
                     LinearLayoutManager.HORIZONTAL,
                     false
                 )
-                viewPager.adapter = BannerAdapter(BannerList)
+                viewPager.adapter = bannerAdapter
+
+                // Setup indikator
+                setupIndicators(BannerList.size)
+                updateIndicator(0)
+
+                // Auto-scroll dengan handler
+                val handler = android.os.Handler()
+                val runnable = object : Runnable {
+                    var currentPosition = 0
+                    override fun run() {
+                        if (bannerAdapter.itemCount > 0) {
+                            currentPosition = (currentPosition + 1) % bannerAdapter.itemCount
+                            viewPager.smoothScrollToPosition(currentPosition)
+                            updateIndicator(currentPosition)
+                        }
+                        handler.postDelayed(this, 5000)
+                    }
+                }
+                handler.postDelayed(runnable, 5000)
+
+                // Bersihkan handler saat fragment dihancurkan
+                viewLifecycleOwner.lifecycle.addObserver(
+                    object : androidx.lifecycle.DefaultLifecycleObserver {
+                        override fun onDestroy(owner: androidx.lifecycle.LifecycleOwner) {
+                            handler.removeCallbacks(runnable)
+                        }
+                    }
+                )
+
                 progressBarBanner.visibility = View.GONE
             }
         }
     }
+
+
+    private fun setupIndicators(count: Int) {
+        binding.sliderIndicators.removeAllViews() // Hapus indikator lama
+
+        // Tambahkan indikator ke dalam LinearLayout
+        for (i in 0 until count) {
+            val indicator = View(requireContext()).apply {
+                layoutParams = LinearLayout.LayoutParams(
+                    8.dpToPx(), // Lebar default 8dp
+                    10.dpToPx() // Tinggi default 10dp
+                ).apply {
+                    marginStart = 20.dpToPx()
+                    marginEnd = 20.dpToPx()
+                }
+                background = requireContext().getDrawable(R.drawable.indicator_inactive)
+            }
+            binding.sliderIndicators.addView(indicator)
+        }
+
+        // Set indikator awal sebagai aktif
+        updateIndicator(0) // Indikator awal
+    }
+
+    private fun updateIndicator(activePosition: Int) {
+        val indicatorCount = binding.sliderIndicators.childCount
+
+        for (i in 0 until indicatorCount) {
+            val indicator = binding.sliderIndicators.getChildAt(i)
+
+            // Perbarui ukuran dan drawable untuk indikator aktif dan tidak aktif
+            val layoutParams = indicator.layoutParams as LinearLayout.LayoutParams
+            if (i == activePosition) {
+                layoutParams.width = 70.dpToPx() // Lebar 50dp untuk aktif
+                indicator.background = requireContext().getDrawable(R.drawable.indicator_active)
+            } else {
+                layoutParams.width = 8.dpToPx() // Lebar 8dp untuk tidak aktif
+                indicator.background = requireContext().getDrawable(R.drawable.indicator_inactive)
+            }
+            indicator.layoutParams = layoutParams
+        }
+    }
+
+    // Extension function to convert dp to px
+    private fun Int.dpToPx(): Int = (this * resources.displayMetrics.density).toInt()
+
 
     private fun initUmkm() {
         binding.apply {

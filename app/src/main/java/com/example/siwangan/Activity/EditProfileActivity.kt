@@ -2,94 +2,126 @@ package com.example.siwangan.Activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siwangan.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-
+import com.google.firebase.database.*
 
 class EditProfileActivity : AppCompatActivity() {
-    private var mAuth: FirebaseAuth? = null
-    private var mDatabase: DatabaseReference? = null
-    private var valueNamaLengkap: TextView? = null
-    private var valueNomorTelepon: TextView? = null
-    private var valueAlamat: TextView? = null
-    private var valueJenisKelamin: TextView? = null
-    private var btnEditProfile: Button? = null
-    private var btnHapusAkun: Button? = null
+
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var mDatabase: DatabaseReference
+    private lateinit var valueNamaLengkap: TextView
+    private lateinit var valueNomorTelepon: TextView
+    private lateinit var valueAlamat: TextView
+    private lateinit var valueJenisKelamin: TextView
+    private lateinit var btnEditProfile: Button
+    private lateinit var btnHapusAkun: Button
+    private lateinit var backButton: Button
+
+
+
+    private val REQUEST_CODE_UPDATE_PROFILE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
+        // Inisialisasi Firebase Auth dan Database Reference
         mAuth = FirebaseAuth.getInstance()
         mDatabase = FirebaseDatabase.getInstance().reference
 
-        valueNamaLengkap = findViewById<TextView>(R.id.valueNamaLengkap)
-        valueNomorTelepon = findViewById<TextView>(R.id.valueNomorTelepon)
-        valueAlamat = findViewById<TextView>(R.id.valueAlamat)
-        valueJenisKelamin = findViewById<TextView>(R.id.valueJenisKelamin)
+        // Inisialisasi View
+        valueNamaLengkap = findViewById(R.id.valueNamaLengkap)
+        valueNomorTelepon = findViewById(R.id.valueNomorTelepon)
+        valueAlamat = findViewById(R.id.valueAlamat)
+        valueJenisKelamin = findViewById(R.id.valueJenisKelamin)
+        btnEditProfile = findViewById(R.id.btnEditProfile)
+        btnHapusAkun = findViewById(R.id.btnHapusAkun)
+        backButton = findViewById(R.id.backButton3)
 
-        btnEditProfile = findViewById<Button>(R.id.btnEditProfile)
-        btnHapusAkun = findViewById<Button>(R.id.btnHapusAkun)
+        val currentUser = mAuth.currentUser
+        if (currentUser != null) {
+            // Menampilkan data user dari Firebase
+            fetchUserData(currentUser.uid)
 
-        // Menampilkan data user dari Firebase
-        val userId = mAuth!!.currentUser!!.uid
-        mDatabase!!.child("users").child(userId)
+            // Mengarahkan ke TambahProfileActivity saat tombol EditProfile dipencet
+            btnEditProfile.setOnClickListener {
+                val intent = Intent(this, TambahProfileActivity::class.java)
+                intent.putExtra("USER_ID", currentUser.uid)
+                startActivityForResult(intent, REQUEST_CODE_UPDATE_PROFILE)
+            }
+
+            backButton.setOnClickListener {
+                finish()
+            }
+
+            // Fungsi keluar akun saat tombol hapus akun dipencet
+            btnHapusAkun.setOnClickListener {
+                logoutUser()
+            }
+
+        } else {
+            Log.e("EditProfileActivity", "User not logged in!")
+            // Redirect ke LoginActivity jika tidak ada user yang login
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    // Fungsi untuk mengambil data user dari Firebase
+    private fun fetchUserData(userId: String) {
+        mDatabase.child("Users").child(userId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        val namaLengkap = dataSnapshot.child("namaLengkap").getValue(
-                            String::class.java
-                        )
-                        val nomorTelepon = dataSnapshot.child("nomorTelepon").getValue(
-                            String::class.java
-                        )
-                        val alamat = dataSnapshot.child("alamat").getValue(
-                            String::class.java
-                        )
-                        val jenisKelamin = dataSnapshot.child("jenisKelamin").getValue(
-                            String::class.java
-                        )
+                        // Ambil data dari database
+                        val namaLengkap = dataSnapshot.child("name").getValue(String::class.java)
+                        val nomorTelepon = dataSnapshot.child("phone").getValue(String::class.java)
+                        val alamat = dataSnapshot.child("address").getValue(String::class.java)
+                        val jenisKelamin = dataSnapshot.child("gender").getValue(String::class.java)
 
-                        valueNamaLengkap?.setText(namaLengkap)
-                        valueNomorTelepon?.setText(nomorTelepon)
-                        valueAlamat?.setText(alamat)
-                        valueJenisKelamin?.setText(jenisKelamin)
+                        // Update UI untuk nama lengkap dan nomor telepon
+                        valueNamaLengkap.text = namaLengkap ?: "N/A"
+                        valueNomorTelepon.text = nomorTelepon ?: "N/A"
+                        valueAlamat.text = alamat ?: "Tambah Alamat"
+                        valueJenisKelamin.text = jenisKelamin ?: "Tambah Jenis Kelamin"
+                    } else {
+                        Log.e("EditProfileActivity", "Data snapshot does not exist!")
                     }
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle possible errors
+                    Log.e("EditProfileActivity", "Database error: ${databaseError.message}")
                 }
             })
+    }
 
-        // Mengarahkan ke TambahProfileActivity saat tombol EditProfile dipencet
-        btnEditProfile?.setOnClickListener(View.OnClickListener {
-            val intent = Intent(
-                this@EditProfileActivity,
-                TambahProfileActivity::class.java
-            )
-            startActivity(intent)
-        })
+    // Fungsi untuk logout
+    private fun logoutUser() {
+        mAuth.signOut() // Keluar dari akun Firebase
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish()
+    }
 
-        // Fungsi keluar akun saat tombol hapus akun dipencet
-        btnHapusAkun?.setOnClickListener(View.OnClickListener {
-            mAuth!!.signOut() // Keluar dari akun Firebase
-            val intent = Intent(
-                this@EditProfileActivity,
-                LoginActivity::class.java
-            )
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // Bersihkan stack activity
-            startActivity(intent)
-            finish()
-        })
+    // Menangani hasil dari TambahProfileActivity
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_CODE_UPDATE_PROFILE && resultCode == RESULT_OK) {
+            // Ambil data yang dikirim dari TambahProfileActivity
+            val newAddress = data?.getStringExtra("NEW_ADDRESS")
+            val newGender = data?.getStringExtra("NEW_GENDER")
+
+            // Update tampilan di EditProfileActivity
+            valueAlamat.text = newAddress ?: "Alamat Tidak Ditemukan"
+            valueJenisKelamin.text = newGender ?: "Jenis Kelamin Tidak Ditemukan"
+        }
     }
 }

@@ -3,7 +3,6 @@ package com.example.siwangan.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -22,12 +21,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class RegisterActivity : AppCompatActivity() {
-    private var nameInput: EditText? = null
-    private var phoneInput: EditText? = null
-    private var passwordInput: EditText? = null
-    private var confirmPasswordInput: EditText? = null
-    private var mAuth: FirebaseAuth? = null
-    private var databaseReference: DatabaseReference? = null
+    private lateinit var nameInput: EditText
+    private lateinit var phoneInput: EditText
+    private lateinit var passwordInput: EditText
+    private lateinit var confirmPasswordInput: EditText
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var databaseReference: DatabaseReference
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 100 // Request code untuk Google Sign-In
 
@@ -35,15 +34,16 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         supportActionBar?.hide()
+
         // Inisialisasi Firebase
         mAuth = FirebaseAuth.getInstance()
         databaseReference = FirebaseDatabase.getInstance().getReference("Users")
 
         // Hubungkan komponen XML ke kode
-        nameInput = findViewById(R.id.nameInput) // Nama
-        phoneInput = findViewById(R.id.phoneInput) // Nomor telepon
-        passwordInput = findViewById(R.id.passwordInput) // Password
-        confirmPasswordInput = findViewById(R.id.confirmPasswordInput) // Konfirmasi password
+        nameInput = findViewById(R.id.nameInput)
+        phoneInput = findViewById(R.id.phoneInput)
+        passwordInput = findViewById(R.id.passwordInput)
+        confirmPasswordInput = findViewById(R.id.confirmPasswordInput)
         val btnRegister = findViewById<Button>(R.id.registerButton)
         val signInWithGoogleButton: ImageButton = findViewById(R.id.googleSignupButton)
         val backButton = findViewById<ImageButton>(R.id.backButton)
@@ -68,40 +68,39 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         // Tombol Daftar Manual
-        btnRegister.setOnClickListener { v: View? ->
-            val name = nameInput?.text.toString().trim { it <= ' ' }
-            val phone = phoneInput?.text.toString().trim { it <= ' ' }
-            val password = passwordInput?.text.toString().trim { it <= ' ' }
-            val confirmPassword = confirmPasswordInput?.text.toString().trim { it <= ' ' }
+        btnRegister.setOnClickListener {
+            val name = nameInput.text.toString().trim()
+            val phone = phoneInput.text.toString().trim()
+            val password = passwordInput.text.toString().trim()
+            val confirmPassword = confirmPasswordInput.text.toString().trim()
 
             // Validasi input
             if (TextUtils.isEmpty(name)) {
-                nameInput?.error = "Masukkan nama!"
+                nameInput.error = "Masukkan nama!"
                 return@setOnClickListener
             }
             if (TextUtils.isEmpty(phone)) {
-                phoneInput?.error = "Masukkan nomor telepon!"
+                phoneInput.error = "Masukkan nomor telepon!"
                 return@setOnClickListener
             }
             if (TextUtils.isEmpty(password)) {
-                passwordInput?.error = "Masukkan password!"
+                passwordInput.error = "Masukkan password!"
                 return@setOnClickListener
             }
             if (password != confirmPassword) {
-                confirmPasswordInput?.error = "Password tidak cocok!"
+                confirmPasswordInput.error = "Password tidak cocok!"
                 return@setOnClickListener
             }
 
             // Registrasi pengguna
             val email = "$phone@example.com" // Pola email dari nomor telepon
-            mAuth!!.createUserWithEmailAndPassword(email, password)
+            mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        // Simpan data pengguna ke Realtime Database
-                        val user: FirebaseUser = mAuth!!.currentUser!!
+                        val user: FirebaseUser = mAuth.currentUser!!
                         val userId: String = user.uid
                         val newUser = User(name, phone, email)
-                        databaseReference!!.child(userId).setValue(newUser)
+                        databaseReference.child(userId).setValue(newUser)
                             .addOnCompleteListener { task1 ->
                                 if (task1.isSuccessful) {
                                     Toast.makeText(
@@ -109,6 +108,7 @@ class RegisterActivity : AppCompatActivity() {
                                         "Registrasi berhasil!",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    // Arahkan ke LoginActivity
                                     startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                                     finish()
                                 } else {
@@ -145,19 +145,18 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-        mAuth!!.signInWithCredential(credential)
+        mAuth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val user = mAuth!!.currentUser
+                    val user = mAuth.currentUser
                     user?.let {
                         val name = it.displayName ?: "Pengguna Google"
                         val email = it.email ?: "Tidak ada email"
                         val phone = "Google User"
 
-                        // Simpan data pengguna ke Realtime Database
                         val userId = it.uid
                         val newUser = User(name, phone, email)
-                        databaseReference!!.child(userId).setValue(newUser)
+                        databaseReference.child(userId).setValue(newUser)
                             .addOnCompleteListener { task1 ->
                                 if (task1.isSuccessful) {
                                     Toast.makeText(
@@ -185,10 +184,9 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
+
     // Override tombol back
     override fun onBackPressed() {
-        super.onBackPressed()
-        // Arahkan kembali ke SplashLoginRegisterActivity
         val intent = Intent(this, SplashLoginRegisterActivity::class.java)
         startActivity(intent)
         finish()

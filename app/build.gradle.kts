@@ -53,15 +53,10 @@ android {
 }
 
 dependencies {
-    implementation ("com.github.bumptech.glide:glide:4.15.1")
-    kapt ("com.github.bumptech.glide:compiler:4.15.1")
-}
-
-
-dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:32.0.0")) // Gunakan versi terbaru Firebase BOM
     implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
     implementation ("androidx.fragment:fragment-ktx:1.6.2")
     implementation ("androidx.activity:activity-ktx:1.8.1")
     implementation ("androidx.viewpager2:viewpager2:1.0.0")

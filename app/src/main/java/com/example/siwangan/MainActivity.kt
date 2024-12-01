@@ -1,15 +1,11 @@
 package com.example.siwangan
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siwangan.Activity.BenefitActivity
 import com.example.siwangan.Activity.HomeFragment
-import com.example.siwangan.Activity.ProfileActivity
+import com.example.siwangan.Activity.ProfileFragment
 import com.example.siwangan.Activity.UmkmFragment
 import com.example.siwangan.databinding.ActivityMainBinding
 
@@ -68,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.ProfileFragment -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_fragment, ProfileActivity())
+                        .replace(R.id.main_fragment, ProfileFragment())
                         .commitAllowingStateLoss()
                 }
             }

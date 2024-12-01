@@ -16,6 +16,15 @@
             android:name=".Activity.BookingTicket.BookingActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.GantiPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.TambahProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.EditProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Admin.Update.BannerUpdateActivity"
             android:exported="false" />
         <activity

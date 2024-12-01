@@ -33,10 +33,10 @@ class LayananAdapter(val items: List<Item>) : RecyclerView.Adapter<LayananAdapte
             descTxt.text = item.description
             scoreTxt.text = item.score.toString()
 
-            val bitmapUmkm = base64ToBitmap(item.picumkm)
+            val bitmapLayanan = base64ToBitmap(item.pic)
 
-            if (bitmapUmkm != null) {
-                imageView2.setImageBitmap(bitmapUmkm)
+            if (bitmapLayanan != null) {
+                imageView2.setImageBitmap(bitmapLayanan)
             } else {
                 Toast.makeText(holder.itemView.context, "Gagal memuat gambar", Toast.LENGTH_SHORT).show()
             }

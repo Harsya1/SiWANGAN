@@ -56,6 +56,10 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.1")
 //    kapt("com.github.bumptech.glide:compiler:4.15.1")
 
+    // ZXing dependencies
+    implementation("com.google.zxing:core:3.4.1")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
     // Firebase dependencies
     implementation(platform("com.google.firebase:firebase-bom:32.0.0"))
     implementation("com.google.firebase:firebase-auth:23.1.0")

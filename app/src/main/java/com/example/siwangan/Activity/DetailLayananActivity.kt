@@ -1,5 +1,6 @@
 package com.example.siwangan.Activity
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -27,6 +28,11 @@ class DetailLayananActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         getBundle()
+
+        binding.btnWhatsapp.setOnClickListener {
+            val intent = Intent(this, DetailLayananActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

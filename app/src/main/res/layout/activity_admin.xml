@@ -48,7 +48,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="650dp"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
@@ -167,6 +167,83 @@
                 app:srcCompat="@drawable/btn_next_right" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/view3"
+            android:layout_width="340dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:background="@color/dark_blue" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/adminScanQrActivity"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_bg">
+
+            <TextView
+                android:id="@+id/adminScanTiket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Scan Tiket "
+                android:textColor="@color/dark_blue"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/lihatTiket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_next_right" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="340dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:background="@color/dark_blue" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/adminTransaksiSelesaiActivity"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_bg">
+
+            <TextView
+                android:id="@+id/adminSelesai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Riwayat Pesanan Tiket"
+                android:textColor="@color/dark_blue"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/lihatTranaksiSelesai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_next_right" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <Button
             android:id="@+id/btnAdminLogout"
             android:background="@drawable/round_button_logout_admin"
@@ -176,7 +253,7 @@
             android:textAllCaps="false"
             android:layout_gravity="center_horizontal"
             android:textColor="#FF0303"
-            android:layout_marginTop="280dp"/>
+            android:layout_marginTop="100dp"/>
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

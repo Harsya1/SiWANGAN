@@ -27,7 +27,6 @@ class DetailLayananActivity : AppCompatActivity() {
         binding = ActivityDetailLayananBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
         getBundle()
 
         binding.btnWhatsapp.setOnClickListener {

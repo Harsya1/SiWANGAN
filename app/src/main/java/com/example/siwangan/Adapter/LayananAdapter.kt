@@ -35,6 +35,7 @@ class LayananAdapter(val items: List<Item>) : RecyclerView.Adapter<LayananAdapte
 
             val bitmapLayanan = base64ToBitmap(item.pic)
 
+
             if (bitmapLayanan != null) {
                 imageView2.setImageBitmap(bitmapLayanan)
             } else {

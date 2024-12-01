@@ -68,11 +68,13 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx:21.0.0")
 
     // AndroidX and other dependencies
+    implementation ("com.google.android.material:material:1.9.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.activity:activity-ktx:1.8.1")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     implementation("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
     implementation("com.google.android.gms:play-services-auth:21.1.0")
+
 
     // Jetpack Compose and UI components
     implementation(libs.androidx.core.ktx)

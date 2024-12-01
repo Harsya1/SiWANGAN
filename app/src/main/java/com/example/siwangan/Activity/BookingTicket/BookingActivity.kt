@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siwangan.databinding.ActivityBookingBinding
+import java.text.SimpleDateFormat
 import java.util.*
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBookingBinding
     private lateinit var KodeBooking: String
     private var quantity: Int = 0
+    private lateinit var selectedDate: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +23,28 @@ class BookingActivity : AppCompatActivity() {
 
         setUniqueCode()
         setupListeners()
+
+//
+//        val calendar = Calendar.getInstance()
+//        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+//            calendar.set(Calendar.YEAR, year)
+//            calendar.set(Calendar.MONTH, month)
+//            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+//            val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+//            binding.etTanggal.setText(dateFormat.format(calendar.time))
+//        }
+//
+//        val datePickerDialog = DatePickerDialog(
+//            this,
+//            dateSetListener,
+//            calendar.get(Calendar.YEAR),
+//            calendar.get(Calendar.MONTH),
+//            calendar.get(Calendar.DAY_OF_MONTH)
+//        )
+//
+//        binding.txtFieldDat.setOnClickListener {
+//            datePickerDialog.show()
+//        }
     }
 
     private fun generateUniqueCode(): String {

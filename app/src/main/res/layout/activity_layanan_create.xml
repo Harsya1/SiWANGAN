@@ -140,7 +140,7 @@
                     android:layout_width="400dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:text="Pilih Foto Menu UMKM \n 400 X 400"
+                    android:text="Pilih Foto Layanan \n 400 X 400"
                     android:textAlignment="center"
                     android:textColor="@color/dark_blue"
                     android:textSize="16sp"

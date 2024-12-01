@@ -1,7 +1,9 @@
 package com.example.siwangan.Activity
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.siwangan.Domain.Item
 import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityDetailUmkmBinding
+import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayInputStream
 
 class DetailUmkmActivity : AppCompatActivity() {
@@ -27,7 +30,33 @@ class DetailUmkmActivity : AppCompatActivity() {
 
         getBundle()
 
+        binding.btnMassageWhatsapp.setOnClickListener {
+            sendWhatsAppMessage()
+        }
+
     }
+
+    private fun sendWhatsAppMessage() {
+        item = intent.getParcelableExtra("item")!!
+
+        val adminNumber = item.contact
+
+        val message = """
+        Halo Kak,
+        Saya ingin melakukan pemesanan makanan
+    """.trimIndent()
+
+        try {
+            val intent = Intent(Intent.ACTION_VIEW)
+            val url = "https://api.whatsapp.com/send?phone=$adminNumber&text=${Uri.encode(message)}"
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        } catch (e: Exception) {
+            Snackbar.make(findViewById(android.R.id.content), "Gagal membuka WhatsApp. Pastikan WhatsApp terpasang.", Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+
 
     private fun getBundle() {
         item = intent.getParcelableExtra("item")!!
@@ -39,13 +68,16 @@ class DetailUmkmActivity : AppCompatActivity() {
                 finish()
             }
 
-            Glide.with(this@DetailUmkmActivity)
-                .load(item.picumkm)
-                .into(imgUmkm)
+            val bitmapUmkm = base64ToBitmap(item.picumkm) // Assuming `item.pic` contains the Base64 string
+            if (bitmapUmkm != null) {
+                imgUmkm.setImageBitmap(bitmapUmkm)
+            }
 
-            Glide.with(this@DetailUmkmActivity)
-                .load(item.menu)
-                .into(imageMenu)
+            val bitmapMenu = base64ToBitmap(item.menu) // Assuming `item.pic` contains the Base64 string
+            if (bitmapMenu != null) {
+                imageMenu.setImageBitmap(bitmapMenu)
+            }
+
         }
     }
     private fun base64ToBitmap(base64Str: String): Bitmap? {

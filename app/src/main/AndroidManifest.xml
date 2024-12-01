@@ -61,6 +61,9 @@
             android:name=".Activity.DetailLayananActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.UmkmFragment"
+            android:exported="false" />
+        <activity
             android:name=".Activity.RegisterActivity"
             android:exported="false" />
         <activity

@@ -1,8 +1,12 @@
 package com.example.siwangan.Adapter
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -10,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.siwangan.Activity.DetailLayananActivity
 import com.example.siwangan.Domain.Item
 import com.example.siwangan.databinding.ViewholderLayananBinding
+import java.io.ByteArrayInputStream
 
 class LayananAdapter(val items: List<Item>) : RecyclerView.Adapter<LayananAdapter.ViewHolder>() {
 
@@ -28,10 +33,13 @@ class LayananAdapter(val items: List<Item>) : RecyclerView.Adapter<LayananAdapte
             descTxt.text = item.description
             scoreTxt.text = item.score.toString()
 
-            Glide.with(holder.itemView.context)
-                .load(item.pic)
-                .apply(RequestOptions().transform(CenterCrop()))
-                .into(imageView2)
+            val bitmapUmkm = base64ToBitmap(item.picumkm)
+
+            if (bitmapUmkm != null) {
+                imageView2.setImageBitmap(bitmapUmkm)
+            } else {
+                Toast.makeText(holder.itemView.context, "Gagal memuat gambar", Toast.LENGTH_SHORT).show()
+            }
 
             holder.binding.root.setOnClickListener {
                 val intent = Intent(holder.itemView.context, DetailLayananActivity::class.java)
@@ -43,4 +51,16 @@ class LayananAdapter(val items: List<Item>) : RecyclerView.Adapter<LayananAdapte
     }
 
     override fun getItemCount(): Int = items.size
+
+    //base64ToBitmap digunakan untuk convert dari base64 ke image
+    private fun base64ToBitmap(base64Str: String): Bitmap? {
+        return try {
+            val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)
+            val inputStream = ByteArrayInputStream(decodedBytes)
+            BitmapFactory.decodeStream(inputStream)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }

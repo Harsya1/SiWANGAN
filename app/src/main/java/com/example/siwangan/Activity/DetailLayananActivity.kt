@@ -32,6 +32,7 @@ class DetailLayananActivity : AppCompatActivity() {
 
         binding.btnWhatsapp.setOnClickListener {
             val intent = Intent(this, BookingActivity::class.java)
+            intent.putExtra("item", item)
             startActivity(intent)
         }
 

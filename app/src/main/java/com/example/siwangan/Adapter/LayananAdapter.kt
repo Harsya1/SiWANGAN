@@ -34,7 +34,6 @@ class LayananAdapter(val items: List<ItemHolder>) : RecyclerView.Adapter<Layanan
             scoreTxt.text = item.score.toString()
 
             val bitmapLayanan = base64ToBitmap(item.pic)
-
             if (bitmapLayanan != null) {
                 imageView2.setImageBitmap(bitmapLayanan)
             } else {

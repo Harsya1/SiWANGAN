@@ -21,6 +21,9 @@ class DetailLayananActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = ActivityDetailLayananBinding.inflate(layoutInflater)
+        val title = intent.getStringExtra("title")
+        val description = intent.getStringExtra("description")
+        val price = intent.getStringExtra("price")
 
         setContentView(binding.root)
         val item = intent.getParcelableExtra<Item>("item")
@@ -36,9 +39,9 @@ class DetailLayananActivity : AppCompatActivity() {
     private fun getBundle() {
         item = intent.getParcelableExtra("item")!!
         binding.apply {
-            txtTitle.text = item?.title
-            txtDesc.text = item?.description
-            txtHarga.text = item?.price
+            txtTitle.text =title
+            txtDesc.text = description
+            txtHarga.text =price
 
             imgBack.setOnClickListener { finish() }
         }

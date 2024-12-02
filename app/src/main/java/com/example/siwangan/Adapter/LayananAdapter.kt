@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siwangan.Activity.DetailLayananActivity
+import com.example.siwangan.Domain.Item
+import com.example.siwangan.Helper.ImageCache
+
 import com.example.siwangan.Domain.ItemHolder
 import com.example.siwangan.databinding.ViewholderLayananBinding
 import java.io.ByteArrayInputStream
@@ -32,7 +35,6 @@ class LayananAdapter(val items: List<ItemHolder>) : RecyclerView.Adapter<Layanan
 
             val bitmapLayanan = base64ToBitmap(item.pic)
 
-
             if (bitmapLayanan != null) {
                 imageView2.setImageBitmap(bitmapLayanan)
             } else {
@@ -40,17 +42,23 @@ class LayananAdapter(val items: List<ItemHolder>) : RecyclerView.Adapter<Layanan
             }
 
             holder.binding.root.setOnClickListener {
-                val intent = Intent(holder.itemView.context, DetailLayananActivity::class.java)
-                intent.putExtra("item", items[position]) // Mengirim data item ke aktivitas berikutnya
-                holder.itemView.context.startActivity(intent) // Memulai aktivitas
-            }
+                // Simpan gambar ke cache
+                ImageCache.base64Image = item.pic
 
+                // Kirim data selain gambar
+                val intent = Intent(holder.itemView.context, DetailLayananActivity::class.java)
+                intent.putExtra("title", item.title)
+                intent.putExtra("description", item.description)
+                intent.putExtra("price", item.price)
+                intent.putExtra("score", item.score)
+                holder.itemView.context.startActivity(intent)
+            }
         }
     }
 
     override fun getItemCount(): Int = items.size
 
-    //base64ToBitmap digunakan untuk convert dari base64 ke image
+    // base64ToBitmap digunakan untuk convert dari base64 ke image
     private fun base64ToBitmap(base64Str: String): Bitmap? {
         return try {
             val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)

@@ -28,8 +28,8 @@ class ProfileFragment : Fragment() {
     private lateinit var mDatabase: DatabaseReference
     private lateinit var profileName: TextView
     private lateinit var profileIcon: ImageView
-    private lateinit var buttonLihatProfile: Button
-    private lateinit var buttonGantiPassword: Button
+//    private lateinit var buttonLihatProfile: Button
+//    private lateinit var buttonGantiPassword: Button
 
     private var uri: Uri? = null
 

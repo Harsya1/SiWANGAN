@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.siwangan.Activity.BenefitActivity
 import com.example.siwangan.Activity.HomeFragment
 import com.example.siwangan.Activity.ProfileFragment
-import com.example.siwangan.Activity.UmkmFragment
+import com.example.siwangan.Activity.UmkmActivity
 import com.example.siwangan.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.UmkmFragment -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_fragment, UmkmFragment())
+                        .replace(R.id.main_fragment, UmkmActivity())
                         .commitAllowingStateLoss()
                 }
                 R.id.BenefitFragment -> {

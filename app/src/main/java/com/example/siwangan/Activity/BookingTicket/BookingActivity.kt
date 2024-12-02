@@ -13,6 +13,7 @@ import com.example.siwangan.Domain.Item
 import com.example.siwangan.Domain.User
 import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityBookingBinding
+import com.google.firebase.auth.FirebaseAuth
 import java.io.ByteArrayInputStream
 import java.util.ResourceBundle.getBundle
 import java.text.SimpleDateFormat
@@ -20,6 +21,7 @@ import java.util.*
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBookingBinding
+    private lateinit var auth : FirebaseAuth
     private lateinit var item: Item
     private lateinit var user: User
 
@@ -134,7 +136,7 @@ class BookingActivity : AppCompatActivity() {
 
     private fun getBundle() {
         item = intent.getParcelableExtra("item")!!
-        user = intent.getParcelableExtra("user")!!
+        auth = FirebaseAuth.getInstance()
 
         binding.apply {
             txtTitle.text = item.title

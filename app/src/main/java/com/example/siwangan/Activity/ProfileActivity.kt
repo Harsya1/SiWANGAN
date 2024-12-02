@@ -1,6 +1,7 @@
 package com.example.siwangan.Activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.example.siwangan.R
 
@@ -18,6 +20,9 @@ class ProfileFragment : Fragment() {
     private lateinit var profileIcon: ImageView
     private lateinit var buttonLihatProfile: Button
     private lateinit var buttonGantiPassword: Button
+
+    private var uri: Uri? = null
+
 //    private lateinit var editPasswordLayout: LinearLayout
 
 

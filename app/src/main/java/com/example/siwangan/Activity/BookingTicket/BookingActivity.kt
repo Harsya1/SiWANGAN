@@ -72,11 +72,6 @@ class BookingActivity : AppCompatActivity() {
         getBundle()
     }
 
-
-
-
-
-
     private fun setUniqueCode() {
         KodeBooking = generateUniqueCode()
         binding.txtKodeBooking.text = KodeBooking
@@ -89,6 +84,13 @@ class BookingActivity : AppCompatActivity() {
 
         binding.btnPickDate.setOnClickListener {
             showDatePickerDialog()
+        }
+        // Listener untuk button tambah
+        binding.btnTambahQty.setOnClickListener {
+            if (qty < maxQty) {
+                qty++
+                binding.txtQty.text = qty.toString()
+            }
         }
 
         binding.btnKurangQty.setOnClickListener {
@@ -120,9 +122,9 @@ class BookingActivity : AppCompatActivity() {
             val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
             binding.txtFieldDate.setText(selectedDate)
         }, year, month, day)
-
         datePickerDialog.show()
     }
+
     fun generateUniqueCode(): String {
         val random = java.util.Random()
         val code = StringBuilder("TKT")
@@ -157,6 +159,7 @@ class BookingActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun base64ToBitmap(base64Str: String): Bitmap? {
         return try {
             val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)
@@ -167,4 +170,6 @@ class BookingActivity : AppCompatActivity() {
             null
         }
     }
+
+
 }

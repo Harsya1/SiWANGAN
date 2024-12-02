@@ -73,7 +73,7 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.IntroActivity"
+            android:name=".Activity.introActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

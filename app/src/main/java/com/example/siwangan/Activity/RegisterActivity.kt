@@ -27,6 +27,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var phoneInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var confirmPasswordInput: EditText
+    private lateinit var test : EditText
     private lateinit var mAuth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
     private lateinit var googleSignInClient: GoogleSignInClient

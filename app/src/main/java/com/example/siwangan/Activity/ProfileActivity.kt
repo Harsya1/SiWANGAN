@@ -37,7 +37,7 @@ class ProfileFragment : Fragment() {
         profileName = rootView.findViewById(R.id.profileName)
         profileIcon = rootView.findViewById(R.id.profileIcon)
         buttonLihatProfile = rootView.findViewById(R.id.buttonLihatProfile)
-        buttonGantiPw = rootView.findViewById(R.id.buttonGantiPw)
+        buttonGantiPw = rootView.findViewById(R.id.buttonGantiPassword)
         buttonTentangAplikasi = rootView.findViewById(R.id.buttonTentangAplikasi)
         buttonKeluarAkun =
             rootView.findViewById(R.id.buttonKeluarAkun)  // Menambahkan tombol logout

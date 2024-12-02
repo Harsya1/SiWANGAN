@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siwangan.MainActivity
@@ -25,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var phoneInput2: EditText
     private lateinit var pwInput: EditText
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var test : TextView
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 100 // Request code untuk Google Sign-In
     private val adminEmail = "siwangan324@gmail.com"

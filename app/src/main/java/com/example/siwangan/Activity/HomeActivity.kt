@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
         }
         binding.selengkapnyaUmkm.setOnClickListener{
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.main_fragment, UmkmFragment()) // Ganti fragment_container dengan ID container Anda
+            transaction.replace(R.id.main_fragment, UmkmActivity()) // Ganti fragment_container dengan ID container Anda
             transaction.addToBackStack(null) // Tambahkan ke back stack (opsional, untuk navigasi back)
             transaction.commit()
         }

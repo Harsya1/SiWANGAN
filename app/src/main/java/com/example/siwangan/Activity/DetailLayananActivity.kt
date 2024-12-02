@@ -1,5 +1,6 @@
 package com.example.siwangan.Activity
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import com.example.siwangan.Activity.BookingTicket.BookingActivity
 import com.example.siwangan.Domain.Item
 import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityDetailLayananBinding
@@ -25,8 +27,12 @@ class DetailLayananActivity : AppCompatActivity() {
         binding = ActivityDetailLayananBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
         getBundle()
+
+        binding.btnWhatsapp.setOnClickListener {
+            val intent = Intent(this, BookingActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

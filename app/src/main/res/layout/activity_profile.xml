@@ -90,10 +90,8 @@
                 android:id="@+id/buttonLihatProfile"
                 android:layout_width="15dp"
                 android:layout_height="20dp"
-                android:background="@drawable/button_selector"
-                android:contentDescription="Lihat Profile"
-                android:elevation="4dp"/>
-
+                android:background="@drawable/btn_next_right"
+                android:contentDescription="Lihat Profil" />
         </LinearLayout>
 
         <!-- Ganti Password -->
@@ -122,10 +120,10 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/buttonGantiPw"
+                android:id="@+id/buttonGantiPassword"
                 android:layout_width="15dp"
                 android:layout_height="20dp"
-                android:background="@drawable/button_selector"
+                android:background="@drawable/btn_next_right"
                 android:contentDescription="Ganti Password" />
         </LinearLayout>
 
@@ -158,7 +156,7 @@
                 android:id="@+id/buttonTentangAplikasi"
                 android:layout_width="15dp"
                 android:layout_height="20dp"
-                android:background="@drawable/button_selector"
+                android:background="@drawable/btn_next_right"
                 android:contentDescription="Tentang Aplikasi" />
         </LinearLayout>
 
@@ -172,6 +170,7 @@
             android:paddingEnd="40dp"
             android:clickable="true"
             android:focusable="true">
+
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -190,7 +189,7 @@
                 android:id="@+id/buttonKeluarAkun"
                 android:layout_width="15dp"
                 android:layout_height="20dp"
-                android:background="@drawable/button_selector"
+                android:background="@drawable/btn_next_right"
                 android:contentDescription="Keluar Akun" />
         </LinearLayout>
     </LinearLayout>

@@ -10,7 +10,7 @@ import com.example.siwangan.Adapter.UMKMAdapter
 import com.example.siwangan.ViewModel.UMKMViewModel
 import com.example.siwangan.databinding.ActivityUmkmBinding
 
-class UmkmFragment : Fragment() {
+class UmkmActivity : Fragment() {
     private var _binding: ActivityUmkmBinding? = null
     private val binding get() = _binding!! // View Binding untuk layout fragment
     private val viewModelUmkm = UMKMViewModel()

@@ -37,6 +37,13 @@
         android:textSize="16sp" />
 
     <TextView
+        android:id="@+id/tvVisitor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jumlah Pengunjung: -"
+        android:textSize="16sp" />
+
+    <TextView
         android:id="@+id/tvTotalPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

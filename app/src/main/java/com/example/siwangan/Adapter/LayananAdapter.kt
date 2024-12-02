@@ -9,10 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siwangan.Activity.DetailLayananActivity
-import com.example.siwangan.Domain.Item
+import com.example.siwangan.Domain.ItemHolder
 import com.example.siwangan.Helper.ImageCache
 
-import com.example.siwangan.Domain.ItemHolder
 import com.example.siwangan.databinding.ViewholderLayananBinding
 import java.io.ByteArrayInputStream
 
@@ -34,7 +33,6 @@ class LayananAdapter(val items: List<ItemHolder>) : RecyclerView.Adapter<Layanan
             scoreTxt.text = item.score.toString()
 
             val bitmapLayanan = base64ToBitmap(item.pic)
-
             if (bitmapLayanan != null) {
                 imageView2.setImageBitmap(bitmapLayanan)
             } else {

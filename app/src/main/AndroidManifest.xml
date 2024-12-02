@@ -13,6 +13,9 @@
         android:theme="@style/Theme.SiWANGAN"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.BookingTicket.UploadBuktiPembayaranActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.BookingTicket.BookingActivity"
             android:exported="false" />
         <activity

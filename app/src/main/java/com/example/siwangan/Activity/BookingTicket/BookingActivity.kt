@@ -15,7 +15,6 @@ import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityBookingBinding
 import java.io.ByteArrayInputStream
 import java.util.ResourceBundle.getBundle
-import com.example.siwangan.databinding.ActivityBookingBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -61,28 +60,9 @@ class BookingActivity : AppCompatActivity() {
 //        binding.txtFieldDat.setOnClickListener {
 //            datePickerDialog.show()
 //        }
-    }
-
         getBundle()
-
-        // Listener untuk button tambah
-        binding.btnTambahQty.setOnClickListener {
-            if (qty < maxQty) {
-                qty++
-                binding.txtQty.text = qty.toString()
-    private fun generateUniqueCode(): String {
-        val random = Random()
-        val code = StringBuilder()
-        for (i in 0 until 6) {
-            val digit = random.nextInt(36)
-            if (digit < 10) {
-                code.append(digit)
-            } else {
-                code.append((digit - 10 + 'A'.code).toChar())
-            }
-        }
-        return code.toString()
     }
+
 
     private fun setUniqueCode() {
         KodeBooking = generateUniqueCode()
@@ -96,6 +76,13 @@ class BookingActivity : AppCompatActivity() {
 
         binding.btnPickDate.setOnClickListener {
             showDatePickerDialog()
+        }
+        // Listener untuk button tambah
+        binding.btnTambahQty.setOnClickListener {
+            if (qty < maxQty) {
+                qty++
+                binding.txtQty.text = qty.toString()
+            }
         }
 
         binding.btnKurangQty.setOnClickListener {
@@ -127,9 +114,9 @@ class BookingActivity : AppCompatActivity() {
             val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
             binding.txtFieldDate.setText(selectedDate)
         }, year, month, day)
-
         datePickerDialog.show()
     }
+
     fun generateUniqueCode(): String {
         val random = java.util.Random()
         val code = StringBuilder("TKT")
@@ -164,6 +151,7 @@ class BookingActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun base64ToBitmap(base64Str: String): Bitmap? {
         return try {
             val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)
@@ -174,4 +162,6 @@ class BookingActivity : AppCompatActivity() {
             null
         }
     }
+
+
 }

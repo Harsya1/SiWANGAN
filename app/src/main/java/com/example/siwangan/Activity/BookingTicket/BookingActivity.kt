@@ -7,22 +7,19 @@ import android.os.Bundle
 import android.util.Base64
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.siwangan.Domain.Item
+import com.example.siwangan.Domain.ItemHolder
 import com.example.siwangan.Domain.User
 import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityBookingBinding
 import com.google.firebase.auth.FirebaseAuth
 import java.io.ByteArrayInputStream
-import java.util.ResourceBundle.getBundle
-import java.text.SimpleDateFormat
 import java.util.*
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBookingBinding
     private lateinit var auth : FirebaseAuth
     private lateinit var item: Item
+    private lateinit var item: ItemHolder
     private lateinit var user: User
 
     private var qty = 1
@@ -62,7 +59,17 @@ class BookingActivity : AppCompatActivity() {
 //        binding.txtFieldDat.setOnClickListener {
 //            datePickerDialog.show()
 //        }
+
         getBundle()
+
+        // Listener untuk button tambah
+        binding.btnTambahQty.setOnClickListener {
+            if (qty < maxQty) {
+                qty++
+                binding.txtQty.text = qty.toString()
+            }
+        }
+
     }
 
 
@@ -78,13 +85,6 @@ class BookingActivity : AppCompatActivity() {
 
         binding.btnPickDate.setOnClickListener {
             showDatePickerDialog()
-        }
-        // Listener untuk button tambah
-        binding.btnTambahQty.setOnClickListener {
-            if (qty < maxQty) {
-                qty++
-                binding.txtQty.text = qty.toString()
-            }
         }
 
         binding.btnKurangQty.setOnClickListener {
@@ -116,9 +116,9 @@ class BookingActivity : AppCompatActivity() {
             val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
             binding.txtFieldDate.setText(selectedDate)
         }, year, month, day)
+
         datePickerDialog.show()
     }
-
     fun generateUniqueCode(): String {
         val random = java.util.Random()
         val code = StringBuilder("TKT")
@@ -153,7 +153,6 @@ class BookingActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun base64ToBitmap(base64Str: String): Bitmap? {
         return try {
             val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)
@@ -164,6 +163,4 @@ class BookingActivity : AppCompatActivity() {
             null
         }
     }
-
-
 }

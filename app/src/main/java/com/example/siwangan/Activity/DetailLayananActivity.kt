@@ -7,12 +7,15 @@ import android.util.Base64
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siwangan.Domain.Item
 import com.example.siwangan.Helper.ImageCache
+import com.example.siwangan.Activity.BookingTicket.BookingActivity
+import com.example.siwangan.Domain.ItemHolder
 import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityDetailLayananBinding
 import java.io.ByteArrayInputStream
 
 class DetailLayananActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailLayananBinding
+    private lateinit var item: ItemHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,15 @@ class DetailLayananActivity : AppCompatActivity() {
         val item = intent.getParcelableExtra<Item>("item")
         loadImageFromCache()  // Muat gambar dari cache
 
+        binding.btnWhatsapp.setOnClickListener {
+            val intent = Intent(this, BookingActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    private fun getBundle() {
+        item = intent.getParcelableExtra("item")!!
         binding.apply {
             txtTitle.text = item?.title
             txtDesc.text = item?.description

@@ -6,6 +6,7 @@
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="MainActivity">
+      <SelectionState runConfigName="Bypass Main">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

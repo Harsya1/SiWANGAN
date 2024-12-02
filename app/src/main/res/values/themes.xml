@@ -6,6 +6,7 @@
 
     <style name="Theme.Material3DatePicker" parent="Theme.Material3.Light">
         <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimary">@color/light_blue</item>
     </style>
     
     <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">

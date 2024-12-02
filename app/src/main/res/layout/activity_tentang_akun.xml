@@ -21,12 +21,22 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true" />
 
+        <Button
+            android:id="@+id/backButton4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="20dp"
+            android:contentDescription="button back untuk kembali ke halaman sebelumnya"
+            android:background="@drawable/btn_back_transparant"/>
+
         <TextView
             android:id="@+id/accountTittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="70dp"
             android:layout_marginStart="16dp"
             android:text="Tentang Aplikasi"
             android:textColor="#FFFFFF"
@@ -48,6 +58,6 @@
         android:id="@+id/footerImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/img_footer_tentang_akun"
+        android:src="@drawable/img_footer_tentang_akun2"
         android:scaleType="fitXY" />
 </LinearLayout>

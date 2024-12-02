@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -32,23 +33,32 @@
             android:textStyle="bold" />
 
         <!-- Ikon Profil -->
-        <ImageView
-            android:id="@+id/profileIcon"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewProfileIcon"
             android:layout_width="120dp"
             android:layout_height="120dp"
+            app:cardCornerRadius="70dp"
             android:layout_centerInParent="true"
-            android:layout_marginTop="35dp"
-            android:src="@drawable/img_profile_picture" />
+            android:layout_marginTop="35dp">
+
+            <ImageView
+                android:id="@+id/profileIcon"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_profile_picture" />
+        </androidx.cardview.widget.CardView>
 
         <!-- Nama Profil -->
         <TextView
             android:id="@+id/profileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/profileIcon"
+            android:layout_below="@id/cardViewProfileIcon"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="65dp"
-            android:text="Nama Profile"
+            android:text="Nama Profil"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
     </RelativeLayout>
@@ -63,6 +73,7 @@
 
         <!-- Menu Item -->
         <LinearLayout
+            android:id="@+id/LihatProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -81,8 +92,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="Lihat Profil"
                 android:layout_marginStart="16dp"
-                android:text="Lihat Profile"
                 android:textColor="#000000"
                 android:textSize="16sp" />
 
@@ -96,6 +107,7 @@
 
         <!-- Ganti Password -->
         <LinearLayout
+            android:id="@+id/GantiPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -129,6 +141,7 @@
 
         <!-- Tentang Aplikasi -->
         <LinearLayout
+            android:id="@+id/TentangAplikasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -162,6 +175,7 @@
 
         <!-- Keluar Akun -->
         <LinearLayout
+            android:id="@+id/KeluarAkun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -169,7 +183,8 @@
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:onClick="logoutPage">
 
             <ImageView
                 android:layout_width="24dp"
@@ -190,6 +205,7 @@
                 android:layout_width="15dp"
                 android:layout_height="20dp"
                 android:background="@drawable/btn_next_right"
+                android:onClick="logoutPage"
                 android:contentDescription="Keluar Akun" />
         </LinearLayout>
     </LinearLayout>

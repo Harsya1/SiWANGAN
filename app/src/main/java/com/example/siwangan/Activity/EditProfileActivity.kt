@@ -1,9 +1,12 @@
 package com.example.siwangan.Activity
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siwangan.R
@@ -14,6 +17,7 @@ class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDatabase: DatabaseReference
+    private lateinit var NamaLengkap: TextView
     private lateinit var valueNamaLengkap: TextView
     private lateinit var valueNomorTelepon: TextView
     private lateinit var valueAlamat: TextView
@@ -22,7 +26,9 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var btnHapusAkun: Button
     private lateinit var backButton: Button
 
-
+    private lateinit var profileImageView: ImageView
+    private lateinit var profileName3: TextView
+    private lateinit var profileIcon3: ImageView
 
     private val REQUEST_CODE_UPDATE_PROFILE = 1
 
@@ -35,6 +41,7 @@ class EditProfileActivity : AppCompatActivity() {
         mDatabase = FirebaseDatabase.getInstance().reference
 
         // Inisialisasi View
+        NamaLengkap = findViewById(R.id.profileName3)
         valueNamaLengkap = findViewById(R.id.valueNamaLengkap)
         valueNomorTelepon = findViewById(R.id.valueNomorTelepon)
         valueAlamat = findViewById(R.id.valueAlamat)
@@ -42,6 +49,10 @@ class EditProfileActivity : AppCompatActivity() {
         btnEditProfile = findViewById(R.id.btnEditProfile)
         btnHapusAkun = findViewById(R.id.btnHapusAkun)
         backButton = findViewById(R.id.backButton3)
+
+        profileImageView = findViewById(R.id.profileIcon3)
+        profileName3 = findViewById(R.id.profileName3)
+        profileIcon3 = findViewById(R.id.profileIcon3)
 
         val currentUser = mAuth.currentUser
         if (currentUser != null) {
@@ -84,12 +95,23 @@ class EditProfileActivity : AppCompatActivity() {
                         val nomorTelepon = dataSnapshot.child("phone").getValue(String::class.java)
                         val alamat = dataSnapshot.child("address").getValue(String::class.java)
                         val jenisKelamin = dataSnapshot.child("gender").getValue(String::class.java)
+                        val profilePicture = dataSnapshot.child("profile_picture").getValue(String::class.java)
 
                         // Update UI untuk nama lengkap dan nomor telepon
                         valueNamaLengkap.text = namaLengkap ?: "N/A"
                         valueNomorTelepon.text = nomorTelepon ?: "N/A"
                         valueAlamat.text = alamat ?: "Tambah Alamat"
                         valueJenisKelamin.text = jenisKelamin ?: "Tambah Jenis Kelamin"
+
+                        // Set profile name
+                        profileName3.text = namaLengkap ?: "Nama Profile"
+
+                        // Menampilkan gambar profil jika ada
+                        if (profilePicture != null) {
+                            val imageBytes = Base64.decode(profilePicture, Base64.DEFAULT)
+                            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                            profileIcon3.setImageBitmap(decodedImage)
+                        }
                     } else {
                         Log.e("EditProfileActivity", "Data snapshot does not exist!")
                     }
@@ -104,7 +126,7 @@ class EditProfileActivity : AppCompatActivity() {
     // Fungsi untuk logout
     private fun logoutUser() {
         mAuth.signOut() // Keluar dari akun Firebase
-        val intent = Intent(this, LoginActivity::class.java)
+        val intent = Intent(this, RegisterActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()

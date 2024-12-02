@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.siwangan.Activity.DetailLayananActivity
 import com.example.siwangan.Domain.Item
 import com.example.siwangan.Helper.ImageCache
+
+import com.example.siwangan.Domain.ItemHolder
 import com.example.siwangan.databinding.ViewholderLayananBinding
 import java.io.ByteArrayInputStream
 
-class LayananAdapter(val items: List<Item>) : RecyclerView.Adapter<LayananAdapter.ViewHolder>() {
+class LayananAdapter(val items: List<ItemHolder>) : RecyclerView.Adapter<LayananAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ViewholderLayananBinding) : RecyclerView.ViewHolder(binding.root)
 

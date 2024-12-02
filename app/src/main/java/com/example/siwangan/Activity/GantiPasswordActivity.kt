@@ -35,7 +35,7 @@ class GantiPasswordActivity : AppCompatActivity() {
         pwBaru = findViewById(R.id.pwBaru)
         ulangiPwBaru = findViewById(R.id.ulangiPwBaru)
         btnGantiPw = findViewById(R.id.btnGantiPw)
-        backButton = findViewById(R.id.backButton)
+        backButton = findViewById(R.id.backButton2)
 
         // Tombol Ganti Password
         btnGantiPw.setOnClickListener {
@@ -47,8 +47,10 @@ class GantiPasswordActivity : AppCompatActivity() {
                 changePassword(passwordSaatIni, passwordBaru)
             }
         }
+
+        // Tombol Kembali
         backButton.setOnClickListener {
-            finish()
+            finish() // Menutup activity dan kembali ke activity sebelumnya
         }
     }
 

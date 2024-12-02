@@ -60,9 +60,17 @@ class BookingActivity : AppCompatActivity() {
 //        binding.txtFieldDat.setOnClickListener {
 //            datePickerDialog.show()
 //        }
+
+        // Listener untuk button tambah
+        binding.btnTambahQty.setOnClickListener {
+            if (qty < maxQty) {
+                qty++
+                binding.txtQty.text = qty.toString()
+            }
+        }
+
         getBundle()
     }
-
 
     private fun setUniqueCode() {
         KodeBooking = generateUniqueCode()

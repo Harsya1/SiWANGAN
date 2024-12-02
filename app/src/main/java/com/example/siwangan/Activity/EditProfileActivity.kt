@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siwangan.R
@@ -22,7 +23,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var btnHapusAkun: Button
     private lateinit var backButton: Button
 
-
+    private lateinit var profileImageView: ImageView
 
     private val REQUEST_CODE_UPDATE_PROFILE = 1
 
@@ -42,6 +43,9 @@ class EditProfileActivity : AppCompatActivity() {
         btnEditProfile = findViewById(R.id.btnEditProfile)
         btnHapusAkun = findViewById(R.id.btnHapusAkun)
         backButton = findViewById(R.id.backButton3)
+
+        profileImageView = findViewById(R.id.profileIcon3)
+
 
         val currentUser = mAuth.currentUser
         if (currentUser != null) {
@@ -84,6 +88,8 @@ class EditProfileActivity : AppCompatActivity() {
                         val nomorTelepon = dataSnapshot.child("phone").getValue(String::class.java)
                         val alamat = dataSnapshot.child("address").getValue(String::class.java)
                         val jenisKelamin = dataSnapshot.child("gender").getValue(String::class.java)
+                        val profileImageUrl = dataSnapshot.child("profileImageUrl").getValue(String::class.java)
+
 
                         // Update UI untuk nama lengkap dan nomor telepon
                         valueNamaLengkap.text = namaLengkap ?: "N/A"
@@ -104,7 +110,7 @@ class EditProfileActivity : AppCompatActivity() {
     // Fungsi untuk logout
     private fun logoutUser() {
         mAuth.signOut() // Keluar dari akun Firebase
-        val intent = Intent(this, LoginActivity::class.java)
+        val intent = Intent(this, RegisterActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()

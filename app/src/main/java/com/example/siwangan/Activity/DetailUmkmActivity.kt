@@ -6,20 +6,15 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.bumptech.glide.Glide
-import com.example.siwangan.Domain.Item
-import com.example.siwangan.R
+import com.example.siwangan.Domain.ItemHolder
 import com.example.siwangan.databinding.ActivityDetailUmkmBinding
 import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayInputStream
 
 class DetailUmkmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailUmkmBinding
-    private lateinit var item: Item
+    private lateinit var item: ItemHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

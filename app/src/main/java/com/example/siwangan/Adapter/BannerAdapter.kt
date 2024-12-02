@@ -7,14 +7,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.request.RequestOptions
-import com.example.siwangan.Domain.Item
+import com.example.siwangan.Domain.ItemHolder
 import com.example.siwangan.databinding.ViewholderBannerBinding
 import java.io.ByteArrayInputStream
 
-class BannerAdapter(val items: MutableList<Item>) : RecyclerView.Adapter<BannerAdapter.ViewHolder>() {
+class BannerAdapter(val items: MutableList<ItemHolder>) : RecyclerView.Adapter<BannerAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ViewholderBannerBinding) : RecyclerView.ViewHolder(binding.root)
 

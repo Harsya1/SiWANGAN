@@ -7,21 +7,16 @@ import android.os.Bundle
 import android.util.Base64
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.siwangan.Domain.Item
+import com.example.siwangan.Domain.ItemHolder
 import com.example.siwangan.Domain.User
 import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityBookingBinding
 import java.io.ByteArrayInputStream
-import java.util.ResourceBundle.getBundle
-import com.example.siwangan.databinding.ActivityBookingBinding
-import java.text.SimpleDateFormat
 import java.util.*
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBookingBinding
-    private lateinit var item: Item
+    private lateinit var item: ItemHolder
     private lateinit var user: User
 
     private var qty = 1
@@ -61,7 +56,6 @@ class BookingActivity : AppCompatActivity() {
 //        binding.txtFieldDat.setOnClickListener {
 //            datePickerDialog.show()
 //        }
-    }
 
         getBundle()
 
@@ -70,19 +64,11 @@ class BookingActivity : AppCompatActivity() {
             if (qty < maxQty) {
                 qty++
                 binding.txtQty.text = qty.toString()
-    private fun generateUniqueCode(): String {
-        val random = Random()
-        val code = StringBuilder()
-        for (i in 0 until 6) {
-            val digit = random.nextInt(36)
-            if (digit < 10) {
-                code.append(digit)
-            } else {
-                code.append((digit - 10 + 'A'.code).toChar())
             }
         }
-        return code.toString()
+
     }
+
 
     private fun setUniqueCode() {
         KodeBooking = generateUniqueCode()

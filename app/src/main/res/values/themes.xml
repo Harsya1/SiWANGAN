@@ -4,7 +4,9 @@
         <item name="android:statusBarColor">@color/transparant</item>
     </style>
 
-    <style name="Theme.Material3DatePicker" parent="Theme.Material3.Light"/>
+    <style name="Theme.Material3DatePicker" parent="Theme.Material3.Light">
+        <item name="colorPrimary">@color/light_blue</item>
+    </style>
     
     <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemRippleColor">@android:color/transparent</item>

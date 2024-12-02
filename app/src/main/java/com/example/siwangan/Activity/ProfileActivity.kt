@@ -1,102 +1,134 @@
 package com.example.siwangan.Activity
 
 import android.content.Intent
-import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.siwangan.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment() {
 
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var mDatabase: DatabaseReference
     private lateinit var profileName: TextView
     private lateinit var profileIcon: ImageView
-    private lateinit var buttonLihatProfile: Button
-    private lateinit var buttonGantiPw: Button
-    private lateinit var buttonTentangAplikasi: Button
-    private lateinit var buttonKeluarAkun: Button // Tombol logout baru
+    private lateinit var lihatProfile: LinearLayout
+    private lateinit var gantiPassword: LinearLayout
+    private lateinit var tentangAplikasi: LinearLayout
+    private lateinit var keluarAkun: LinearLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Menghubungkan layout fragment_profile dengan fragment ini
         val rootView = inflater.inflate(R.layout.activity_profile, container, false)
 
-        // Menghubungkan elemen-elemen UI dengan ID yang ada di layout
+        // Inisialisasi Firebase Auth dan Database Reference
+        mAuth = FirebaseAuth.getInstance()
+        mDatabase = FirebaseDatabase.getInstance().reference
+
+        // Inisialisasi View
         profileName = rootView.findViewById(R.id.profileName)
         profileIcon = rootView.findViewById(R.id.profileIcon)
-        buttonLihatProfile = rootView.findViewById(R.id.buttonLihatProfile)
-        buttonGantiPw = rootView.findViewById(R.id.buttonGantiPassword)
-        buttonTentangAplikasi = rootView.findViewById(R.id.buttonTentangAplikasi)
-        buttonKeluarAkun =
-            rootView.findViewById(R.id.buttonKeluarAkun)  // Menambahkan tombol logout
+        lihatProfile = rootView.findViewById(R.id.LihatProfile)
+        gantiPassword = rootView.findViewById(R.id.GantiPassword)
+        tentangAplikasi = rootView.findViewById(R.id.TentangAplikasi)
+        keluarAkun = rootView.findViewById(R.id.KeluarAkun)
 
-        // Menambahkan event klik pada button lihat profile
-        buttonLihatProfile.setOnClickListener {
-            // Membuka EditProfileActivity
-            val intent = Intent(requireActivity(), EditProfileActivity::class.java)
-            startActivity(intent)
-        }
+        val currentUser = mAuth.currentUser
+        if (currentUser != null) {
+            // Menampilkan data user dari Firebase
+            fetchUserData(currentUser.uid)
 
-        // Menambahkan event klik pada button ganti password
-        buttonGantiPw.setOnClickListener {
-            // Membuka GantiPasswordActivity
-            val intent = Intent(requireActivity(), GantiPasswordActivity::class.java)
-            startActivity(intent)
-        }
-        // Menambahkan event klik pada button tentang akun
-        buttonTentangAplikasi.setOnClickListener {
-            // Membuka EditProfileActivity
-            val intent = Intent(requireActivity(), TentangAkunActivity::class.java)
-            startActivity(intent)
-        }
+            // Mengarahkan ke EditProfileActivity saat tombol Lihat Profile dipencet
+            lihatProfile.setOnClickListener {
+                val intent = Intent(requireActivity(), EditProfileActivity::class.java)
+                startActivity(intent)
+            }
 
-        // Menambahkan event klik pada button logout
-        buttonKeluarAkun.setOnClickListener {
-            logout() // Memanggil metode logout saat tombol dipencet
+            gantiPassword.setOnClickListener {
+                // Implement your change password functionality here
+            }
+
+            tentangAplikasi.setOnClickListener {
+                // Implement your about app functionality here
+            }
+
+            keluarAkun.setOnClickListener {
+                logout()
+            }
+        } else {
+            Log.e("ProfileFragment", "User not logged in!")
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
         }
 
         return rootView
     }
 
+    // Fungsi untuk mengambil data user dari Firebase
+    private fun fetchUserData(userId: String) {
+        mDatabase.child("Users").child(userId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        // Ambil data dari database
+                        val namaLengkap = dataSnapshot.child("name").getValue(String::class.java)
+                        val profilePicture = dataSnapshot.child("profile_picture").getValue(String::class.java)
+
+                        // Set profile name
+                        profileName.text = namaLengkap ?: "Nama Profile"
+
+                        // Menampilkan gambar profil jika ada
+                        if (profilePicture != null) {
+                            val imageBytes = Base64.decode(profilePicture, Base64.DEFAULT)
+                            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                            profileIcon.setImageBitmap(decodedImage)
+                        }
+                    } else {
+                        Log.e("ProfileFragment", "Data snapshot does not exist!")
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Log.e("ProfileFragment", "Database error: ${databaseError.message}")
+                }
+            })
+    }
+
     private fun logout() {
-        // Keluar dari Firebase Authentication
         val mAuth = FirebaseAuth.getInstance()
         mAuth.signOut()
 
-        // Jika menggunakan Google Sign-In, keluar juga dari Google (Opsional)
-        val mGoogleSignInClient =
-            GoogleSignIn.getClient(requireActivity(), GoogleSignInOptions.DEFAULT_SIGN_IN)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+        val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         mGoogleSignInClient.signOut()
 
-        // Menghapus data pengguna dari SharedPreferences
-        val preferences: SharedPreferences =
-            requireActivity().getSharedPreferences("user_pref", AppCompatActivity.MODE_PRIVATE)
+        val preferences = requireActivity().getSharedPreferences("user_pref", AppCompatActivity.MODE_PRIVATE)
         val editor = preferences.edit()
-        editor.clear()  // Menghapus semua data yang disimpan
-        editor.apply()  // Menyimpan perubahan
+        editor.clear()
+        editor.apply()
 
-        // Menampilkan Toast sebagai konfirmasi bahwa logout berhasil
         Toast.makeText(requireActivity(), "Logout Berhasil", Toast.LENGTH_SHORT).show()
 
-        // Mengarahkan pengguna ke SplashLoginRegisterActivity (halaman login)
         val intent = Intent(requireActivity(), SplashLoginRegisterActivity::class.java)
-        intent.flags =
-            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK  // Menghapus aktivitas sebelumnya dari back stack
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-
-        // Menutup aktivitas saat ini agar pengguna tidak bisa kembali ke halaman profile setelah logout
         requireActivity().finish()
     }
 }

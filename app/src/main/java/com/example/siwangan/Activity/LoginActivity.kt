@@ -9,7 +9,6 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.siwangan.HomeActivity
 import com.example.siwangan.MainActivity
 import com.example.siwangan.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -31,7 +30,6 @@ class LoginActivity : AppCompatActivity() {
     private val adminEmail = "siwangan324@gmail.com"
     private val adminPassword = "airpanaskepulungan1101"
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -42,9 +40,17 @@ class LoginActivity : AppCompatActivity() {
         // Cek apakah pengguna sudah login
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
+        val lastClosedTime = sharedPref.getLong("lastClosedTime", 0L)
+        val currentTime = System.currentTimeMillis()
 
-        if (isLoggedIn) {
-            // Pengguna sudah login, arahkan ke HomeActivity
+        // Jika pengguna sudah login dan selisih waktu lebih dari 1 menit, maka minta login ulang
+        if (isLoggedIn && (currentTime - lastClosedTime > 60000)) {
+            val editor = sharedPref.edit()
+            editor.putBoolean("isLoggedIn", false) // Reset status login
+            editor.apply()
+            Toast.makeText(this, "Sesi Anda telah habis. Silakan login kembali.", Toast.LENGTH_SHORT).show()
+        } else if (isLoggedIn) {
+            // Jika pengguna sudah login dan belum lebih dari 1 menit, arahkan ke MainActivity
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
@@ -125,6 +131,14 @@ class LoginActivity : AppCompatActivity() {
             val signInIntent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putLong("lastClosedTime", System.currentTimeMillis())
+        editor.apply()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

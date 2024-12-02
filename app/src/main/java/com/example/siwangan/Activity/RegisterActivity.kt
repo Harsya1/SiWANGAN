@@ -152,30 +152,47 @@ class RegisterActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = mAuth.currentUser
                     user?.let {
-                        val name = it.displayName ?: "Pengguna Google"
+                        val userId = it.uid
                         val email = it.email ?: "Tidak ada email"
+                        val name = it.displayName ?: "Pengguna Google"
                         val phone = "Google User"
 
-                        val userId = it.uid
-                        val newUser = User(name, phone, email)
-                        databaseReference.child(userId).setValue(newUser)
-                            .addOnCompleteListener { task1 ->
-                                if (task1.isSuccessful) {
-                                    Toast.makeText(
-                                        this@RegisterActivity,
-                                        "Daftar dengan Google berhasil!",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    startActivity(Intent(this, LoginActivity::class.java))
-                                    finish()
-                                } else {
-                                    Toast.makeText(
-                                        this@RegisterActivity,
-                                        "Gagal menyimpan data Google: ${task1.exception?.message}",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
+                        // Cek apakah pengguna sudah terdaftar di database Firebase
+                        databaseReference.child(userId).get().addOnSuccessListener { snapshot ->
+                            if (!snapshot.exists()) {
+                                // Jika pengguna belum ada, lakukan registrasi baru
+                                val newUser = User(name, phone, email)
+                                databaseReference.child(userId).setValue(newUser)
+                                    .addOnCompleteListener { task1 ->
+                                        if (task1.isSuccessful) {
+                                            // Tampilkan pesan bahwa registrasi berhasil
+                                            Toast.makeText(
+                                                this@RegisterActivity,
+                                                "Registrasi dengan Google berhasil!",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                            // Arahkan ke halaman login setelah registrasi
+                                            startActivity(Intent(this, LoginActivity::class.java))
+                                            finish()
+                                        } else {
+                                            Toast.makeText(
+                                                this@RegisterActivity,
+                                                "Gagal menyimpan data Google: ${task1.exception?.message}",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                    }
+                            } else {
+                                // Jika akun sudah terdaftar, arahkan langsung ke halaman login
+                                Toast.makeText(
+                                    this@RegisterActivity,
+                                    "Akun sudah terdaftar. Melanjutkan ke login...",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                                finish()
                             }
+                        }
                     }
                 } else {
                     Toast.makeText(
@@ -189,6 +206,7 @@ class RegisterActivity : AppCompatActivity() {
 
     // Override tombol back
     override fun onBackPressed() {
+        super.onBackPressed()
         val intent = Intent(this, SplashLoginRegisterActivity::class.java)
         startActivity(intent)
         finish()

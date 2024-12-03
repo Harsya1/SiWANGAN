@@ -10,9 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.siwangan.Activity.Admin.Create.LayananCreateActivity
 import com.example.siwangan.Adapter.LayananAdminAdapter
-import com.example.siwangan.Adapter.UMKMAdminAdapter
 import com.example.siwangan.Domain.itemLayanan
-import com.example.siwangan.Domain.itemUmkm
 import com.example.siwangan.R
 import com.example.siwangan.ViewModel.MainViewModel
 import com.example.siwangan.databinding.ActivityAdminLayananBinding

@@ -36,7 +36,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.Admin.AdminActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Activity.Admin.Update.BannerUpdateActivity"
             android:exported="false" />
@@ -84,7 +84,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Activity.introActivity"
             android:exported="true">

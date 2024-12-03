@@ -35,16 +35,16 @@ class UploadBuktiTrasferActivity : AppCompatActivity() {
         val totalHarga = intent.getIntExtra("totalHarga", 0)
 
         // Display data in TextViews
-        binding.txtIdBookingTrasfer.text = bookingCode
-        binding.txtNamaTrasfer.text = userName
-        binding.txtNoTelpTrasfer.text = userPhone
-        binding.txtJumlahBayarTrasfer.text = "Rp$totalHarga"
+        binding.txtIdBooking.text = bookingCode
+        binding.txtNama.text = userName
+        binding.txtNoTelepon.text = userPhone
+        binding.txtJumlahBayar.text = "Rp$totalHarga"
 
-        binding.imgBuktiTrasfer.setOnClickListener {
+        binding.imgBuktiTransfer.setOnClickListener {
             pickImageFromGallery()
         }
 
-        binding.btnUploadBuktiTf.setOnClickListener {
+        binding.btnBayar.setOnClickListener {
             storeBookingData()
         }
     }
@@ -61,7 +61,7 @@ class UploadBuktiTrasferActivity : AppCompatActivity() {
             val imageUri = data?.data
             val inputStream: InputStream? = imageUri?.let { contentResolver.openInputStream(it) }
             val bitmap = BitmapFactory.decodeStream(inputStream)
-            binding.imgBuktiTrasfer.setImageBitmap(bitmap)
+            binding.imgBuktiTransfer.setImageBitmap(bitmap)
             encodedImage = encodeImage(bitmap)
         }
     }

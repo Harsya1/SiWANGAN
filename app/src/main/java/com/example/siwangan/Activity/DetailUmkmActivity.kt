@@ -1,5 +1,6 @@
 package com.example.siwangan.Activity
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -7,12 +8,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import com.example.siwangan.Domain.ItemHolder
 import com.example.siwangan.Helper.ImageCache
 import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityDetailUmkmBinding
 import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayInputStream
+import java.io.File
+import java.io.FileOutputStream
 
 class DetailUmkmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailUmkmBinding
@@ -22,10 +26,15 @@ class DetailUmkmActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = ActivityDetailUmkmBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
 
-        getBundle()
+        val title = intent.getStringExtra("titleumkm")
+        val description = intent.getStringExtra("descriptionumkm")
+
+        binding.apply {
+            txtTitle.text = title
+            txtDesc.text = description
+        }
 
         loadImageFromCache()
 
@@ -56,30 +65,6 @@ class DetailUmkmActivity : AppCompatActivity() {
     }
 
 
-
-    private fun getBundle() {
-        item = intent.getParcelableExtra("item")!!
-        binding.apply {
-            txtTitle.text = item.titleumkm
-            txtDesc.text = item.descriptionumkm
-
-            imgBack.setOnClickListener {
-                finish()
-            }
-
-            val bitmapUmkm = base64ToBitmap(item.picumkm) // Assuming `item.pic` contains the Base64 string
-            if (bitmapUmkm != null) {
-                imgUmkm.setImageBitmap(bitmapUmkm)
-            }
-
-            val bitmapMenu = base64ToBitmap(item.menu) // Assuming `item.pic` contains the Base64 string
-            if (bitmapMenu != null) {
-                imageMenu.setImageBitmap(bitmapMenu)
-            }
-
-        }
-    }
-
     private fun loadImageFromCache() {
         val base64Image = ImageCache.base64Image // Retrieve image from cache
 
@@ -97,6 +82,17 @@ class DetailUmkmActivity : AppCompatActivity() {
         } else {
             binding.imageMenu.setImageResource(R.drawable.error_image) // Placeholder if decoding fails
         }
+    }
+
+    private fun saveImageToCacheAndGetUri(context: Context, base64Str: String): Uri? {
+        val bitmap = base64ToBitmap(base64Str) ?: return null
+        val cachePath = File(context.cacheDir, "images")
+        cachePath.mkdirs()
+        val file = File(cachePath, "image.png")
+        FileOutputStream(file).use { fos ->
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+        }
+        return FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
     }
 
     private fun base64ToBitmap(base64Str: String): Bitmap? {

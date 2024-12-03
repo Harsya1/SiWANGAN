@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siwangan.Activity.DetailUmkmActivity
 import com.example.siwangan.Domain.ItemHolder
+import com.example.siwangan.Helper.ImageCache
 import com.example.siwangan.databinding.ViewholderUmkmBinding
 import java.io.ByteArrayInputStream
 
@@ -36,9 +37,15 @@ class UMKMAdapter(val items: List<ItemHolder>) : RecyclerView.Adapter<UMKMAdapte
                 Toast.makeText(holder.itemView.context, "Gagal memuat gambar", Toast.LENGTH_SHORT).show()
             }
 
+
             holder.binding.root.setOnClickListener {
+
+                ImageCache.base64Image = item.picumkm
+                ImageCache.base64Image = item.menu
+
                 val intent = Intent(holder.itemView.context, DetailUmkmActivity::class.java)
-                intent.putExtra("item", items[position]) // Mengirim data item ke aktivitas berikutnya
+                intent.putExtra("titleumkm", item.titleumkm)
+                intent.putExtra("descriptionumkm", item.descriptionumkm)
                 holder.itemView.context.startActivity(intent) // Memulai aktivitas
             }
         }

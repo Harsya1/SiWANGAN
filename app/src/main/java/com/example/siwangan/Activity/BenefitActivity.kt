@@ -92,6 +92,7 @@ class BenefitActivity : Fragment() {
         listDataHeader.add("Tata Tertib Yang Harus Dipahami")
         listDataHeader.add("Manfaat Fisik Dan Kesehatan")
         listDataHeader.add("Manfaat Sosial dan Rekreasi")
+        listDataHeader.add("Tata Cara Booking yang Benar")
 //        listDataHeader.add("Cara menjadi mitra yang baik, bertanggung jawab")
 
         // Child data
@@ -128,17 +129,18 @@ class BenefitActivity : Fragment() {
                     "Tidak perlu pergi ke spa mahal, karena di sini Anda sudah bisa mendapatkan terapi alami untuk tubuh Anda."
         )
 
-//        val panduan4 = listOf(
-//            "Komitmen adalah sebuah langkah awal untuk menjalin hubungan baik dan tanggung jawab.",
-//            "Pastikan komunikasi dengan mitra berjalan secara terbuka dan jujur. Beri tahu informasi penting secara tepat waktu, termasuk hambatan atau masalah yang mungkin timbul.",
-//            "Kepercayaan adalah dasar dari setiap hubungan kemitraan yang sukses. Bersikaplah jujur, terbuka, dan berintegritas dalam setiap tindakan dan keputusan. Hindari perilaku yang dapat merusak kepercayaan.",
-//            "Hargai kontribusi mitra, bahkan untuk hal-hal kecil. Menunjukkan rasa terima kasih dan apresiasi atas usaha mitra membuat hubungan kemitraan semakin kuat."
-//        )
+        val panduan4 = listOf(
+            "Lengkapi data yang sebenarnya dan valid di profile anda.",
+            "Pilih Layanan yang ingin anda pesan",
+            "Pilih tanggal kunjungan anda dan seberapa banyak tiket yang anda butuhkan, Max 10 tiket",
+            "Klik tombol Pesan untuk diarahkan ke Form Upload Bukti Transfer",
+            "Kirim transfer"
+        )
 
         listDataChild[listDataHeader[0]] = panduan1
         listDataChild[listDataHeader[1]] = panduan2
         listDataChild[listDataHeader[2]] = panduan3
-//        listDataChild[listDataHeader[3]] = panduan4
+        listDataChild[listDataHeader[3]] = panduan4
 
         // Debug log
         for (header in listDataHeader) {

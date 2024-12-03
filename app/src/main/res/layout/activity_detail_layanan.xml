@@ -202,7 +202,7 @@ Morbi tempor ex nunc, id pellentesque nunc tempor ut. Quisque ipsum dolor, eleme
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btnWhatsapp"
+            android:id="@+id/btnPesan"
             android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_marginEnd="24dp"

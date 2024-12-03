@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -124,8 +125,8 @@
 
                         <TextView
                             android:id="@+id/txtNamaTrasfer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="99dp"
+                            android:layout_height="23dp"
                             android:layout_marginStart="8dp"
                             android:text="Nama Booking"
                             android:textColor="@color/dark_blue"
@@ -164,7 +165,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Rp jumlah bayar"
+                            android:text="Rp -"
                             android:textColor="#F32929"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -199,15 +200,16 @@
 
                         <ImageView
                             android:id="@+id/imgBuktiTrasfer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="500dp"
+                            android:layout_width="300dp"
+                            android:layout_height="200dp"
                             android:layout_marginTop="16dp"
                             android:padding="16dp"
                             android:scaleType="centerCrop"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView33"
-                            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                            tools:src="@tools:sample/backgrounds/scenic" />
+
 
                         <Button
                             android:id="@+id/btnUploadBuktiTf"
@@ -228,7 +230,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_marginTop="54dp"
+                            android:layout_marginTop="30dp"
                             android:text="*/ Pilih Bank BRI saat memilih bank untuk ditransfer "
                             android:textColor="@color/dark_blue"
                             android:textSize="14sp"

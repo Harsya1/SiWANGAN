@@ -11,7 +11,7 @@ class TentangAkunActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tentang_akun)  // Pastikan layout ini sesuai dengan nama XML yang Anda gunakan
+        setContentView(R.layout.activity_tentang_aplikasi)  // Pastikan layout ini sesuai dengan nama XML yang Anda gunakan
 
         backButton = findViewById(R.id.backButton4) // Menemukan tombol berdasarkan ID-nya
 

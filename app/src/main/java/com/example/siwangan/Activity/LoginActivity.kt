@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siwangan.MainActivity
+import com.example.siwangan.Activity.Admin.AdminActivity
 import com.example.siwangan.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -27,8 +28,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 100 // Request code untuk Google Sign-In
-    private val adminEmail = "siwangan324@gmail.com"
-    private val adminPassword = "airpanaskepulungan1101"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,19 +38,35 @@ class LoginActivity : AppCompatActivity() {
 
         // Cek apakah pengguna sudah login
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-        val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
+        val isUserLoggedIn = sharedPref.getBoolean("isUserLoggedIn", false)
+        val isAdminLoggedIn = sharedPref.getBoolean("isAdminLoggedIn", false)
         val lastClosedTime = sharedPref.getLong("lastClosedTime", 0L)
         val currentTime = System.currentTimeMillis()
 
         // Jika pengguna sudah login dan selisih waktu lebih dari 1 menit, maka minta login ulang
-        if (isLoggedIn && (currentTime - lastClosedTime > 60000)) {
+        if (isUserLoggedIn && (currentTime - lastClosedTime > 60000)) {
             val editor = sharedPref.edit()
-            editor.putBoolean("isLoggedIn", false) // Reset status login
+            editor.putBoolean("isUserLoggedIn", false) // Reset status login
             editor.apply()
             Toast.makeText(this, "Sesi Anda telah habis. Silakan login kembali.", Toast.LENGTH_SHORT).show()
-        } else if (isLoggedIn) {
+        } else if (isUserLoggedIn) {
             // Jika pengguna sudah login dan belum lebih dari 1 menit, arahkan ke MainActivity
             val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+            return
+        }
+
+        // Jika admin sudah login dan selisih waktu lebih dari 1 menit, maka minta login ulang
+        if (isAdminLoggedIn && (currentTime - lastClosedTime > 60000)) {
+            val editor = sharedPref.edit()
+            editor.putBoolean("isAdminLoggedIn", false) // Reset status login
+            editor.apply()
+            Toast.makeText(this, "Sesi Anda telah habis. Silakan login kembali.", Toast.LENGTH_SHORT).show()
+        } else if (isAdminLoggedIn) {
+            // Jika admin sudah login dan belum lebih dari 1 menit, arahkan ke AdminActivity
+            val intent = Intent(this, AdminActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
@@ -107,7 +122,7 @@ class LoginActivity : AppCompatActivity() {
 
                         // Simpan status login ke SharedPreferences
                         val editor = sharedPref.edit()
-                        editor.putBoolean("isLoggedIn", true)
+                        editor.putBoolean("isUserLoggedIn", true)
                         editor.apply()
 
                         // Arahkan ke halaman utama
@@ -165,13 +180,24 @@ class LoginActivity : AppCompatActivity() {
                     // Simpan status login ke SharedPreferences
                     val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
                     val editor = sharedPref.edit()
-                    editor.putBoolean("isLoggedIn", true)
-                    editor.apply()
 
-                    // Arahkan ke halaman utama
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
+                    // Arahkan ke halaman AdminActivity jika email sesuai
+                    val user = mAuth.currentUser
+                    if (user?.email == "siwangan324@gmail.com") {
+                        editor.putBoolean("isAdminLoggedIn", true)
+                        editor.apply()
+                        val intent = Intent(this, AdminActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    } else {
+                        // Simpan status login user
+                        editor.putBoolean("isUserLoggedIn", true)
+                        editor.apply()
+                        // Arahkan ke halaman utama
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    }
                     finish()
                 } else {
                     // Jika login gagal dengan Google
@@ -185,7 +211,8 @@ class LoginActivity : AppCompatActivity() {
         // Mengubah status login menjadi false di SharedPreferences
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         val editor = sharedPref.edit()
-        editor.putBoolean("isLoggedIn", false)
+        editor.putBoolean("isUserLoggedIn", false)
+        editor.putBoolean("isAdminLoggedIn", false)
         editor.apply()
 
         // Logout dari Firebase

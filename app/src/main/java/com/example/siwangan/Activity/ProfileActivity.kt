@@ -1,5 +1,7 @@
 package com.example.siwangan.Activity
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.graphics.BitmapFactory
@@ -28,12 +30,8 @@ class ProfileFragment : Fragment() {
     private lateinit var mDatabase: DatabaseReference
     private lateinit var profileName: TextView
     private lateinit var profileIcon: ImageView
-//    private lateinit var buttonLihatProfile: Button
-//    private lateinit var buttonGantiPassword: Button
 
     private var uri: Uri? = null
-
-//    private lateinit var editPasswordLayout: LinearLayout
 
     private lateinit var lihatProfile: LinearLayout
     private lateinit var gantiPassword: LinearLayout
@@ -70,15 +68,35 @@ class ProfileFragment : Fragment() {
             }
 
             gantiPassword.setOnClickListener {
-                // Implement your change password functionality here
-            }
+                val intent = Intent(requireActivity(), GantiPasswordActivity::class.java)
+                startActivity(intent)            }
 
             tentangAplikasi.setOnClickListener {
-                // Implement your about app functionality here
+                val intent = Intent(requireActivity(), TentangAkunActivity::class.java)
+                startActivity(intent)
             }
 
             keluarAkun.setOnClickListener {
-                logout()
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Keluar")
+                    .setMessage("Apakah anda yakin untuk keluar?")
+                    .setPositiveButton("Ya") { dialog, _ ->
+                        val sharedPref = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                        val editor = sharedPref.edit()
+                        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+                        val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+                        mGoogleSignInClient.signOut()
+                        editor.clear()
+                        editor.apply()
+                        mAuth.signOut()
+                        val intent = Intent(requireContext(), SplashLoginRegisterActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                        dialog.dismiss()
+                    }
+                    .setNegativeButton("Tidak", null)
+                    .create()
+                    .show()
             }
         } else {
             Log.e("ProfileFragment", "User not logged in!")
@@ -120,24 +138,5 @@ class ProfileFragment : Fragment() {
             })
     }
 
-    private fun logout() {
-        val mAuth = FirebaseAuth.getInstance()
-        mAuth.signOut()
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-        val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-        mGoogleSignInClient.signOut()
-
-        val preferences = requireActivity().getSharedPreferences("user_pref", AppCompatActivity.MODE_PRIVATE)
-        val editor = preferences.edit()
-        editor.clear()
-        editor.apply()
-
-        Toast.makeText(requireActivity(), "Logout Berhasil", Toast.LENGTH_SHORT).show()
-
-        val intent = Intent(requireActivity(), SplashLoginRegisterActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        requireActivity().finish()
-    }
 }

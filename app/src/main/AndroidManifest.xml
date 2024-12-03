@@ -44,6 +44,10 @@
         <activity
             android:name=".Activity.Admin.Update.BannerUpdateActivity"
             android:exported="false" />
+        <activity android:name=".Activity.Admin.AdminRiwayatPesananTiketActivity"
+            android:exported="false" />
+        <activity android:name=".Activity.Admin.AdminScanQRActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.Admin.Update.LayananUpdateActivity"
             android:exported="true" />

@@ -46,6 +46,7 @@ class UMKMAdapter(val items: List<ItemHolder>) : RecyclerView.Adapter<UMKMAdapte
                 val intent = Intent(holder.itemView.context, DetailUmkmActivity::class.java)
                 intent.putExtra("titleumkm", item.titleumkm)
                 intent.putExtra("descriptionumkm", item.descriptionumkm)
+                intent.putExtra("contact", item.contact)
                 holder.itemView.context.startActivity(intent) // Memulai aktivitas
             }
         }

@@ -3,16 +3,13 @@ package com.example.siwangan.Activity.Admin
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.siwangan.Activity.Admin.Create.LayananCreateActivity
 import com.example.siwangan.Adapter.LayananAdminAdapter
-import com.example.siwangan.Adapter.UMKMAdminAdapter
 import com.example.siwangan.Domain.itemLayanan
-import com.example.siwangan.Domain.itemUmkm
 import com.example.siwangan.R
 import com.example.siwangan.ViewModel.MainViewModel
 import com.example.siwangan.databinding.ActivityAdminLayananBinding
@@ -23,7 +20,6 @@ class AdminLayananActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         // Inisialisasi binding
         binding = ActivityAdminLayananBinding.inflate(layoutInflater)
         setContentView(binding.root) // Gunakan binding.root sebagai tampilan utama

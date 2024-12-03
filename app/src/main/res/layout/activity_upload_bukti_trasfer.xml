@@ -211,7 +211,8 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-                            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                            tools:srcCompat="@drawable/image_white"
+                            />
 
                         <Button
                             android:id="@+id/btnBayar"

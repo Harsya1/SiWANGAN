@@ -93,6 +93,7 @@ dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.firebase.database)
     implementation(libs.common)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

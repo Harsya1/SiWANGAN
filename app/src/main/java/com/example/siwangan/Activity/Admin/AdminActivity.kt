@@ -65,15 +65,15 @@ class AdminActivity : AppCompatActivity() {
             startActivity(intent)
         }
 //        // Intent untuk adminScanQrActivity
-//        binding.adminScanQrActivity.setOnClickListener {
-//            val intent = Intent(this, AdminScanQrActivity::class.java)
-//            startActivity(intent)
-//        }
-//        // Intent untuk adminRiwayatPesananTiketActivity
-//        binding.adminRiwayatPesananTiketActivity.setOnClickListener {
-//            val intent = Intent(this, AdminRiwayatPesananTiketActivity::class.java)
-//            startActivity(intent)
-//        }
+        binding.adminScanQrActivity.setOnClickListener {
+            val intent = Intent(this, AdminScanQRActivity::class.java)
+            startActivity(intent)
+        }
+        // Intent untuk adminRiwayatPesananTiketActivity
+        binding.adminRiwayatPesananTiket.setOnClickListener {
+            val intent = Intent(this, AdminRiwayatPesananTiketActivity::class.java)
+            startActivity(intent)
+        }
 
         // Log-Out button
         binding.btnAdminLogout.setOnClickListener {

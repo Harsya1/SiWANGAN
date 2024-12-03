@@ -60,6 +60,5 @@ class RiwayatPemesananActivity : AppCompatActivity() {
                 Log.e("RiwayatPemesananActivity", "Error fetching booking data: ${exception.message}")
             }
     }
-
-    }
 }
+

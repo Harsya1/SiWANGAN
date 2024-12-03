@@ -6,12 +6,9 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.bumptech.glide.Glide
-import com.example.siwangan.Domain.Item
+import com.example.siwangan.Domain.ItemHolder
+import com.example.siwangan.Helper.ImageCache
 import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityDetailUmkmBinding
 import com.google.android.material.snackbar.Snackbar
@@ -19,7 +16,7 @@ import java.io.ByteArrayInputStream
 
 class DetailUmkmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailUmkmBinding
-    private lateinit var item: Item
+    private lateinit var item: ItemHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +27,8 @@ class DetailUmkmActivity : AppCompatActivity() {
 
         getBundle()
 
+        loadImageFromCache()
+
         binding.btnMassageWhatsapp.setOnClickListener {
             sendWhatsAppMessage()
         }
@@ -39,7 +38,7 @@ class DetailUmkmActivity : AppCompatActivity() {
     private fun sendWhatsAppMessage() {
         item = intent.getParcelableExtra("item")!!
 
-        val adminNumber = item.contact
+        val adminNumber = "62" + item.contact
 
         val message = """
         Halo Kak,
@@ -80,6 +79,26 @@ class DetailUmkmActivity : AppCompatActivity() {
 
         }
     }
+
+    private fun loadImageFromCache() {
+        val base64Image = ImageCache.base64Image // Retrieve image from cache
+
+        // Convert Base64 to Bitmap
+        val bitmap = base64ToBitmap(base64Image ?: "")
+        if (bitmap != null) {
+            binding.imgUmkm.setImageBitmap(bitmap)
+        } else {
+            binding.imgUmkm.setImageResource(R.drawable.error_image) // Placeholder if decoding fails
+        }
+
+        val bitmapmenu = base64ToBitmap(base64Image ?: "")
+        if (bitmapmenu != null) {
+            binding.imageMenu.setImageBitmap(bitmapmenu)
+        } else {
+            binding.imageMenu.setImageResource(R.drawable.error_image) // Placeholder if decoding fails
+        }
+    }
+
     private fun base64ToBitmap(base64Str: String): Bitmap? {
         return try {
             val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)

@@ -1,32 +1,32 @@
 package com.example.siwangan.Activity.BookingTicket
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
-import android.util.Base64
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.siwangan.Domain.Item
-import com.example.siwangan.Domain.User
 import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityBookingBinding
-import java.io.ByteArrayInputStream
-import java.util.ResourceBundle.getBundle
-import java.text.SimpleDateFormat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.util.*
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBookingBinding
-    private lateinit var item: Item
-    private lateinit var user: User
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
+    private var itemTitle: String? = null
 
     private var qty = 1
     private val maxQty = 10
     private lateinit var KodeBooking: String
-    private var quantity: Int = 0
     private lateinit var selectedDate: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,32 +36,14 @@ class BookingActivity : AppCompatActivity() {
         binding = ActivityBookingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().reference
+
         setUniqueCode()
         setupListeners()
+        fetchUserData(auth.currentUser?.uid ?: "")
+        retrieveItemData()
 
-//
-//        val calendar = Calendar.getInstance()
-//        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-//            calendar.set(Calendar.YEAR, year)
-//            calendar.set(Calendar.MONTH, month)
-//            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-//            val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-//            binding.etTanggal.setText(dateFormat.format(calendar.time))
-//        }
-//
-//        val datePickerDialog = DatePickerDialog(
-//            this,
-//            dateSetListener,
-//            calendar.get(Calendar.YEAR),
-//            calendar.get(Calendar.MONTH),
-//            calendar.get(Calendar.DAY_OF_MONTH)
-//        )
-//
-//        binding.txtFieldDat.setOnClickListener {
-//            datePickerDialog.show()
-//        }
-
-        // Listener untuk button tambah
         binding.btnTambahQty.setOnClickListener {
             if (qty < maxQty) {
                 qty++
@@ -69,7 +51,30 @@ class BookingActivity : AppCompatActivity() {
             }
         }
 
-        getBundle()
+        binding.btnKurangQty.setOnClickListener {
+            if (qty > 1) {
+                qty--
+                binding.txtQty.text = qty.toString()
+            } else {
+            }
+        }
+
+
+        binding.btnPesan.setOnClickListener {
+            val hargaPerOrang = binding.txtHargaBookingLayanan.text.toString().replace("Rp", "").toInt()
+            val totalHarga = hargaPerOrang * qty
+
+            val intent = Intent(this, UploadBuktiTrasferActivity::class.java)
+            intent.putExtra("userId", auth.currentUser?.uid)
+            intent.putExtra("userName", binding.txtNamaPengunjung.text.toString())
+            intent.putExtra("userPhone", binding.txtNoTelp.text.toString())
+            intent.putExtra("itemTitle", itemTitle)
+            intent.putExtra("bookingCode", KodeBooking)
+            intent.putExtra("quantity", qty)
+            intent.putExtra("selectedDate", selectedDate)
+            intent.putExtra("totalHarga", totalHarga)
+            startActivity(intent)
+        }
     }
 
     private fun setUniqueCode() {
@@ -85,31 +90,6 @@ class BookingActivity : AppCompatActivity() {
         binding.btnPickDate.setOnClickListener {
             showDatePickerDialog()
         }
-        // Listener untuk button tambah
-        binding.btnTambahQty.setOnClickListener {
-            if (qty < maxQty) {
-                qty++
-                binding.txtQty.text = qty.toString()
-            }
-        }
-
-        binding.btnKurangQty.setOnClickListener {
-            if (quantity > 0) {
-                quantity--
-                binding.txtQty.text = quantity.toString()
-            } else {
-                Toast.makeText(this, "Jumlah minimal adalah 1", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        binding.btnTambahQty.setOnClickListener {
-            if (quantity < 10) {
-                quantity++
-                binding.txtQty.text = quantity.toString()
-            } else {
-                Toast.makeText(this, "Jumlah Maksimal adalah 10", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     private fun showDatePickerDialog() {
@@ -119,13 +99,17 @@ class BookingActivity : AppCompatActivity() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+            selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
             binding.txtFieldDate.setText(selectedDate)
         }, year, month, day)
+
+        // Set the minimum date to today
+        datePickerDialog.datePicker.minDate = calendar.timeInMillis
+
         datePickerDialog.show()
     }
 
-    fun generateUniqueCode(): String {
+    private fun generateUniqueCode(): String {
         val random = java.util.Random()
         val code = StringBuilder("TKT")
         for (i in 0 until 6) {
@@ -139,37 +123,40 @@ class BookingActivity : AppCompatActivity() {
         return code.toString()
     }
 
+    private fun fetchUserData(userId: String) {
+        database.child("Users").child(userId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        val namaLengkap = dataSnapshot.child("name").getValue(String::class.java)
+                        val nomorTelepon = dataSnapshot.child("phone").getValue(String::class.java)
 
-    private fun getBundle() {
-        item = intent.getParcelableExtra("item")!!
-        user = intent.getParcelableExtra("user")!!
+                        binding.txtNamaPengunjung.text = namaLengkap ?: "N/A"
+                        binding.txtNoTelp.text = nomorTelepon ?: "N/A"
+                    } else {
+                        android.util.Log.e("BookingActivity", "Data snapshot does not exist!")
+                    }
+                }
 
-        binding.apply {
-            txtTitle.text = item.title
-            txtHargaBookingLayanan.text = item.price
-            txtKodeBooking.text = generateUniqueCode()
-            txtNamaPengunjung.text = user.name
-            txtNoTelp.text = user.phone
-
-            val bitmap = base64ToBitmap(item.pic) // Assuming `item.pic` contains the Base64 string
-            if (bitmap != null) {
-                imageView7.setImageBitmap(bitmap)
-            } else {
-                imageView7.setImageResource(R.drawable.error_image) // Placeholder image if decoding fails
-            }
-        }
+                override fun onCancelled(databaseError: DatabaseError) {
+                    android.util.Log.e("BookingActivity", "Database error: ${databaseError.message}")
+                }
+            })
     }
 
-    private fun base64ToBitmap(base64Str: String): Bitmap? {
-        return try {
-            val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)
-            val inputStream = ByteArrayInputStream(decodedBytes)
-            BitmapFactory.decodeStream(inputStream)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
+    private fun retrieveItemData() {
+        itemTitle = intent.getStringExtra("title")
+        binding.txtTitle.text = itemTitle
+
+        val imageUriString = intent.getStringExtra("imageUri")
+        val imageUri = Uri.parse(imageUriString)
+        val inputStream = contentResolver.openInputStream(imageUri)
+        val bitmap = BitmapFactory.decodeStream(inputStream)
+        if (bitmap != null) {
+            binding.imageView7.setImageBitmap(bitmap)
+        } else {
+            binding.imageView7.setImageResource(R.drawable.error_image)
         }
     }
-
 
 }

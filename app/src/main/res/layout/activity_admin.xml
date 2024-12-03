@@ -215,7 +215,7 @@
             android:layout_marginBottom="14dp"
             android:background="@color/dark_blue" />
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/adminTransaksiSelesaiActivity"
+            android:id="@+id/adminRiwayatPesananTiket"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/rounded_bg">

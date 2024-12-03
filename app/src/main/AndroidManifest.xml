@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,19 +15,31 @@
         android:theme="@style/Theme.SiWANGAN"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.BookingTicket.UploadBuktiPembayaranActivity"
+            android:name=".Activity.RiwayatPemesananActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.BookingTicket.BookingActivity"
+            android:name=".Activity.BookingTicket.UploadBuktiTrasferActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.MenungguVerifikasiActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.GantiPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.BookingTicket.BookingActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.TambahProfileActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.TentangAkunActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Admin.AdminActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.Admin.Update.BannerUpdateActivity"
@@ -55,9 +69,6 @@
             android:name=".Activity.Admin.AdminBannerActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Admin.AdminActivity"
-            android:exported="true" />
-        <activity
             android:name=".Activity.DetailUmkmActivity"
             android:exported="false" />
         <activity
@@ -76,6 +87,9 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.introActivity"
             android:exported="true">
             <intent-filter>
@@ -84,17 +98,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.SiWANGAN">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

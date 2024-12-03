@@ -2,8 +2,11 @@ package com.example.siwangan.Activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -15,15 +18,12 @@ import com.bumptech.glide.Glide
 import com.example.siwangan.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import java.util.UUID
+import java.io.ByteArrayOutputStream
 
 class TambahProfileActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDatabase: DatabaseReference
-    private lateinit var mStorage: FirebaseStorage
     private lateinit var profileIcon: ImageView
     private lateinit var profileName: TextView
     private lateinit var editNamaLengkap: EditText
@@ -42,7 +42,6 @@ class TambahProfileActivity : AppCompatActivity() {
 
         // Inisialisasi
         mAuth = FirebaseAuth.getInstance()
-        mStorage = FirebaseStorage.getInstance()
         mDatabase = FirebaseDatabase.getInstance().reference
 
         profileIcon = findViewById(R.id.profileIcon)
@@ -78,8 +77,8 @@ class TambahProfileActivity : AppCompatActivity() {
 
             if (namaLengkap.isNotEmpty() && nomorTelepon.isNotEmpty() && alamat.isNotEmpty() && jenisKelamin.isNotEmpty()) {
                 if (imageUri != null) {
-                    // Jika ada gambar yang dipilih, upload gambar dan simpan data
-                    uploadImageToFirebase(namaLengkap, nomorTelepon, alamat, jenisKelamin)
+                    // Jika ada gambar yang dipilih, encode gambar dan simpan data
+                    encodeImageAndSaveData(namaLengkap, nomorTelepon, alamat, jenisKelamin)
                 } else {
                     // Jika tidak ada gambar, simpan data tanpa gambar
                     saveUserData(namaLengkap, nomorTelepon, alamat, jenisKelamin, null)
@@ -89,47 +88,43 @@ class TambahProfileActivity : AppCompatActivity() {
             }
         }
 
-        // Klik TextView untuk memilih foto
-        profileName.setOnClickListener {
+        // Listener untuk memilih gambar
+        profileIcon.setOnClickListener {
             openImageChooser()
         }
     }
 
-    // Fungsi untuk mengambil data user dari Firebase
-    private fun fetchUserData(userId: String) {
-        mDatabase.child("Users").child(userId)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        // Ambil data dari database
-                        val namaLengkap = dataSnapshot.child("name").getValue(String::class.java)
-                        val nomorTelepon = dataSnapshot.child("phone").getValue(String::class.java)
-                        val alamat = dataSnapshot.child("address").getValue(String::class.java)
-                        val jenisKelamin = dataSnapshot.child("gender").getValue(String::class.java)
-                        val profilePicture =
-                            dataSnapshot.child("profile_picture").getValue(String::class.java)
+    // Fungsi untuk memilih gambar
+    private fun openImageChooser() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
 
-                        // Update UI dengan data dari Firebase
-                        editNamaLengkap.setText(namaLengkap)
-                        editNomorTelepon.setText(nomorTelepon)
-                        editAlamat.setText(alamat)
-                        editJenisKelamin.setText(jenisKelamin)
+    // Fungsi untuk menangani hasil memilih gambar
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-                        // Menampilkan gambar profil jika ada
-                        if (profilePicture != null) {
-                            Glide.with(this@TambahProfileActivity)
-                                .load(profilePicture)
-                                .into(profileIcon)
-                        }
-                    } else {
-                        Log.e("TambahProfileActivity", "Data snapshot does not exist!")
-                    }
-                }
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+            imageUri = data.data
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    Log.e("TambahProfileActivity", "Database error: ${databaseError.message}")
-                }
-            })
+            // Menampilkan gambar pada ImageView
+            Glide.with(this)
+                .load(imageUri)
+                .into(profileIcon)
+        }
+    }
+
+    // Fungsi untuk encode gambar ke Base64 dan simpan data
+    private fun encodeImageAndSaveData(namaLengkap: String, nomorTelepon: String, alamat: String, jenisKelamin: String) {
+        val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri!!))
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val imageBytes = byteArrayOutputStream.toByteArray()
+        val encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT)
+
+        // Simpan data pengguna termasuk gambar yang di-encode ke Firebase Database
+        saveUserData(namaLengkap, nomorTelepon, alamat, jenisKelamin, encodedImage)
     }
 
     // Fungsi untuk menyimpan data pengguna (termasuk foto profil jika ada)
@@ -138,7 +133,7 @@ class TambahProfileActivity : AppCompatActivity() {
         nomorTelepon: String,
         alamat: String,
         jenisKelamin: String,
-        imageUrl: String?
+        encodedImage: String?
     ) {
         val currentUser = mAuth.currentUser
         if (currentUser != null) {
@@ -150,9 +145,9 @@ class TambahProfileActivity : AppCompatActivity() {
                 "gender" to jenisKelamin
             )
 
-            // Jika ada URL gambar, tambahkan ke data yang akan disimpan
-            if (imageUrl != null) {
-                userMap["profile_picture"] = imageUrl
+            // Jika ada gambar yang di-encode, tambahkan ke data yang akan disimpan
+            if (encodedImage != null) {
+                userMap["profile_picture"] = encodedImage
             }
 
             // Menyimpan data di Firebase
@@ -178,46 +173,39 @@ class TambahProfileActivity : AppCompatActivity() {
         }
     }
 
-    // Fungsi untuk memilih gambar
-    private fun openImageChooser() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
-    }
+    // Fungsi untuk mengambil data user dari Firebase
+    private fun fetchUserData(userId: String) {
+        mDatabase.child("Users").child(userId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        // Ambil data dari database
+                        val namaLengkap = dataSnapshot.child("name").getValue(String::class.java)
+                        val nomorTelepon = dataSnapshot.child("phone").getValue(String::class.java)
+                        val alamat = dataSnapshot.child("address").getValue(String::class.java)
+                        val jenisKelamin = dataSnapshot.child("gender").getValue(String::class.java)
+                        val profilePicture = dataSnapshot.child("profile_picture").getValue(String::class.java)
 
-    // Fungsi untuk menangani hasil memilih gambar
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+                        // Update UI dengan data dari Firebase
+                        editNamaLengkap.setText(namaLengkap)
+                        editNomorTelepon.setText(nomorTelepon)
+                        editAlamat.setText(alamat)
+                        editJenisKelamin.setText(jenisKelamin)
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
-            imageUri = data.data
-
-            // Menampilkan gambar pada ImageView
-            Glide.with(this)
-                .load(imageUri)
-                .into(profileIcon)
-        }
-    }
-
-    // Fungsi untuk mengunggah gambar ke Firebase Storage
-    private fun uploadImageToFirebase(namaLengkap: String, nomorTelepon: String, alamat: String, jenisKelamin: String) {
-        if (imageUri != null) {
-            val storageRef: StorageReference = mStorage.reference
-            val imageRef = storageRef.child("profile_pictures/${UUID.randomUUID()}.jpg")
-
-            imageRef.putFile(imageUri!!).addOnSuccessListener {
-                // Mendapatkan URL gambar yang telah diunggah
-                imageRef.downloadUrl.addOnSuccessListener { uri ->
-                    val imageUrl = uri.toString()
-
-                    // Simpan data pengguna termasuk URL gambar ke Firebase Database
-                    saveUserData(namaLengkap, nomorTelepon, alamat, jenisKelamin, imageUrl)
+                        // Menampilkan gambar profil jika ada
+                        if (profilePicture != null) {
+                            val imageBytes = Base64.decode(profilePicture, Base64.DEFAULT)
+                            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                            profileIcon.setImageBitmap(decodedImage)
+                        }
+                    } else {
+                        Log.e("TambahProfileActivity", "Data snapshot does not exist!")
+                    }
                 }
-            }.addOnFailureListener {
-                Toast.makeText(this, "Gagal mengunggah gambar", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            Toast.makeText(this, "Tidak ada gambar yang dipilih", Toast.LENGTH_SHORT).show()
-        }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Log.e("TambahProfileActivity", "Database error: ${databaseError.message}")
+                }
+            })
     }
 }

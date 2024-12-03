@@ -35,6 +35,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var lihatProfile: LinearLayout
     private lateinit var gantiPassword: LinearLayout
+    private lateinit var riwayatPemesanan: LinearLayout
     private lateinit var tentangAplikasi: LinearLayout
     private lateinit var keluarAkun: LinearLayout
 
@@ -53,90 +54,90 @@ class ProfileFragment : Fragment() {
         profileIcon = rootView.findViewById(R.id.profileIcon)
         lihatProfile = rootView.findViewById(R.id.LihatProfile)
         gantiPassword = rootView.findViewById(R.id.GantiPassword)
+        riwayatPemesanan = rootView.findViewById(R.id.RiwayatPemesanan)
         tentangAplikasi = rootView.findViewById(R.id.TentangAplikasi)
         keluarAkun = rootView.findViewById(R.id.KeluarAkun)
 
-        val currentUser = mAuth.currentUser
-        if (currentUser != null) {
-            // Menampilkan data user dari Firebase
-            fetchUserData(currentUser.uid)
+        // Menampilkan data user dari Firebase
+        fetchUserData(mAuth.currentUser?.uid)
 
-            // Mengarahkan ke EditProfileActivity saat tombol Lihat Profile dipencet
-            lihatProfile.setOnClickListener {
-                val intent = Intent(requireActivity(), EditProfileActivity::class.java)
-                startActivity(intent)
-            }
-
-            gantiPassword.setOnClickListener {
-                val intent = Intent(requireActivity(), GantiPasswordActivity::class.java)
-                startActivity(intent)            }
-
-            tentangAplikasi.setOnClickListener {
-                val intent = Intent(requireActivity(), TentangAkunActivity::class.java)
-                startActivity(intent)
-            }
-
-            keluarAkun.setOnClickListener {
-                AlertDialog.Builder(requireContext())
-                    .setTitle("Keluar")
-                    .setMessage("Apakah anda yakin untuk keluar?")
-                    .setPositiveButton("Ya") { dialog, _ ->
-                        val sharedPref = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-                        val editor = sharedPref.edit()
-                        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-                        val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-                        mGoogleSignInClient.signOut()
-                        editor.clear()
-                        editor.apply()
-                        mAuth.signOut()
-                        val intent = Intent(requireContext(), SplashLoginRegisterActivity::class.java)
-                        startActivity(intent)
-                        requireActivity().finish()
-                        dialog.dismiss()
-                    }
-                    .setNegativeButton("Tidak", null)
-                    .create()
-                    .show()
-            }
-        } else {
-            Log.e("ProfileFragment", "User not logged in!")
-            val intent = Intent(requireActivity(), LoginActivity::class.java)
+        // Mengarahkan ke EditProfileActivity saat tombol Lihat Profile dipencet
+        lihatProfile.setOnClickListener {
+            val intent = Intent(requireActivity(), EditProfileActivity::class.java)
             startActivity(intent)
-            requireActivity().finish()
+        }
+
+        gantiPassword.setOnClickListener {
+            val intent = Intent(requireActivity(), GantiPasswordActivity::class.java)
+            startActivity(intent)
+        }
+
+        riwayatPemesanan.setOnClickListener {
+            val intent = Intent(requireActivity(), RiwayatPemesananActivity::class.java)
+            intent.putExtra("profileName", profileName.text.toString())
+            startActivity(intent)
+        }
+
+        tentangAplikasi.setOnClickListener {
+            val intent = Intent(requireActivity(), TentangAkunActivity::class.java)
+            startActivity(intent)
+        }
+
+        keluarAkun.setOnClickListener {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Keluar")
+                .setMessage("Apakah anda yakin untuk keluar?")
+                .setPositiveButton("Ya") { dialog, _ ->
+                    val sharedPref = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                    val editor = sharedPref.edit()
+                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+                    val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+                    mGoogleSignInClient.signOut()
+                    editor.clear()
+                    editor.apply()
+                    mAuth.signOut()
+                    val intent = Intent(requireContext(), SplashLoginRegisterActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Tidak", null)
+                .create()
+                .show()
         }
 
         return rootView
     }
 
     // Fungsi untuk mengambil data user dari Firebase
-    private fun fetchUserData(userId: String) {
-        mDatabase.child("Users").child(userId)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        // Ambil data dari database
-                        val namaLengkap = dataSnapshot.child("name").getValue(String::class.java)
-                        val profilePicture = dataSnapshot.child("profile_picture").getValue(String::class.java)
+    private fun fetchUserData(userId: String?) {
+        userId?.let {
+            mDatabase.child("Users").child(it)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            // Ambil data dari database
+                            val namaLengkap = dataSnapshot.child("name").getValue(String::class.java)
+                            val profilePicture = dataSnapshot.child("profile_picture").getValue(String::class.java)
 
-                        // Set profile name
-                        profileName.text = namaLengkap ?: "Nama Profile"
+                            // Set profile name
+                            profileName.text = namaLengkap ?: "Nama Profile"
 
-                        // Menampilkan gambar profil jika ada
-                        if (profilePicture != null) {
-                            val imageBytes = Base64.decode(profilePicture, Base64.DEFAULT)
-                            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                            profileIcon.setImageBitmap(decodedImage)
+                            // Menampilkan gambar profil jika ada
+                            if (profilePicture != null) {
+                                val imageBytes = Base64.decode(profilePicture, Base64.DEFAULT)
+                                val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                                profileIcon.setImageBitmap(decodedImage)
+                            }
+                        } else {
+                            Log.e("ProfileFragment", "Data snapshot does not exist!")
                         }
-                    } else {
-                        Log.e("ProfileFragment", "Data snapshot does not exist!")
                     }
-                }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    Log.e("ProfileFragment", "Database error: ${databaseError.message}")
-                }
-            })
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        Log.e("ProfileFragment", "Database error: ${databaseError.message}")
+                    }
+                })
+        }
     }
-
-
 }

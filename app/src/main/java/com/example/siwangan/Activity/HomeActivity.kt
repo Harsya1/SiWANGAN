@@ -1,26 +1,21 @@
 package com.example.siwangan.Activity
 
-import android.animation.Animator
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.siwangan.Adapter.BannerAdapter
 import com.example.siwangan.Adapter.LayananAdapter
 import com.example.siwangan.Adapter.UMKMAdapter
 import com.example.siwangan.R
 import com.example.siwangan.ViewModel.BannerViewModel
 import com.example.siwangan.ViewModel.MainViewModel
+import com.example.siwangan.ViewModel.RiwayatPesananModel
 import com.example.siwangan.ViewModel.UMKMViewModel
 import com.example.siwangan.databinding.ActivityHomeBinding
 

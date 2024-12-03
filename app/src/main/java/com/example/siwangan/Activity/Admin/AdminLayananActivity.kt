@@ -3,7 +3,6 @@ package com.example.siwangan.Activity.Admin
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -21,7 +20,6 @@ class AdminLayananActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         // Inisialisasi binding
         binding = ActivityAdminLayananBinding.inflate(layoutInflater)
         setContentView(binding.root) // Gunakan binding.root sebagai tampilan utama

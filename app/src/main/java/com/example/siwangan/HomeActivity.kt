@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.siwangan.Adapter.LayananAdapter
 import com.example.siwangan.ViewModel.MainViewModel
+import com.example.siwangan.ViewModel.RiwayatPesananModel
 import com.example.siwangan.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {

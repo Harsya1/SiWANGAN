@@ -41,42 +41,64 @@ class DetailUmkmActivity : AppCompatActivity() {
         binding.btnMassageWhatsapp.setOnClickListener {
             sendWhatsAppMessage()
         }
+        binding.imgBack.setOnClickListener {
+            finish()
+        }
 
     }
 
     private fun sendWhatsAppMessage() {
-        item = intent.getParcelableExtra("item")!!
-
-        val adminNumber = "62" + item.contact
-
-        val message = """
-        Halo Kak,
-        Saya ingin melakukan pemesanan makanan
-    """.trimIndent()
+        val nomer = intent.getStringExtra("contact")
 
         try {
-            val intent = Intent(Intent.ACTION_VIEW)
+            val adminNumber = "62" + nomer?.trim()
+            if (adminNumber.length <= 2) { // Pastikan nomor valid
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Nomor kontak tidak valid.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return
+            }
+
+            // Pesan yang akan dikirim
+            val message = """
+            Halo Kak,
+            Saya ingin melakukan pemesanan makanan.
+        """.trimIndent()
+
+            // Buat URL WhatsApp
             val url = "https://api.whatsapp.com/send?phone=$adminNumber&text=${Uri.encode(message)}"
-            intent.data = Uri.parse(url)
+
+            // Intent untuk membuka WhatsApp
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
         } catch (e: Exception) {
-            Snackbar.make(findViewById(android.R.id.content), "Gagal membuka WhatsApp. Pastikan WhatsApp terpasang.", Snackbar.LENGTH_SHORT).show()
+            // Log error untuk membantu debug
+            e.printStackTrace()
+            Snackbar.make(
+                findViewById(android.R.id.content),
+                "Gagal membuka WhatsApp. Pastikan WhatsApp terpasang.",
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 
 
+
     private fun loadImageFromCache() {
-        val base64Image = ImageCache.base64Image // Retrieve image from cache
+        val base64Umkm = ImageCache.base64Image // Retrieve image from cache
+        val base64Menu = ImageCache.base64Image
 
         // Convert Base64 to Bitmap
-        val bitmap = base64ToBitmap(base64Image ?: "")
+        val bitmap = base64ToBitmap(base64Umkm ?: "")
         if (bitmap != null) {
             binding.imgUmkm.setImageBitmap(bitmap)
         } else {
             binding.imgUmkm.setImageResource(R.drawable.error_image) // Placeholder if decoding fails
         }
 
-        val bitmapmenu = base64ToBitmap(base64Image ?: "")
+        val bitmapmenu = base64ToBitmap(base64Menu ?: "")
         if (bitmapmenu != null) {
             binding.imageMenu.setImageBitmap(bitmapmenu)
         } else {

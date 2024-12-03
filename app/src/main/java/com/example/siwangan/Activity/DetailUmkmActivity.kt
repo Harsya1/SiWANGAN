@@ -41,7 +41,6 @@ class DetailUmkmActivity : AppCompatActivity() {
         binding.btnMassageWhatsapp.setOnClickListener {
             sendWhatsAppMessage()
         }
-
     }
 
     private fun sendWhatsAppMessage() {

@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.util.Base64
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.example.siwangan.Activity.Booking.BookingLayananActivity
+import com.example.siwangan.Activity.Booking.BookingUmkmActivity
 import com.example.siwangan.Domain.ItemHolder
 import com.example.siwangan.Helper.ImageCache
 import com.example.siwangan.R
@@ -38,16 +40,8 @@ class DetailUmkmActivity : AppCompatActivity() {
 
         loadImageFromCache()
 
-        binding.btnMassageWhatsapp.setOnClickListener {
-            sendWhatsAppMessage()
-        }
-        binding.imgBack.setOnClickListener {
-            finish()
-        }
+        binding.btnMessageWhatsapp.setOnClickListener {
 
-    }
-
-    private fun sendWhatsAppMessage() {
         val nomer = intent.getStringExtra("contact")
 
         try {
@@ -58,14 +52,13 @@ class DetailUmkmActivity : AppCompatActivity() {
                     "Nomor kontak tidak valid.",
                     Snackbar.LENGTH_SHORT
                 ).show()
-                return
             }
 
             // Pesan yang akan dikirim
             val message = """
             Halo Kak,
-            Saya ingin melakukan pemesanan makanan.
-        """.trimIndent()
+            saya pengunjung dari aplikasi Siwangan ( Pemandian Air Panas Wong Pulunngan ) ingin melakukan pemesanan makanan.
+            """.trimIndent()
 
             // Buat URL WhatsApp
             val url = "https://api.whatsapp.com/send?phone=$adminNumber&text=${Uri.encode(message)}"
@@ -82,9 +75,17 @@ class DetailUmkmActivity : AppCompatActivity() {
                 Snackbar.LENGTH_SHORT
             ).show()
         }
+//            val imageUri = saveImageToCacheAndGetUri(this, ImageCache.base64Image ?: "")
+//            val intent = Intent(this, BookingUmkmActivity::class.java)
+//            intent.putExtra("title", binding.txtTitle.text.toString())
+//            intent.putExtra("imageUri", imageUri.toString())
+//            startActivity(intent)
+//            ImageCache.base64Image = null // Clear cache after passing the image
+        }
+        binding.imgBack.setOnClickListener {
+            finish()
+        }
     }
-
-
 
     private fun loadImageFromCache() {
         val base64Umkm = ImageCache.base64Image // Retrieve image from cache

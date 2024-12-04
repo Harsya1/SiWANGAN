@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.siwangan.Activity.SplashLoginRegisterActivity
-import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityAdminBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -66,7 +65,7 @@ class AdminActivity : AppCompatActivity() {
         }
 //        // Intent untuk adminScanQrActivity
         binding.adminScanQrActivity.setOnClickListener {
-            val intent = Intent(this, AdminScanQRActivity::class.java)
+            val intent = Intent(this, AdminScanTiketActivity::class.java)
             startActivity(intent)
         }
         // Intent untuk adminRiwayatPesananTiketActivity

@@ -12,82 +12,35 @@
         android:id="@+id/tvIDTicket"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ID Tiket: -"
+        android:layout_marginTop="100dp"
+         android:textAlignment="center"
+        android:text="Hasil Scan Akan Muncul Disini"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvNamaPemesan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nama Pemesan: -"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvIDTicket" />
-
-    <TextView
-        android:id="@+id/tvNoTelepon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nomor Telepon: -"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNamaPemesan" />
-
-    <TextView
-        android:id="@+id/tvTotalPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Total Harga: -"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/tvNoTelepon"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <TextView
-        android:id="@+id/tvQty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Jumlah Pengunjung: -"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/tvTotalPrice"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <TextView
-        android:id="@+id/tvTanggalPesan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tanggal Pesan: -"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/tvQty"
-        tools:layout_editor_absoluteX="16dp" />
-
-
-    <Button
-        android:id="@+id/buttonScanQR"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/btn_rounded_blue"
-        android:text="Tandai Selesai"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTanggalPesan" />
 
     <Button
         android:id="@+id/buttonTandaiSelesai"
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_rounded_blue"
+        android:text="Tandai Selesai"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="355dp" />
+
+    <Button
+        android:id="@+id/buttonScanQR"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
         android:background="@drawable/btn_rounded_blue"
         android:text="Scan Tiket"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTanggalPesan" />
+        tools:layout_editor_absoluteY="355dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

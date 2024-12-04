@@ -1,16 +1,14 @@
-package com.example.siwangan.Activity.BookingTicket
+package com.example.siwangan.Activity.Booking
 
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.siwangan.R
-import com.example.siwangan.databinding.ActivityBookingBinding
+import com.example.siwangan.databinding.ActivityBookingLayananBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -18,8 +16,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.util.*
 
-class BookingActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityBookingBinding
+class BookingLayananActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityBookingLayananBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private var itemTitle: String? = null
@@ -33,7 +31,7 @@ class BookingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
 
-        binding = ActivityBookingBinding.inflate(layoutInflater)
+        binding = ActivityBookingLayananBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()

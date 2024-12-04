@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_grey"
-    tools:context=".Activity.BookingTicket.BookingActivity">
+    tools:context=".Activity.Booking.BookingUmkmActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                 android:layout_height="match_parent">
 
                 <View
-                    android:id="@+id/view4"
+                    android:id="@+id/viewAtasUmkm"
                     android:layout_width="wrap_content"
                     android:layout_height="300dp"
                     android:background="@color/light_blue"
@@ -57,7 +57,7 @@
                     android:id="@+id/btnPesan"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="25dp"
                     android:layout_marginBottom="32dp"
                     android:background="@drawable/btn_rounded_blue"
                     android:text="Pesan"
@@ -122,7 +122,7 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="6dp"
                             android:gravity="center"
-                            android:text="TKT00001"
+                            android:text="UMKM00001"
                             android:textColor="@color/dark_blue"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="@+id/textView15"
@@ -205,23 +205,22 @@
                             app:layout_constraintTop_toTopOf="@+id/textView20" />
 
                         <TextView
-                            android:id="@+id/textView22"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="32dp"
-                            android:text="Tanggal Kunjungan"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:text="Tulis Pesanan disini"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
                         <EditText
-                            android:enabled="false"
-                            android:id="@+id/txtFieldDate"
+                            android:id="@+id/txtPesananDetail"
                             android:layout_width="300dp"
-                            android:layout_height="40dp"
+                            android:layout_height="100dp"
                             android:layout_marginTop="16dp"
                             android:background="@drawable/rounded_corners_grey"
                             android:paddingStart="20dp"
@@ -232,91 +231,13 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
-                        <Button
-                            android:id="@+id/btnPickDate"
-                            android:layout_width="100dp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="12dp"
-                            android:background="@drawable/btn_rounded_blue"
-                            android:text="Pilih Tanggal"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/txtHargaBookingLayanan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="48dp"
-                            android:layout_marginTop="100dp"
-                            android:text="Rp15000"
-                            android:textColor="@color/light_blue"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textView21"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text=" /Orang"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="16sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/txtHargaBookingLayanan"
-                            app:layout_constraintStart_toEndOf="@+id/txtHargaBookingLayanan"
-                            app:layout_constraintTop_toTopOf="@+id/txtHargaBookingLayanan" />
-
-                        <LinearLayout
-                            android:id="@+id/containerQty"
-                            android:layout_width="100dp"
-                            android:layout_height="30dp"
-                            android:layout_marginEnd="48dp"
-                            android:background="@drawable/rounded_corners_grey"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="@+id/txtHargaBookingLayanan"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/txtHargaBookingLayanan">
-
-                            <Button
-                                android:id="@+id/btnKurangQty"
-                                android:layout_width="35dp"
-                                android:layout_height="30dp"
-                                android:background="@drawable/btn_rounded_blue"
-                                android:text="-"
-                                android:textColor="@color/white"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/txtQty"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="0"
-                                android:textAlignment="center"
-                                android:textColor="@color/dark_blue"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <Button
-                                android:id="@+id/btnTambahQty"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:background="@drawable/btn_rounded_blue"
-                                android:text="+"
-                                android:textColor="@color/white"
-                                android:textStyle="bold" />
-                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/textView25"
@@ -324,11 +245,23 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:text="*/ Maksimal Jumlah Pengunjung adalah 10"
+                            android:text="*/ Tulis detail pesanan dengan jelas"
                             android:textColor="@color/dark_blue"
                             android:textSize="12sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/txtHargaBookingLayanan" />
+
+                        <TextView
+                            android:id="@+id/textView26"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="10dp"
+                            android:text="*/ Pastikan pesanan yang anda masukkan benar"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

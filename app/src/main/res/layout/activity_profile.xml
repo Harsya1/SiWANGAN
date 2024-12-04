@@ -139,6 +139,40 @@
                 android:contentDescription="Ganti Password" />
         </LinearLayout>
 
+        <!-- Tiket Pesanan -->
+        <LinearLayout
+            android:id="@+id/TiketPesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/tiket" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:text="Tiket Pesanan Anda"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/buttontiketPesanan"
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                android:background="@drawable/btn_next_right"
+                android:contentDescription="Ganti Password" />
+        </LinearLayout>
+
         <!-- Riwayat Pemesanan -->
         <LinearLayout
             android:id="@+id/RiwayatPemesanan"

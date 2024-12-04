@@ -10,7 +10,7 @@ import android.util.Base64
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.example.siwangan.Helper.ImageCache
-import com.example.siwangan.Activity.BookingTicket.BookingActivity
+import com.example.siwangan.Activity.Booking.BookingLayananActivity
 import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityDetailLayananBinding
 import java.io.ByteArrayInputStream
@@ -42,7 +42,7 @@ class DetailLayananActivity : AppCompatActivity() {
 
         binding.btnPesan.setOnClickListener {
             val imageUri = saveImageToCacheAndGetUri(this, ImageCache.base64Image)
-            val intent = Intent(this, BookingActivity::class.java)
+            val intent = Intent(this, BookingLayananActivity::class.java)
             intent.putExtra("title", binding.txtTitle.text.toString())
             intent.putExtra("imageUri", imageUri.toString())
             startActivity(intent)

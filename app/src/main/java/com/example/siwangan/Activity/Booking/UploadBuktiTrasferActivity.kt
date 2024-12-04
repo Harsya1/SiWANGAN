@@ -1,4 +1,4 @@
-package com.example.siwangan.Activity.BookingTicket
+package com.example.siwangan.Activity.Booking
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -10,7 +10,6 @@ import android.util.Base64
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.siwangan.Activity.MenungguVerifikasiActivity
 import com.example.siwangan.databinding.ActivityUploadBuktiTrasferBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import java.io.ByteArrayOutputStream

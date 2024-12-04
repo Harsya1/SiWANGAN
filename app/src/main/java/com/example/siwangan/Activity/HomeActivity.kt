@@ -15,8 +15,8 @@ import com.example.siwangan.Adapter.UMKMAdapter
 import com.example.siwangan.R
 import com.example.siwangan.ViewModel.BannerViewModel
 import com.example.siwangan.ViewModel.MainViewModel
-import com.example.siwangan.ViewModel.RiwayatPesananModel
 import com.example.siwangan.ViewModel.UMKMViewModel
+
 import com.example.siwangan.databinding.ActivityHomeBinding
 
 class HomeFragment : Fragment() {

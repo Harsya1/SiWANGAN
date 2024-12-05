@@ -47,7 +47,7 @@
         <!-- Search Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/searchContainer"
-            android:background="@drawable/rounded_bg"
+            android:background="@drawable/background_searchfield_lightgrey"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"

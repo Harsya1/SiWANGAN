@@ -45,14 +45,43 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp">
 
+                <EditText
+                    android:id="@+id/SearchFieldUmkm"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/background_searchfield_lightgrey"
+                    android:drawableStart="@drawable/search_icon"
+                    android:drawablePadding="8dp"
+                    android:ems="10"
+                    android:hint="Info Terbaru, Berita, Lokasi"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textColor="@color/dark_blue"
+                    android:textColorHint="@color/dark_blue"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/RecyclerViewPageUmkm"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/SearchFieldUmkm" />
+
+                <ProgressBar
+                    android:id="@+id/progressBarkuy"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/RecyclerViewPageUmkm"
+                    app:layout_constraintEnd_toEndOf="@+id/RecyclerViewPageUmkm"
+                    app:layout_constraintStart_toStartOf="@+id/RecyclerViewPageUmkm"
+                    app:layout_constraintTop_toTopOf="@+id/RecyclerViewPageUmkm" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

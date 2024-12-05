@@ -35,6 +35,10 @@ class TiketActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         val profileName = intent.getStringExtra("profileName") ?: ""
         initTiketBooking(profileName)
+
+        binding.imageBtnBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun initTiketBooking(userName: String) {

@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="100dp"
-                    android:background="@drawable/rounded_bg"
+                    android:background="@drawable/background_searchfield_lightgrey"
                     android:hint="Masukkan ID Banner"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"

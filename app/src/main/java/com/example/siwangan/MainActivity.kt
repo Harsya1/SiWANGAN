@@ -1,17 +1,27 @@
 package com.example.siwangan
 
 import android.os.Bundle
+import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.example.siwangan.Activity.BenefitActivity
 import com.example.siwangan.Activity.HomeFragment
 import com.example.siwangan.Activity.ProfileFragment
 import com.example.siwangan.Activity.UmkmActivity
 import com.example.siwangan.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         initChipNavigationBar()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Handle back press
         val callback = object : OnBackPressedCallback(true) {
@@ -34,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         }
         onBackPressedDispatcher.addCallback(this, callback)
     }
+
 
     private fun initChipNavigationBar() {
         // Set initial fragment

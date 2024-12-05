@@ -5,107 +5,238 @@
     android:layout_height="match_parent"
     tools:context=".Activity.Admin.AdminDetailRiwayatPesananTiketActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_top_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView60"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:layout_marginTop="30dp"
+            android:text="Detail Riwayat Pesanan" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/txtBookingCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
         android:text="Kode Booking"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/textView51"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView51" />
 
     <TextView
         android:id="@+id/txtItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="80dp"
         android:text="Jenis Layanan"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/txtBookingCode"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/textView52"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView52" />
 
     <TextView
         android:id="@+id/txtUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="80dp"
         android:text="User Name"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/txtItemTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/textView53"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView53" />
 
     <TextView
         android:id="@+id/txtUserPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
         android:text="User Phone"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/txtUserName"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/textView54"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView54" />
 
     <TextView
         android:id="@+id/txtBookingDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
         android:text="Tanggal Berkunjung"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/txtUserPhone"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/textView55"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView55" />
 
     <TextView
         android:id="@+id/txtQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
         android:text="Quantity"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/txtBookingDate"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/textView56"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView56" />
 
     <TextView
         android:id="@+id/txtTotalPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="80dp"
         android:text="total Harga"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/txtQuantity"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/textView57"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView57" />
 
     <TextView
         android:id="@+id/txtStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
         android:text="Status"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/txtTotalPrice"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/textView58"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView58" />
+
+    <TextView
+        android:id="@+id/textView51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="32dp"
+        android:text="Kode Booking:"
+        android:textColor="@color/dark_blue"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+    <TextView
+        android:id="@+id/textView52"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:text="Layanan:"
+        android:textSize="14sp"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView51" />
+
+    <TextView
+        android:id="@+id/textView53"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:text="Nama:"
+        android:textSize="14sp"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView52" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:text="Nomor telepon:"
+        android:textSize="14sp"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView53" />
+
+    <TextView
+        android:id="@+id/textView55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:text="Tanggal Kunjung"
+        android:textSize="14sp"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView54" />
+
+    <TextView
+        android:id="@+id/textView56"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:text="Jumlah Pengunjung"
+        android:textSize="14sp"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView55" />
+
+    <TextView
+        android:id="@+id/textView57"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:text="Total Harga:"
+        android:textSize="14sp"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView56" />
+
+    <TextView
+        android:id="@+id/textView58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:text="Status:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView57" />
 
     <ImageView
         android:id="@+id/imgProof"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="104dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.981"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtStatus" />
+        app:layout_constraintTop_toBottomOf="@+id/textView58" />
 
     <Button
         android:id="@+id/buttonTolakPesanan"
@@ -113,6 +244,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/round_button_logout_admin"
         android:text="Tolak Pesanan"
         android:textAllCaps="false"
@@ -125,6 +257,7 @@
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/btn_rounded_blue"
         android:text="Setujui Pesanan"

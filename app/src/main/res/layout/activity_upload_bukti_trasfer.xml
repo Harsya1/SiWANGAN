@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_grey"
-    tools:context=".Activity.BookingTicket.UploadBuktiTrasferActivity">
+    tools:context=".Activity.Booking.UploadBuktiTrasferActivity">
 
     <ScrollView
         android:layout_width="match_parent"

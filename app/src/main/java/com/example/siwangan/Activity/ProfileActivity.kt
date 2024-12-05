@@ -35,6 +35,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var lihatProfile: LinearLayout
     private lateinit var gantiPassword: LinearLayout
+    private lateinit var tiketPesanan: LinearLayout
     private lateinit var riwayatPemesanan: LinearLayout
     private lateinit var tentangAplikasi: LinearLayout
     private lateinit var keluarAkun: LinearLayout
@@ -54,6 +55,7 @@ class ProfileFragment : Fragment() {
         profileIcon = rootView.findViewById(R.id.profileIcon)
         lihatProfile = rootView.findViewById(R.id.LihatProfile)
         gantiPassword = rootView.findViewById(R.id.GantiPassword)
+        tiketPesanan = rootView.findViewById(R.id.TiketPesanan)
         riwayatPemesanan = rootView.findViewById(R.id.RiwayatPemesanan)
         tentangAplikasi = rootView.findViewById(R.id.TentangAplikasi)
         keluarAkun = rootView.findViewById(R.id.KeluarAkun)
@@ -69,6 +71,13 @@ class ProfileFragment : Fragment() {
 
         gantiPassword.setOnClickListener {
             val intent = Intent(requireActivity(), GantiPasswordActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        tiketPesanan.setOnClickListener {
+            val intent = Intent(requireActivity(), TiketActivity::class.java)
+            intent.putExtra("profileName", profileName.text.toString())
             startActivity(intent)
         }
 

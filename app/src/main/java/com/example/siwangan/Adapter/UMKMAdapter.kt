@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.siwangan.Activity.DetailUmkmActivity
 import com.example.siwangan.Domain.ItemHolder
-import com.example.siwangan.Helper.ImageCache
+import com.example.siwangan.Activity.Helper.ImageCache
 import com.example.siwangan.databinding.ViewholderUmkmBinding
 import java.io.ByteArrayInputStream
 
@@ -39,16 +39,17 @@ class UMKMAdapter(val items: List<ItemHolder>) : RecyclerView.Adapter<UMKMAdapte
 
 
             holder.binding.root.setOnClickListener {
-
-                ImageCache.base64Image = item.picumkm
-                ImageCache.base64Image = item.menu
+                // Simpan gambar UMKM dan menu ke dalam cache yang berbeda
+                ImageCache.base64ImageUmkm = item.picumkm
+                ImageCache.base64ImageMenu = item.menu
 
                 val intent = Intent(holder.itemView.context, DetailUmkmActivity::class.java)
                 intent.putExtra("titleumkm", item.titleumkm)
                 intent.putExtra("descriptionumkm", item.descriptionumkm)
                 intent.putExtra("contact", item.contact)
-                holder.itemView.context.startActivity(intent) // Memulai aktivitas
+                holder.itemView.context.startActivity(intent)
             }
+
         }
     }
 

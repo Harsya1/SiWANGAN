@@ -7,12 +7,13 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.example.siwangan.Activity.Booking.BookingLayananActivity
 import com.example.siwangan.Activity.Booking.BookingUmkmActivity
 import com.example.siwangan.Domain.ItemHolder
-import com.example.siwangan.Helper.ImageCache
+import com.example.siwangan.Activity.Helper.ImageCache
 import com.example.siwangan.R
 import com.example.siwangan.databinding.ActivityDetailUmkmBinding
 import com.google.android.material.snackbar.Snackbar
@@ -39,6 +40,10 @@ class DetailUmkmActivity : AppCompatActivity() {
         }
 
         loadImageFromCache()
+
+        binding.imgUmkm.scaleType = ImageView.ScaleType.CENTER_CROP
+        binding.imageMenu.scaleType = ImageView.ScaleType.CENTER_CROP
+
 
         binding.btnMessageWhatsapp.setOnClickListener {
 
@@ -88,24 +93,24 @@ class DetailUmkmActivity : AppCompatActivity() {
     }
 
     private fun loadImageFromCache() {
-        val base64Umkm = ImageCache.base64Image // Retrieve image from cache
-        val base64Menu = ImageCache.base64Image
+        val base64Umkm = ImageCache.base64ImageUmkm
+        val base64Menu = ImageCache.base64ImageMenu
 
-        // Convert Base64 to Bitmap
-        val bitmap = base64ToBitmap(base64Umkm ?: "")
-        if (bitmap != null) {
-            binding.imgUmkm.setImageBitmap(bitmap)
+        val bitmapUmkm = base64ToBitmap(base64Umkm ?: "")
+        if (bitmapUmkm != null) {
+            binding.imgUmkm.setImageBitmap(bitmapUmkm)
         } else {
-            binding.imgUmkm.setImageResource(R.drawable.error_image) // Placeholder if decoding fails
+            binding.imgUmkm.setImageResource(R.drawable.error_image)
         }
 
-        val bitmapmenu = base64ToBitmap(base64Menu ?: "")
-        if (bitmapmenu != null) {
-            binding.imageMenu.setImageBitmap(bitmapmenu)
+        val bitmapMenu = base64ToBitmap(base64Menu ?: "")
+        if (bitmapMenu != null) {
+            binding.imageMenu.setImageBitmap(bitmapMenu)
         } else {
-            binding.imageMenu.setImageResource(R.drawable.error_image) // Placeholder if decoding fails
+            binding.imageMenu.setImageResource(R.drawable.error_image)
         }
     }
+
 
     private fun saveImageToCacheAndGetUri(context: Context, base64Str: String): Uri? {
         val bitmap = base64ToBitmap(base64Str) ?: return null

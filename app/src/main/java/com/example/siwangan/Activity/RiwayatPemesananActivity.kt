@@ -36,6 +36,10 @@ class RiwayatPemesananActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         val profileName = intent.getStringExtra("profileName") ?: ""
         initBookingHistory(profileName)
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun initBookingHistory(userName: String) {

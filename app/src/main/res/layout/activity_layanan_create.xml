@@ -15,8 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-
         <Button
             android:id="@+id/btnlayanancreateback"
             android:layout_width="40dp"
@@ -80,8 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="50dp"
-                    android:background="@drawable/rounded_bg"
-                    android:hint="Masukkan Nama"
+                    android:background="@drawable/background_searchfield_lightgrey"                    android:hint="Masukkan Nama"
                     android:textColor="@color/dark_blue"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
@@ -95,8 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/rounded_bg"
-                    android:hint="Masukkan Deskripsi"
+                    android:background="@drawable/background_searchfield_lightgrey"                    android:hint="Masukkan Deskripsi"
                     android:textColor="@color/dark_blue"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
@@ -111,8 +107,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="16dp"
                     android:textColor="@color/dark_blue"
-                    android:background="@drawable/rounded_bg"
-                    android:hint="Masukkan Harga Masuk \njika gratis maka tulis gratis"
+                    android:background="@drawable/background_searchfield_lightgrey"                    android:hint="Masukkan Harga Masuk \njika gratis maka tulis gratis"
                     android:textColorHint="@color/dark_blue"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
@@ -126,8 +121,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="16dp"
                     android:textColor="@color/dark_blue"
-                    android:background="@drawable/rounded_bg"
-                    android:hint="Masukkan Rating Layanan"
+                    android:background="@drawable/background_searchfield_lightgrey"                    android:hint="Masukkan Rating Layanan"
                     android:textColorHint="@color/dark_blue"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"

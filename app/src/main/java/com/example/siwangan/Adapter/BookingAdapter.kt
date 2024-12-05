@@ -37,16 +37,16 @@ class BookingAdapter(private var bookingList: List<BookingItem>) : RecyclerView.
             }
 
             binding.root.setOnClickListener {
-                val context = binding.root.context
-                val intent = Intent(context, DetailRiwayatPesananTiketActivity::class.java).apply {
-                    putExtra("bookingCode", bookingItem.bookingCode)
-                    putExtra("itemTitle", bookingItem.itemTitle)
-                    putExtra("bookingDate", bookingItem.bookingDate)
-                    putExtra("quantity", bookingItem.quantity)
-                    putExtra("totalPrice", bookingItem.totalPrice)
-                    putExtra("status", bookingItem.status)
-                }
-                context.startActivity(intent)
+//                val context = binding.root.context
+//                val intent = Intent(context, DetailRiwayatPesananTiketActivity::class.java).apply {
+//                    putExtra("bookingCode", bookingItem.bookingCode)
+//                    putExtra("itemTitle", bookingItem.itemTitle)
+//                    putExtra("bookingDate", bookingItem.bookingDate)
+//                    putExtra("quantity", bookingItem.quantity)
+//                    putExtra("totalPrice", bookingItem.totalPrice)
+//                    putExtra("status", bookingItem.status)
+//                }
+//                context.startActivity(intent)
             }
         }
     }

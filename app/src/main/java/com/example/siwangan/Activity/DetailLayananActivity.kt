@@ -1,5 +1,6 @@
 package com.example.siwangan.Activity
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -44,6 +45,18 @@ class DetailLayananActivity : AppCompatActivity() {
         binding.imgLayanan.scaleType = ImageView.ScaleType.CENTER_CROP
 
         binding.btnPesan.setOnClickListener {
+            handleBooking(pricedata)
+        }
+
+        binding.imgBack.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun handleBooking(pricedata: String?) {
+        if (pricedata == "Gratis") {
+            showGratisDialog()
+        } else {
             val imageUri = saveImageToCacheAndGetUri(this, ImageCache.base64Image)
             val intent = Intent(this, BookingLayananActivity::class.java)
             intent.putExtra("title", binding.txtTitle.text.toString())
@@ -51,10 +64,15 @@ class DetailLayananActivity : AppCompatActivity() {
             startActivity(intent)
             ImageCache.base64Image = null // Clear cache after passing the image
         }
+    }
 
-        binding.imgBack.setOnClickListener {
-            finish()
-        }
+    private fun showGratisDialog() {
+        AlertDialog.Builder(this)
+            .setMessage("Tidak perlu memesan tiket, silahkan datang langsung ke lokasi")
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun base64ToBitmap(base64Str: String?): Bitmap? {

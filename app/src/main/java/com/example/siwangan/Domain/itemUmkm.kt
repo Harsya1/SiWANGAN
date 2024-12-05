@@ -3,6 +3,7 @@ package com.example.siwangan.Domain
 import android.os.Parcel
 import android.os.Parcelable
 
+// itemUmkm.kt
 data class itemUmkm(
     val titleumkm: String = "",
     val descriptionumkm: String = "",
@@ -10,7 +11,7 @@ data class itemUmkm(
     val menu: String = "",
     val contact: String = "",
     val id: String = ""
-): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),
         parcel.readString().toString(),
@@ -18,8 +19,7 @@ data class itemUmkm(
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(titleumkm)

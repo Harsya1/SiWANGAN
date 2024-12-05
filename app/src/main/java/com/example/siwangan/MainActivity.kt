@@ -1,20 +1,13 @@
 package com.example.siwangan
 
 import android.os.Bundle
-import android.widget.ImageButton
-import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import com.example.siwangan.Activity.BenefitActivity
-import com.example.siwangan.Activity.HomeFragment
-import com.example.siwangan.Activity.ProfileFragment
+import com.example.siwangan.Activity.HomeActivity
+import com.example.siwangan.Activity.ProfileActivity
 import com.example.siwangan.Activity.UmkmActivity
 import com.example.siwangan.databinding.ActivityMainBinding
-import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val fragment = supportFragmentManager.findFragmentById(R.id.main_fragment)
-                if (fragment is HomeFragment) {
+                if (fragment is HomeActivity) {
                     finish()
                 } else {
                     binding.mainBnv.setItemSelected(R.id.homeFragment, true)
@@ -51,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     private fun initChipNavigationBar() {
         // Set initial fragment
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fragment, HomeFragment())
+            .replace(R.id.main_fragment, HomeActivity())
             .commitAllowingStateLoss()
 
         // Set initial selection
@@ -62,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             when (itemId) {
                 R.id.homeFragment -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_fragment, HomeFragment())
+                        .replace(R.id.main_fragment, HomeActivity())
                         .commitAllowingStateLoss()
                 }
                 R.id.UmkmFragment -> {
@@ -77,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.ProfileFragment -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_fragment, ProfileFragment())
+                        .replace(R.id.main_fragment, ProfileActivity())
                         .commitAllowingStateLoss()
                 }
             }

@@ -10,20 +10,20 @@ import android.util.Base64
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.siwangan.databinding.ActivityUploadBuktiTrasferBinding
+import com.example.siwangan.databinding.ActivityUploadBuktiTransferBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
-class UploadBuktiTrasferActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityUploadBuktiTrasferBinding
+class UploadBuktiTransferActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityUploadBuktiTransferBinding
     private lateinit var firestore: FirebaseFirestore
     private var encodedImage: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityUploadBuktiTrasferBinding.inflate(layoutInflater)
+        binding = ActivityUploadBuktiTransferBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         firestore = FirebaseFirestore.getInstance()

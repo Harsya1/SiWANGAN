@@ -2,9 +2,8 @@ package com.example.siwangan.Domain
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.core.view.ContentInfoCompat.Flags
 
-data class User(
+data class itemUser(
     val email: String = "",
     val name: String = "",
     val phone: String = ""
@@ -26,12 +25,12 @@ data class User(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<User> {
-        override fun createFromParcel(parcel: Parcel): User {
-            return User(parcel)
+    companion object CREATOR : Parcelable.Creator<itemUser> {
+        override fun createFromParcel(parcel: Parcel): itemUser {
+            return itemUser(parcel)
         }
 
-        override fun newArray(size: Int): Array<User?> {
+        override fun newArray(size: Int): Array<itemUser?> {
             return arrayOfNulls(size)
         }
     }

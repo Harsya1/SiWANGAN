@@ -95,6 +95,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.common)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.androidx.constraintlayout.solver)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

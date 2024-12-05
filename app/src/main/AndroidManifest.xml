@@ -29,7 +29,7 @@
             android:name=".Activity.RiwayatPemesananActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Booking.UploadBuktiTrasferActivity"
+            android:name=".Activity.Booking.UploadBuktiTransferActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.MenungguVerifikasiActivity"
@@ -113,7 +113,7 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".Activity.introActivity"
+            android:name=".Activity.IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

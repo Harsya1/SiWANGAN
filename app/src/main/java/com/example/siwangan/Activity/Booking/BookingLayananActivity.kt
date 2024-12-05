@@ -62,7 +62,7 @@ class BookingLayananActivity : AppCompatActivity() {
             val hargaPerOrang = binding.txtHargaBookingLayanan.text.toString().replace("Rp", "").toInt()
             val totalHarga = hargaPerOrang * qty
 
-            val intent = Intent(this, UploadBuktiTrasferActivity::class.java)
+            val intent = Intent(this, UploadBuktiTransferActivity::class.java)
             intent.putExtra("userId", auth.currentUser?.uid)
             intent.putExtra("userName", binding.txtNamaPengunjung.text.toString())
             intent.putExtra("userPhone", binding.txtNoTelp.text.toString())

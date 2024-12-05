@@ -7,4 +7,7 @@
     <string name="txt_subtitle">Selamat datang di Wisata Air Panas\n Kepulungan. Temukan kehangatan\n dan manfaat alami di tengah\n keindahan alam!</string>
     <string name="txt_subsplash">Mari Relaksasi Dengan Berendam\n Di Sumber Air Panas Kami</string>
     <string name="default_web_client_id">339107464544-l5jgdro25c21jeev87lcj79o4trqo2h6.apps.googleusercontent.com</string>
+
+    <string name="open">Open Drawer</string>
+    <string name="close">Close Drawer</string>
 </resources>

@@ -113,14 +113,14 @@ class AdminDetailRiwayatPesananTiketActivity : AppCompatActivity() {
 
     private fun generateAndStoreQRCode() {
         val qrContent = """
-            Booking Code: ${binding.txtBookingCode.text}
-            Item Title: ${binding.txtItemTitle.text}
-            Booking Date: ${binding.txtBookingDate.text}
-            Total Price: ${binding.txtTotalPrice.text}
-            Status: ${binding.txtStatus.text}
-            User Name: ${binding.txtUserName.text}
-            User Phone: ${binding.txtUserPhone.text}
-            Quantity: ${binding.txtQuantity.text}
+            Kode Booking: ${binding.txtBookingCode.text}
+            Jenis Layanan: ${binding.txtItemTitle.text}
+            Nama Pemesan: ${binding.txtUserName.text}
+            Nomor Telepon: ${binding.txtUserPhone.text}
+            Tanggal Pesan: ${binding.txtBookingDate.text}
+            Jumlah Pengunjung : ${binding.txtQuantity.text}
+            Total Harga Pesanan: Rp. ${binding.txtTotalPrice.text}
+            Status: Disetujui
         """.trimIndent()
 
         val bitMatrix: BitMatrix = MultiFormatWriter().encode(qrContent, BarcodeFormat.QR_CODE, 200, 200)

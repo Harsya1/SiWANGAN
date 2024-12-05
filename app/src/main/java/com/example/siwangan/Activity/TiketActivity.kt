@@ -43,6 +43,7 @@ class TiketActivity : AppCompatActivity() {
 
         firestore.collection("bookings")
             .whereEqualTo("userName", userName)
+            .whereEqualTo("status", "Disetujui")
             .get()
             .addOnSuccessListener { documents ->
                 val bookingList = mutableListOf<BookingItem>()

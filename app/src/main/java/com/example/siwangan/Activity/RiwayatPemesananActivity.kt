@@ -21,6 +21,7 @@ class RiwayatPemesananActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRiwayatPemesananBinding
     private lateinit var firestore: FirebaseFirestore
     private lateinit var bookingAdapter: BookingAdapter
+    private lateinit var bookingList: MutableList<BookingItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +45,10 @@ class RiwayatPemesananActivity : AppCompatActivity() {
 
         firestore.collection("bookings")
             .whereEqualTo("userName", userName)
+            .whereIn("status", listOf("pending", "Selesai"))
             .get()
             .addOnSuccessListener { documents ->
-                val bookingList = mutableListOf<BookingItem>()
+                bookingList = mutableListOf()
                 for (document in documents) {
                     val bookingCode = document.getString("bookingCode") ?: ""
                     val itemTitle = document.getString("itemTitle") ?: ""

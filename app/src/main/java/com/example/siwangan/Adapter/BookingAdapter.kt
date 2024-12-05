@@ -8,7 +8,7 @@ import com.example.siwangan.Activity.DetailRiwayatPesananTiketActivity
 import com.example.siwangan.Activity.DataClass.BookingItem
 import com.example.siwangan.databinding.ViewholderRiwayarPesananBinding
 
-class BookingAdapter(private val bookingList: List<BookingItem>) : RecyclerView.Adapter<BookingAdapter.BookingViewHolder>() {
+class BookingAdapter(private var bookingList: List<BookingItem>) : RecyclerView.Adapter<BookingAdapter.BookingViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingViewHolder {
         val binding = ViewholderRiwayarPesananBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -50,4 +50,5 @@ class BookingAdapter(private val bookingList: List<BookingItem>) : RecyclerView.
             }
         }
     }
+
 }

@@ -18,6 +18,8 @@ import com.example.siwangan.ViewModel.MainViewModel
 import com.example.siwangan.ViewModel.UMKMViewModel
 
 import com.example.siwangan.databinding.ActivityHomeBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
 
 class HomeFragment : Fragment() {
     private var _binding: ActivityHomeBinding? = null
@@ -67,6 +69,10 @@ class HomeFragment : Fragment() {
             transaction.replace(R.id.main_fragment, UmkmActivity()) // Ganti fragment_container dengan ID container Anda
             transaction.addToBackStack(null) // Tambahkan ke back stack (opsional, untuk navigasi back)
             transaction.commit()
+
+            // Update BottomNavigationView agar sinkron
+            val chipNavigationBar = requireActivity().findViewById<ChipNavigationBar>(R.id.main_bnv)
+            chipNavigationBar.setItemSelected(R.id.UmkmFragment,true)
         }
     }
 

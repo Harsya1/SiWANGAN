@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.example.siwangan.Helper.ImageCache
@@ -39,6 +40,8 @@ class DetailLayananActivity : AppCompatActivity() {
         }
 
         loadImageFromCache() // Load image from cache
+
+        binding.imgLayanan.scaleType = ImageView.ScaleType.CENTER_CROP
 
         binding.btnPesan.setOnClickListener {
             val imageUri = saveImageToCacheAndGetUri(this, ImageCache.base64Image)

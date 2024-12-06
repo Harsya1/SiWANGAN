@@ -46,9 +46,13 @@ class LayananAdminAdapter(val items: List<itemLayanan>) : RecyclerView.Adapter<L
 
             buttonUpdateLayanan.setOnClickListener {
                 val intent = Intent(holder.itemView.context, LayananUpdateActivity::class.java)
-                intent.putExtra("itemLayanan", itemLayanan)
+                intent.putExtra("title", itemLayanan.title)
+                intent.putExtra("description", itemLayanan.description)
+                intent.putExtra("price", itemLayanan.price)
+                intent.putExtra("score", itemLayanan.score)
                 holder.itemView.context.startActivity(intent)
             }
+
 
             buttonDeleteData.setOnClickListener {
                 // Mendapatkan ID dari itemUmkm

@@ -39,15 +39,27 @@ class LayananUpdateActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Ambil data dari Intent dengan validasi
-        getBundle()
+//        getBundle()
+
+        val titledata = intent.getStringExtra("title")
+        val descriptiondata = intent.getStringExtra("description")
+        val pricedata = intent.getStringExtra("price")
+        val score = intent.getDoubleExtra("score",0.0)
+
+        binding.apply {
+            textViewId.text = titledata
+            txtData1.text = descriptiondata
+            txtData2.text = pricedata
+            txtData3.text = score.toString()
+        }
 
         // Gunakan data jika tidak null
-        itemLayanan?.let {
-            setupUI(it)
-        } ?: run {
-            // Data null, tampilkan pesan error atau kembali ke aktivitas sebelumnya
-            finish() // Menghindari crash jika data null
-        }
+//        itemLayanan?.let {
+//            setupUI(it)
+//        } ?: run {
+//            // Data null, tampilkan pesan error atau kembali ke aktivitas sebelumnya
+//            finish() // Menghindari crash jika data null
+//        }
 
         val pickImageUmkm = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
@@ -124,18 +136,13 @@ class LayananUpdateActivity : AppCompatActivity() {
         }
     }
 
-    private fun getBundle() {
-        itemLayanan = intent.getParcelableExtra("itemLayanan")
-    }
+//    private fun getBundle() {
+//        itemLayanan = intent.getParcelableExtra("itemLayanan")
+//    }
 
-    private fun setupUI(item: itemLayanan) {
-        binding.apply {
-            textViewId.text = item.title
-            txtData1.text = item.description
-            txtData2.text = item.price
-            txtData3.text = item.score.toString()
-        }
-    }
+//    private fun setupUI(item: itemLayanan) {
+//
+//    }
     private fun uriToBase64(context: Context, uri: Uri): String? {
         return try {
             val inputStream = context.contentResolver.openInputStream(uri)

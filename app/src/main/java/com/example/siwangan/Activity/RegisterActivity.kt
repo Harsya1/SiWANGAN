@@ -19,8 +19,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.android.gms.tasks.Task
-
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var nameInput: EditText
@@ -89,6 +87,15 @@ class RegisterActivity : AppCompatActivity() {
                 passwordInput.error = "Masukkan password!"
                 return@setOnClickListener
             }
+            if (password.length > 12) {
+                passwordInput.error = "Password maksimal 12 karakter!"
+                return@setOnClickListener
+            }
+            if (!isValidPassword(password)) {
+                passwordInput.error =
+                    "Password harus mengandung huruf besar, huruf kecil, angka, dan simbol!"
+                return@setOnClickListener
+            }
             if (password != confirmPassword) {
                 confirmPasswordInput.error = "Password tidak cocok!"
                 return@setOnClickListener
@@ -110,8 +117,6 @@ class RegisterActivity : AppCompatActivity() {
                                         "Registrasi berhasil!",
                                         Toast.LENGTH_SHORT
                                     ).show()
-                                    // Arahkan ke LoginActivity
-                                    startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                                     finish()
                                 } else {
                                     Toast.makeText(
@@ -152,66 +157,86 @@ class RegisterActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = mAuth.currentUser
                     user?.let {
-                        val userId = it.uid
-                        val email = it.email ?: "Tidak ada email"
-                        val name = it.displayName ?: "Pengguna Google"
-                        val phone = "Google User"
-
-                        // Cek apakah pengguna sudah terdaftar di database Firebase
-                        databaseReference.child(userId).get().addOnSuccessListener { snapshot ->
-                            if (!snapshot.exists()) {
-                                // Jika pengguna belum ada, lakukan registrasi baru
-                                val newUser = User(name, phone, email)
-                                databaseReference.child(userId).setValue(newUser)
-                                    .addOnCompleteListener { task1 ->
-                                        if (task1.isSuccessful) {
-                                            // Tampilkan pesan bahwa registrasi berhasil
-                                            Toast.makeText(
-                                                this@RegisterActivity,
-                                                "Registrasi dengan Google berhasil!",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                            // Arahkan ke halaman login setelah registrasi
-                                            startActivity(Intent(this, LoginActivity::class.java))
-                                            finish()
-                                        } else {
-                                            Toast.makeText(
-                                                this@RegisterActivity,
-                                                "Gagal menyimpan data Google: ${task1.exception?.message}",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
-                                    }
-                            } else {
-                                // Jika akun sudah terdaftar, arahkan langsung ke halaman login
-                                Toast.makeText(
-                                    this@RegisterActivity,
-                                    "Akun sudah terdaftar. Melanjutkan ke login...",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
-                                finish()
-                            }
+                        // Kirim email verifikasi
+                        if (!it.isEmailVerified) {
+                            sendEmailVerification(it)
+                        } else {
+                            // Jika email sudah terverifikasi, lanjutkan ke halaman login
+                            goToLoginPage(it)
                         }
                     }
                 } else {
-                    Toast.makeText(
-                        this,
-                        "Autentikasi Google gagal: ${task.exception?.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(this, "Autentikasi Google gagal: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                 }
             }
     }
 
-    // Override tombol back
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val intent = Intent(this, SplashLoginRegisterActivity::class.java)
-        startActivity(intent)
-        finish()
+    private fun sendEmailVerification(user: FirebaseUser) {
+        user.sendEmailVerification()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Kode OTP telah dikirim ke email Anda. Silakan verifikasi.", Toast.LENGTH_LONG).show()
+                    // Jika sukses, lanjutkan ke login atau proses lain
+                    val userId = user.uid
+                    val name = user.displayName ?: "Pengguna Google"
+                    val phone = "Google User"
+                    val email = user.email ?: "Tidak ada email"
+                    val newUser = User(name, phone, email)
+
+                    // Simpan data pengguna di Firebase Realtime Database
+                    databaseReference.child(userId).setValue(newUser)
+                        .addOnCompleteListener { task1 ->
+                            if (task1.isSuccessful) {
+                                Toast.makeText(this, "Pengguna terdaftar dengan sukses!", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this, LoginActivity::class.java))
+                                finish()
+                            } else {
+                                Toast.makeText(this, "Gagal menyimpan data pengguna: ${task1.exception?.message}", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                } else {
+                    Toast.makeText(this, "Gagal mengirim email verifikasi: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                }
+            }
     }
 
-    // Kelas User untuk menyimpan data pengguna
-    data class User(var name: String, var phone: String, var email: String)
+    private fun goToLoginPage(user: FirebaseUser) {
+        val userId = user.uid
+        val email = user.email ?: "Tidak ada email"
+        val name = user.displayName ?: "Pengguna Google"
+        val phone = "Google User"
+
+        // Periksa apakah pengguna sudah terdaftar di database Firebase
+        databaseReference.child(userId).get().addOnSuccessListener { snapshot ->
+            if (!snapshot.exists()) {
+                // Jika pengguna belum ada, lakukan registrasi baru
+                val newUser = User(name, phone, email)
+                databaseReference.child(userId).setValue(newUser)
+                    .addOnCompleteListener { task1 ->
+                        if (task1.isSuccessful) {
+                            Toast.makeText(this, "Registrasi dengan Google berhasil!", Toast.LENGTH_SHORT).show()
+                            sendEmailVerification(user)
+                            finish()
+                        } else {
+                            Toast.makeText(this, "Gagal menyimpan data: ${task1.exception?.message}", Toast.LENGTH_LONG).show()
+                        }
+                    }
+            } else {
+                Toast.makeText(this, "Akun sudah terdaftar. Melanjutkan ke login...", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+        }
+    }
+
+
+    private fun isValidPassword(password: String): Boolean {
+        return password.contains(Regex("[A-Z]")) && password.contains(Regex("[a-z]")) &&
+                password.contains(Regex("[0-9]")) && password.contains(Regex("[!@#\$%^&*(),.?\":{}|<>]"))
+    }
 }
+data class User(
+    val name: String,
+    val phone: String,
+    val email: String
+)

@@ -66,6 +66,31 @@ class GantiPasswordActivity : AppCompatActivity() {
             return false
         }
 
+        if (passwordBaru.length > 12) {
+            Toast.makeText(this, "Password baru tidak boleh lebih dari 12 karakter", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (!passwordBaru.matches(Regex(".*[A-Z].*"))) {
+            Toast.makeText(this, "Password baru harus mengandung huruf besar", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (!passwordBaru.matches(Regex(".*[a-z].*"))) {
+            Toast.makeText(this, "Password baru harus mengandung huruf kecil", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (!passwordBaru.matches(Regex(".*\\d.*"))) {
+            Toast.makeText(this, "Password baru harus mengandung angka", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (!passwordBaru.matches(Regex(".*[!@#\$%^&*(),.?\":{}|<>].*"))) {
+            Toast.makeText(this, "Password baru harus mengandung simbol", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
         if (TextUtils.isEmpty(ulangiPasswordBaru)) {
             Toast.makeText(this, "Ulangi password baru harus diisi", Toast.LENGTH_SHORT).show()
             return false
@@ -78,7 +103,6 @@ class GantiPasswordActivity : AppCompatActivity() {
 
         return true
     }
-
 
     // Fungsi untuk mengganti password di Firebase Authentication dan Database
     private fun changePassword(currentPassword: String, newPassword: String) {
